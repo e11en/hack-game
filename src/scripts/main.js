@@ -1,12 +1,12 @@
 var objects, character;
 
 function startGame() {
-    character = new component(28, 38, "resources/character/right.png", 10, 120, "image");
-    var walls = [
-        new component(10, 200, "green", 40, 120)
+    var level = [
+        new Wall(40, 120),
+        new Wall(40, 184),
     ];
 
-    objects = [character, ...walls];
+    objects = [new Character(10, 120), ...level];
     gameArea.start();
 }
   
@@ -16,15 +16,11 @@ var gameArea = {
         this.canvas.width = 800;
         this.canvas.height = 600;
         this.context = this.canvas.getContext("2d");
-        this.frameNo = 0;
         this.interval = setInterval(updateGameArea, 20);
         window.addEventListener('keydown', function (e) {
-            gameArea.keys = (gameArea.keys || []);
-            gameArea.keys[e.key] = true;
-            move();
-        })
-        window.addEventListener('keyup', function (e) {
-            gameArea.keys[e.key] = false;
+            objects.forEach(obj => {
+                obj.keyDown(e.key);
+            });
         })
     },
     clear : function() {

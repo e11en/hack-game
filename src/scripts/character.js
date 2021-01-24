@@ -1,51 +1,57 @@
-function move()
+class Character extends BaseComponent
 {
-    character.speedX = 0;
-    character.speedY = 0;
+    constructor(x, y) {
+        super(28, 38, "resources/character/right.png", x, y, (keyPressed) => this.onKeyUp(keyPressed));
 
-    if (!gameArea.keys) return;
+        this.speedX = 0;
+        this.speedY = 0;
 
-    let image = "left";
-    if (gameArea.keys["ArrowLeft"]) {
-        if (!characterHasCollision(character.x - 1, character.y))
-            character.speedX = -1;
-    }
-    if (gameArea.keys["ArrowRight"]) {
-        image = "right";
-
-        if (!characterHasCollision(character.x + 1, character.y))
-            character.speedX = 1; 
-    }
-    if (gameArea.keys["ArrowUp"]) { 
-        image = "back";
-
-        if (!characterHasCollision(character.x, character.y - 1))
-            character.speedY = -1;
-    }
-    if (gameArea.keys["ArrowDown"]) { 
-        image = "front";
-
-        if (!characterHasCollision(character.x, character.y + 1))
-            character.speedY = 1;
+        this.newPos = function () {
+            this.x += this.speedX;
+            this.y += this.speedY;
+        };
     }
 
-    const source = "resources/character/" + image + ".png";
-    if (!character.image.src.includes(source))
-        character.image.src = source;
+    onKeyUp(keyPressed)
+    {
+        this.move(keyPressed);
+    }
 
-    character.newPos();
-}
+    move(keyPressed)
+    {
+        this.speedX = 0;
+        this.speedY = 0;
 
-function characterHasCollision(x, y)
-{
-    let hit = false;
-    objects.slice(1, objects.length).forEach(obj => {
-        if (x < obj.x + obj.width  && x + character.width  > obj.x &&
-            y < obj.y + obj.height && y + character.height > obj.y) {
-                hit = true;
-                return;
+        if (!keyPressed) return;
+
+        let image = "left";
+        if (keyPressed === "ArrowLeft") {
+            if (!this.isColliding(this.x - 1, this.y))
+            this.speedX = -1;
         }
-    });
+        if (keyPressed === "ArrowRight") {
+            image = "right";
 
-    return hit;
+            if (!this.isColliding(this.x + 1, this.y))
+                this.speedX = 1; 
+        }
+        if (keyPressed === "ArrowUp") { 
+            image = "back";
+
+            if (!this.isColliding(this.x, this.y - 1))
+                this.speedY = -1;
+        }
+        if (keyPressed === "ArrowDown") { 
+            image = "front";
+
+            if (!this.isColliding(this.x, this.y + 1))
+                this.speedY = 1;
+        }
+
+        const source = "resources/character/" + image + ".png";
+        if (!this.image.src.includes(source))
+            this.image.src = source;
+
+        this.newPos();
+    }
 }
