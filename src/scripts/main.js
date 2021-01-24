@@ -4,9 +4,11 @@ function startGame() {
     var level = [
         new Wall(40, 120),
         new Wall(40, 184),
+
+        new Console(80,120)
     ];
 
-    objects = [new Character(10, 120), ...level];
+    objects = [new Character(150, 120), ...level];
     gameArea.start();
 }
   
@@ -37,4 +39,16 @@ function updateGameArea() {
     objects.forEach(obj => {
         obj.update();
     });
+}
+
+function showInformationBox(text)
+{
+    var box = document.getElementById("information");
+    box.textContent = text;
+    box.className = "";
+}
+
+function hideInformationBox()
+{
+    document.getElementById("information").className = "hidden";
 }

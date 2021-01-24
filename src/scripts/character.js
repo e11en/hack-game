@@ -5,16 +5,21 @@ class Character extends BaseComponent
 
         this.speedX = 0;
         this.speedY = 0;
-
-        this.newPos = function () {
-            this.x += this.speedX;
-            this.y += this.speedY;
-        };
     }
+
+    newPos() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+    };
 
     onKeyUp(keyPressed)
     {
         this.move(keyPressed);
+
+        if(this.canInteract())
+            showInformationBox("Press [SPACEBAR] to interact with the computer");
+        else
+            hideInformationBox();
     }
 
     move(keyPressed)
@@ -26,25 +31,25 @@ class Character extends BaseComponent
 
         let image = "left";
         if (keyPressed === "ArrowLeft") {
-            if (!this.isColliding(this.x - 1, this.y))
-            this.speedX = -1;
+            if (!this.isColliding(objects.filter(obj => obj != this), this.x - 1, this.y))
+                this.speedX = -1;
         }
         if (keyPressed === "ArrowRight") {
             image = "right";
 
-            if (!this.isColliding(this.x + 1, this.y))
+            if (!this.isColliding(objects.filter(obj => obj != this), this.x + 1, this.y))
                 this.speedX = 1; 
         }
         if (keyPressed === "ArrowUp") { 
             image = "back";
 
-            if (!this.isColliding(this.x, this.y - 1))
+            if (!this.isColliding(objects.filter(obj => obj != this), this.x, this.y - 1))
                 this.speedY = -1;
         }
         if (keyPressed === "ArrowDown") { 
             image = "front";
 
-            if (!this.isColliding(this.x, this.y + 1))
+            if (!this.isColliding(objects.filter(obj => obj != this), this.x, this.y + 1))
                 this.speedY = 1;
         }
 
@@ -53,5 +58,19 @@ class Character extends BaseComponent
             this.image.src = source;
 
         this.newPos();
+    }
+
+    canInteract()
+    {
+        if (this.isColliding(objects.filter(obj => obj != this && obj.hasInteraction), this.x - 1, this.y))
+            return true;
+        if (this.isColliding(objects.filter(obj => obj != this && obj.hasInteraction),this.x + 1, this.y))
+            return true;
+        if (this.isColliding(objects.filter(obj => obj != this && obj.hasInteraction),this.x, this.y - 1))
+            return true;
+        if (this.isColliding(objects.filter(obj => obj != this && obj.hasInteraction),this.x, this.y + 1))
+            return true;
+
+        return false;
     }
 }

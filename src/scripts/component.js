@@ -6,6 +6,7 @@ class BaseComponent {
         this.height = height;
         this.x = x;
         this.y = y;
+        this.hasInteraction = false;
         this.update = function () {
             var ctx = gameArea.context;
             ctx.drawImage(this.image,
@@ -17,10 +18,10 @@ class BaseComponent {
         this.keyDown = keyDown !== undefined ? keyDown : () => {}
     }
 
-    isColliding(x, y)
+    isColliding(collingWith, x, y)
     {
         let hit = false;
-        objects.filter(obj => obj != this).forEach(obj => {
+        collingWith.forEach(obj => {
             if (x < obj.x + obj.width  && x + this.width  > obj.x &&
                 y < obj.y + obj.height && y + this.height > obj.y) {
                     hit = true;

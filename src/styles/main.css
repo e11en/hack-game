@@ -2,3 +2,18 @@ canvas {
     border:1px solid #d3d3d3;
     background-color: #f1f1f1;
 }
+
+#information {
+    border: 2px solid blue;
+    background-color: #8f8fff;
+    width: 400px;
+    height: 50px;
+    text-align: center;
+    position: absolute;
+    left: 200px;
+    top: 10px;
+}
+
+.hidden {
+    display: none;
+}
