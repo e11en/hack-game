@@ -1,19 +1,50 @@
 var objects, character;
 
 function startGame() {
-    var level = [
-        new Wall(40, 120),
-        new Wall(40, 184),
+    objects = [
+        new Character(150, 120), 
+        ...getBorderWalls(600, 800),
+        ...getConsoles()
+    ];
+    gameArea.start();
+}
 
+function getBorderWalls(height, width)
+{
+    const walls = [];
+
+    for(let i = 0; i * 32 < height; i++)
+    {
+        // Left wall
+        walls.push(new Wall(0, i * 32));
+
+        // Right wall
+        walls.push(new Wall(width - 32, i * 32));
+    }
+
+    
+    for(let i = 0; i * 32 < width; i++)
+    {
+        // Top wall
+        walls.push(new Wall(i * 32, 0));
+
+        // Bottom wall
+        walls.push(new Wall(i * 32, height - 32));
+    }
+
+    return walls;
+}
+
+function getConsoles()
+{
+    return [
         new Console(80,120)
     ];
-
-    objects = [new Character(150, 120), ...level];
-    gameArea.start();
 }
   
 var gameArea = {
     canvas : document.getElementById("game-area"),
+    characterIsInteracting : false,
     start : function() {
         this.canvas.width = 800;
         this.canvas.height = 600;

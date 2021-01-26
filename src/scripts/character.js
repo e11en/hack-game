@@ -8,12 +8,14 @@ class Character extends BaseComponent
     }
 
     newPos() {
-        this.x += this.speedX;
-        this.y += this.speedY;
+        this.x += this.speedX * 1.5;
+        this.y += this.speedY * 1.5;
     };
 
     onKeyUp(keyPressed)
     {
+        if (gameArea.characterIsInteracting) return;
+
         this.move(keyPressed);
 
         if(this.canInteract())
@@ -29,8 +31,10 @@ class Character extends BaseComponent
 
         if (!keyPressed) return;
 
-        let image = "left";
+        let image = null;
         if (keyPressed === "ArrowLeft") {
+            image = "left";
+
             if (!this.isColliding(objects.filter(obj => obj != this), this.x - 1, this.y))
                 this.speedX = -1;
         }
@@ -54,7 +58,7 @@ class Character extends BaseComponent
         }
 
         const source = "resources/character/" + image + ".png";
-        if (!this.image.src.includes(source))
+        if (image !== null && !this.image.src.includes(source))
             this.image.src = source;
 
         this.newPos();

@@ -7,16 +7,17 @@ class BaseComponent {
         this.x = x;
         this.y = y;
         this.hasInteraction = false;
-        this.update = function () {
-            var ctx = gameArea.context;
-            ctx.drawImage(this.image,
-                          this.x,
-                          this.y,
-                          this.width, 
-                          this.height);
-        };
         this.keyDown = keyDown !== undefined ? keyDown : () => {}
     }
+
+    update = function () {
+        var ctx = gameArea.context;
+        ctx.drawImage(this.image,
+                      this.x,
+                      this.y,
+                      this.width, 
+                      this.height);
+    };
 
     isColliding(collingWith, x, y)
     {
