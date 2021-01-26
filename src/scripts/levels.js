@@ -61,19 +61,23 @@ class Level1 extends Level
 
         for(let i = 0; i * 32 < 300; i++)
         {
-            walls.push(new Wall(192, i * 32));
+            walls.push(new Wall(200, i * 32));
         }
 
-        const consoles = [
-            new Console(100, 200)
+        const lasers = [
+            new Laser("laser-group-1", 32, 300),
+            new Laser("laser-group-1", 64, 300),
+            new Laser("laser-group-1", 96, 300),
+            new Laser("laser-group-1", 128, 300),
+            new Laser("laser-group-1", 160, 300),
+            new Laser("laser-group-1", 168, 300),
         ];
 
-        const lasers = [];
-
-        for(let i = 1; i * 32 < 168; i++)
-        {
-            lasers.push(new Laser(i * 32, 300));
-        }
+        const consoles = [
+            new Console("console-1", 100, 200, () => {
+                Laser.disableGroup("laser-group-1");
+            })
+        ];
 
         super(canvasHeight, canvasWidth, true, walls, consoles, lasers);
     }

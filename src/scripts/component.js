@@ -7,8 +7,9 @@ class BaseComponent {
         this.x = x;
         this.y = y;
         this.hasInteraction = false;
-        this.keyDown = keyDown !== undefined ? keyDown : () => {}
-        this.keyUp = keyUp !== undefined ? keyUp : () => {}
+        this.keyDown = keyDown !== undefined ? keyDown : () => {};
+        this.keyUp = keyUp !== undefined ? keyUp : () => {};
+        this.enabled = true;
     }
 
     update() {
@@ -23,7 +24,7 @@ class BaseComponent {
     isColliding(collingWith, x, y)
     {
         let hit = false;
-        collingWith.forEach(obj => {
+        collingWith.filter(obj => obj.enabled).forEach(obj => {
             if (x < obj.x + obj.width  && x + this.width  > obj.x &&
                 y < obj.y + obj.height && y + this.height > obj.y) {
                     hit = true;
