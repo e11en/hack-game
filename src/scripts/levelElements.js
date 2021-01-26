@@ -36,7 +36,7 @@ class Console extends LevelElement
         }
 
         this.image.src = "resources/level/console-active.png";
-        gameArea.informationBox.setContent("Exit with spacebar");
+        gameArea.informationBox.setContent("<p>Well done! You've disabled the laser!</p><p>Exit with [SPACEBAR]</p>");
         gameArea.informationBox.show();
         this.onSucces();
     }
