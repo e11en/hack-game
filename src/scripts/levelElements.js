@@ -30,3 +30,16 @@ class Console extends BaseComponent
         }
     }
 }
+
+class Laser extends BaseComponent
+{
+    constructor(x, y) {
+        super(32, 16, "resources/level/laser.png", x, y);
+        this.enabled = true;
+    }
+
+    update() {
+        if (this.enabled)
+            super.update();
+    }
+}

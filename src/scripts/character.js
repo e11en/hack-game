@@ -7,13 +7,13 @@ const Direction = {
 
 class Character extends BaseComponent
 {
-    constructor(x, y) {
+    constructor(x, y, initialDirection) {
         super(41, 43, "resources/character/girl.png", x, y, (keyPressed) => this.onKeyDown(keyPressed), () => this.onKeyUp());
 
         this.speedX = 0;
         this.speedY = 0;
         this.animation = {
-            direction: Direction.RIGHT,
+            direction: initialDirection === undefined ? Direction.RIGHT : initialDirection,
             position: 0,
             frame: 0
         };
