@@ -54,7 +54,12 @@ var gameArea = {
             objects.forEach(obj => {
                 obj.keyDown(e.key);
             });
-        })
+        });
+        window.addEventListener('keyup', function (e) {
+            objects.forEach(obj => {
+                obj.keyUp(e.key);
+            });
+        });
     },
     clear : function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);

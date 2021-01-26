@@ -1,5 +1,5 @@
 class BaseComponent {
-    constructor(width, height, imagePath, x, y, keyDown) {
+    constructor(width, height, imagePath, x, y, keyDown, keyUp) {
         this.image = new Image();
         this.image.src = imagePath;
         this.width = width;
@@ -8,16 +8,17 @@ class BaseComponent {
         this.y = y;
         this.hasInteraction = false;
         this.keyDown = keyDown !== undefined ? keyDown : () => {}
+        this.keyUp = keyUp !== undefined ? keyUp : () => {}
     }
 
-    update = function () {
+    update() {
         var ctx = gameArea.context;
         ctx.drawImage(this.image,
                       this.x,
                       this.y,
                       this.width, 
                       this.height);
-    };
+    }
 
     isColliding(collingWith, x, y)
     {
