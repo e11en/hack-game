@@ -32,9 +32,12 @@ class Character extends BaseComponent
         this.move(direction);
 
         if(this.canInteract())
-            showInformationBox("Press [SPACEBAR] to interact with the computer");
+        {
+            gameArea.informationBox.setContent("Press [SPACEBAR] to interact with the computer");
+            gameArea.informationBox.show();
+        }
         else
-            hideInformationBox();
+            gameArea.informationBox.hide();
     }
 
     onKeyUp()

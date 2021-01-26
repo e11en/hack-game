@@ -13,6 +13,7 @@ function startGame() {
 }
 
 var gameArea = {
+    informationBox : new InformationBox(),
     canvas : document.getElementById("game-area"),
     characterIsInteracting : false,
     start : function() {
@@ -45,16 +46,4 @@ function updateGameArea() {
     objects.forEach(obj => {
         obj.update();
     });
-}
-
-function showInformationBox(text)
-{
-    var box = document.getElementById("information");
-    box.textContent = text;
-    box.className = "";
-}
-
-function hideInformationBox()
-{
-    document.getElementById("information").className = "hidden";
 }

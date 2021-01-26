@@ -31,12 +31,13 @@ class Console extends LevelElement
         if (!gameArea.characterIsInteracting)
         {
             this.image.src = "resources/level/console.png";
-            hideInformationBox();
+            gameArea.informationBox.hide();
             return;
         }
 
         this.image.src = "resources/level/console-active.png";
-        showInformationBox("Exit with spacebar");
+        gameArea.informationBox.setContent("Exit with spacebar");
+        gameArea.informationBox.show();
         this.onSucces();
     }
 }
