@@ -16,12 +16,16 @@ var gameArea = {
     informationBox : new InformationBox(),
     canvas : document.getElementById("game-area"),
     characterIsInteracting : false,
+    score : new Score(),
     start : function() {
         this.canvas.width = CANVASWIDTH;
         this.canvas.height = CANVASHEIGHT;
         this.context = this.canvas.getContext("2d");
         this.interval = setInterval(updateGameArea, 20);
         window.addEventListener('keydown', function (e) {
+            if (e.key === "s")
+                gameArea.score.save();
+
             objects.forEach(obj => {
                 obj.keyDown(e.key);
             });
