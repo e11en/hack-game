@@ -6,7 +6,7 @@ function startGame() {
     level = new Level1(CANVASHEIGHT, CANVASWIDTH);
 
     objects = [
-        new Character(95, 64, Direction.DOWN), 
+        new Character(140, 200, Direction.DOWN), 
         ...level.getObjects()
     ];
     gameArea.start();
@@ -22,26 +22,33 @@ var gameArea = {
         this.canvas.height = CANVASHEIGHT;
         this.context = this.canvas.getContext("2d");
         this.interval = setInterval(updateGameArea, 20);
-        window.addEventListener('keydown', function (e) {
-            if (e.key === "s")
-                gameArea.score.save();
-
-            objects.forEach(obj => {
-                obj.keyDown(e.key);
-            });
-        });
-        window.addEventListener('keyup', function (e) {
-            objects.forEach(obj => {
-                obj.keyUp(e.key);
-            });
-        });
+        window.addEventListener('keydown', onKeyDown);
+        window.addEventListener('keyup', OnKeyUp);
     },
     clear : function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     },
     stop : function() {
+        window.removeEventListener('keydown', onKeyDown);
+        window.removeEventListener('keyup', OnKeyUp);
+        this.informationBox.show("GAME OVER!");
         clearInterval(this.interval);
     }
+}
+
+function onKeyDown(e) {
+    if (e.key === "s")
+    gameArea.score.save();
+
+    objects.forEach(obj => {
+        obj.keyDown(e.key);
+    });
+}
+
+function OnKeyUp(e) {
+    objects.forEach(obj => {
+        obj.keyUp(e.key);
+    });
 }
 
 function updateGameArea() {
@@ -50,4 +57,12 @@ function updateGameArea() {
     objects.forEach(obj => {
         obj.update();
     });
+}
+
+function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
 }

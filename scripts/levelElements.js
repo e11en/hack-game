@@ -1,9 +1,10 @@
 class LevelElement extends BaseComponent
 {
-    constructor(id, width, height, imagePath, x, y, keyDown, keyUp)
+    constructor(id, width, height, imagePath, x, y, keyDown, keyUp, hitDamage)
     {
         super(width, height, imagePath, x, y, keyDown, keyUp);
         this.id = id;
+        this.hitDamage = hitDamage;
     }
 }
 
@@ -66,7 +67,7 @@ class Console extends LevelElement
 class Laser extends LevelElement
 {
     constructor(groupID, x, y) {
-        super(groupID, 32, 16, "resources/level/laser.png", x, y);
+        super(groupID, 32, 16, "resources/level/laser.png", x, y, undefined, undefined, 1);
     }
 
     update() {

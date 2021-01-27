@@ -23,6 +23,8 @@ class Character extends BaseComponent
     {
         if (gameArea.characterIsInteracting) return;
 
+        if (this.hasDamage()) return;
+    
         const direction = this.keyToDirection(keyPressed);
         this.move(direction);
 
@@ -112,6 +114,44 @@ class Character extends BaseComponent
             return true;
         if (this.isColliding(interactionObjects,this.x, this.y + 1))
             return true;
+
+        return false;
+    }
+
+    hasDamage()
+    {
+        const interactionObjects = objects.filter(obj => obj != this && obj.hitDamage !== undefined);
+
+        const collidingLeft = this.isColliding(interactionObjects, this.x - 1, this.y);
+        const collidingRight = this.isColliding(interactionObjects,this.x + 1, this.y);
+        const collidingUp = this.isColliding(interactionObjects,this.x, this.y - 1);
+        const collidingDown = this.isColliding(interactionObjects,this.x, this.y + 1);
+        
+        let totalDamage = 0;
+        const stepsBack = 15;
+        if (collidingLeft) {
+            this.x = this.x + stepsBack;
+            totalDamage =+ collidingLeft.hitDamage;
+        }
+        if (collidingRight) {
+            this.x = this.x - stepsBack;
+            totalDamage =+ collidingRight.hitDamage;
+        }
+            
+        if (collidingUp) {
+            this.y = this.y + stepsBack;
+            totalDamage =+ collidingUp.hitDamage;
+        }
+            
+        if (collidingDown) {
+            this.y = this.y - stepsBack;
+            totalDamage =+ collidingDown.hitDamage;
+        }
+
+        if (totalDamage > 0) {
+            gameArea.score.setHealth(gameArea.score.health - totalDamage);
+            return true;
+        }
 
         return false;
     }
