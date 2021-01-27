@@ -19,11 +19,6 @@ class Character extends BaseComponent
         };
     }
 
-    newPos() {
-        this.x += this.speedX * 1.5;
-        this.y += this.speedY * 1.5;
-    };
-
     onKeyDown(keyPressed)
     {
         if (gameArea.characterIsInteracting) return;
@@ -66,30 +61,24 @@ class Character extends BaseComponent
     {
         this.speedX = 0;
         this.speedY = 0;
+        const multiplier = 1.5;
 
         if (direction === undefined) return;
 
         const allOtherObjects = objects.filter(obj => obj != this);
-        if (direction === Direction.LEFT) {
-            if (!this.isColliding(allOtherObjects, this.x - 1, this.y))
-                this.speedX = -1;
-        }
-        if (direction === Direction.RIGHT) {
-            if (!this.isColliding(allOtherObjects, this.x + 1, this.y))
-                this.speedX = 1; 
-        }
-        if (direction === Direction.UP) { 
-            if (!this.isColliding(allOtherObjects, this.x, this.y - 1))
-                this.speedY = -1;
-        }
-        if (direction === Direction.DOWN) { 
-            if (!this.isColliding(allOtherObjects, this.x, this.y + 1))
-                this.speedY = 1;
-        }
+        if (direction === Direction.LEFT && !this.isColliding(allOtherObjects, this.x - multiplier, this.y))
+            this.speedX = -1;
+        if (direction === Direction.RIGHT && !this.isColliding(allOtherObjects, this.x + multiplier, this.y))
+            this.speedX = 1; 
+        if (direction === Direction.UP && !this.isColliding(allOtherObjects, this.x, this.y - multiplier))
+            this.speedY = -1;
+        if (direction === Direction.DOWN && !this.isColliding(allOtherObjects, this.x, this.y + multiplier))
+            this.speedY = 1;
 
         this.determineAnimation(direction);
 
-        this.newPos();
+        this.x += this.speedX * multiplier;
+        this.y += this.speedY * multiplier;
     }
 
     determineAnimation(newDirection)
