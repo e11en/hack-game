@@ -51,7 +51,7 @@ class TokenBox extends InformationBox
     {
         if (this.isValid())
         {
-            this.show("<p>The token is correct, well done!</p><p>Exit with [SPACEBAR]</p>");
+            this.show("<p>The token is correct, well done!</p>");
 
             this.cleanUp();
             this.onSuccess();
