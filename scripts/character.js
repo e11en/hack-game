@@ -32,10 +32,7 @@ class Character extends BaseComponent
         this.move(direction);
 
         if(this.canInteract())
-        {
-            gameArea.informationBox.setContent("Press [SPACEBAR] to interact with the computer");
-            gameArea.informationBox.show();
-        }
+            gameArea.informationBox.show("Press [SPACEBAR] to interact with the computer");
         else
             gameArea.informationBox.hide();
     }
@@ -72,20 +69,21 @@ class Character extends BaseComponent
 
         if (direction === undefined) return;
 
+        const allOtherObjects = objects.filter(obj => obj != this);
         if (direction === Direction.LEFT) {
-            if (!this.isColliding(objects.filter(obj => obj != this), this.x - 1, this.y))
+            if (!this.isColliding(allOtherObjects, this.x - 1, this.y))
                 this.speedX = -1;
         }
         if (direction === Direction.RIGHT) {
-            if (!this.isColliding(objects.filter(obj => obj != this), this.x + 1, this.y))
+            if (!this.isColliding(allOtherObjects, this.x + 1, this.y))
                 this.speedX = 1; 
         }
         if (direction === Direction.UP) { 
-            if (!this.isColliding(objects.filter(obj => obj != this), this.x, this.y - 1))
+            if (!this.isColliding(allOtherObjects, this.x, this.y - 1))
                 this.speedY = -1;
         }
         if (direction === Direction.DOWN) { 
-            if (!this.isColliding(objects.filter(obj => obj != this), this.x, this.y + 1))
+            if (!this.isColliding(allOtherObjects, this.x, this.y + 1))
                 this.speedY = 1;
         }
 
@@ -115,13 +113,15 @@ class Character extends BaseComponent
 
     canInteract()
     {
-        if (this.isColliding(objects.filter(obj => obj != this && obj.hasInteraction), this.x - 1, this.y))
+        const interactionObjects = objects.filter(obj => obj != this && obj.hasInteraction && obj.isCompleted !== true);
+
+        if (this.isColliding(interactionObjects, this.x - 1, this.y))
             return true;
-        if (this.isColliding(objects.filter(obj => obj != this && obj.hasInteraction),this.x + 1, this.y))
+        if (this.isColliding(interactionObjects,this.x + 1, this.y))
             return true;
-        if (this.isColliding(objects.filter(obj => obj != this && obj.hasInteraction),this.x, this.y - 1))
+        if (this.isColliding(interactionObjects,this.x, this.y - 1))
             return true;
-        if (this.isColliding(objects.filter(obj => obj != this && obj.hasInteraction),this.x, this.y + 1))
+        if (this.isColliding(interactionObjects,this.x, this.y + 1))
             return true;
 
         return false;

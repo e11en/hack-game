@@ -16,28 +16,43 @@ class Wall extends LevelElement
 
 class Console extends LevelElement
 {
-    constructor(id, x, y, onSucces) {
+    constructor(id, x, y, tokenText, onSucces) {
         super(id, 32, 32, "resources/level/console.png", x, y,(keyPressed) => this.onKeyUp(keyPressed));
         this.hasInteraction = true;
-        this.onSucces = onSucces !== undefined ? onSucces : () => {}
+        this.tokenText = tokenText;
+        this.onSucces = onSucces !== undefined ? onSucces : () => {};
+        this.isCompleted = false;
+        this.isActive = false;
+        this.tokenBox = new TokenBox(this.id, this.tokenText, () => {
+            this.onCompletion();
+        });
     }
 
     onKeyUp(keyPressed)
     {
-        if (keyPressed !== " ") return;
+        if (keyPressed !== " " || this.isCompleted || this.isActive) return;
 
         gameArea.characterIsInteracting = !gameArea.characterIsInteracting;
 
         if (!gameArea.characterIsInteracting)
         {
             this.image.src = "resources/level/console.png";
-            gameArea.informationBox.hide();
+            this.tokenBox.hide();
             return;
         }
 
+        this.isActive = true;
         this.image.src = "resources/level/console-active.png";
-        gameArea.informationBox.setContent("<p>Well done! You've disabled the laser!</p><p>Exit with [SPACEBAR]</p>");
-        gameArea.informationBox.show();
+        this.tokenBox.show();
+    }
+
+    onCompletion()
+    {
+        this.isCompleted = true;
+        this.isActive = false;
+        this.image.src = "resources/level/console-completed.png";
+        gameArea.characterIsInteracting = false;
+
         this.onSucces();
     }
 }

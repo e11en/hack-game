@@ -18,12 +18,17 @@
 </head>
 <body onload="startGame()">
 
-  <div id="information-wrapper" class="">
-    <div id="information">
+  <div id="information-wrapper">
+    <div id="information-text">
       <p>Welcome to the Hack In The Class game!</p>
-      By solving challenges you can find tokens, you will need these tokens to progress to the next level.
-      <p>A token looks like this: "hitc_ctf{....}"</p>
-      <p>Can you reach the end!?</p>
+        By solving challenges you can find tokens, you will need these tokens to progress to the next level.
+        <p>A token looks like this: "hitc_ctf{....}"</p>
+        <p>Can you reach the end!?</p>
+    </div>
+    <!--<p id="information-exit-text">Exit with [SPACEBAR]</p>-->
+    <div id="information-actions" class="hidden">
+      <input id="information-action-input"/>
+      <button id="information-action-button">CHECK TOKEN</button>
     </div>
   </div>
   <canvas id="game-area"></canvas>

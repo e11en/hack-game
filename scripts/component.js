@@ -23,15 +23,15 @@ class BaseComponent {
 
     isColliding(collingWith, x, y)
     {
-        let hit = false;
+        let collidingObject;
         collingWith.filter(obj => obj.enabled).forEach(obj => {
             if (x < obj.x + obj.width  && x + this.width  > obj.x &&
                 y < obj.y + obj.height && y + this.height > obj.y) {
-                    hit = true;
+                    collidingObject = obj;
                     return;
             }
         });
 
-        return hit;
+        return collidingObject;
     }
 }

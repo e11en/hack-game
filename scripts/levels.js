@@ -74,9 +74,13 @@ class Level1 extends Level
         ];
 
         const consoles = [
-            new Console("console-1", 100, 200, () => {
-                Laser.disableGroup("laser-group-1");
-            })
+            new Console(
+                "console-1",
+                100,
+                200,
+                "Enter the following token: hitc_ctf{test_token_console-1}",
+                () => { Laser.disableGroup("laser-group-1") }
+            )
         ];
 
         super(canvasHeight, canvasWidth, true, walls, consoles, lasers);
