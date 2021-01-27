@@ -6,7 +6,7 @@ function startGame() {
     level = new Level1(CANVASHEIGHT, CANVASWIDTH);
 
     objects = [
-        new Character(140, 200, Direction.DOWN), 
+        new Character(94, 64, Direction.DOWN), 
         ...level.getObjects()
     ];
     gameArea.start();
