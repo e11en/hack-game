@@ -28,6 +28,18 @@ canvas {
     margin-top: 1em;
 }
 
+#information-close-button {
+    float: right;
+    margin-top: -10px;
+    margin-right: -10px;
+    border: none;
+    background: none;
+    color: #333333;
+}
+#information-close-button:hover {
+    font-weight: bold;
+}
+
 #information-action-input {
     width: 100%;
     margin-bottom: 8px;
