@@ -24,16 +24,16 @@ canvas {
     padding: 1em;
 }
 
-#information-exit-text {
-    float: right;
-    margin: 0;
-    font-size: small;
+#information-actions {
+    margin-top: 1em;
 }
 
 #information-action-input {
     width: 100%;
     margin-bottom: 8px;
 }
-#information-actions {
-    margin-top: 1em;
+
+#information-actions-text {
+    color: red;
+    margin: 0.5em;
 }
