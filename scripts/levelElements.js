@@ -23,9 +23,7 @@ class Console extends LevelElement
         this.onSucces = onSucces !== undefined ? onSucces : () => {};
         this.isCompleted = false;
         this.isActive = false;
-        this.tokenBox = new TokenBox(this.id, this.tokenText, () => {
-            this.onCompletion();
-        });
+        this.tokenBox = new TokenBox(this.id, this.tokenText, () => this.onCompletion(), () => this.OnClose());
     }
 
     onKeyUp(keyPressed)
@@ -44,6 +42,14 @@ class Console extends LevelElement
         this.isActive = true;
         this.image.src = "resources/level/console-active.png";
         this.tokenBox.show();
+    }
+
+    OnClose()
+    {
+        this.isActive = false;
+        this.image.src = "resources/level/console.png";
+        gameArea.characterIsInteracting = false;
+        this.tokenBox.hide();
     }
 
     onCompletion()

@@ -1,16 +1,17 @@
 class InformationBox
 {
-    constructor(content)
+    constructor(content, hasAction)
     {
         this.content = content;
+        this.hasAction = hasAction;
     }
 
-    show(content, hasAction)
+    show(content)
     {
         if (content !== undefined)
             this.content = content;
 
-        if (hasAction !== undefined)
+        if (this.hasAction !== undefined)
             document.getElementById("information-actions").classList.remove("hidden");
         
         document.getElementById("information-text").innerHTML = this.content;
@@ -19,24 +20,30 @@ class InformationBox
     
     hide()
     {
+        if (this.hasAction !== undefined)
+            document.getElementById("information-actions").classList.add("hidden");
+
         document.getElementById("information-wrapper").classList.add("hidden");
     }
 }
 
 class TokenBox extends InformationBox
 {
-    constructor(id, text, onSuccess)
+    constructor(id, text, onSuccess, onClose)
     {
-        super();
+        super(undefined, true);
         this.id = id;
         this.content = text;
         this.onSuccess = onSuccess;
+        this.onClose = onClose;
         document.getElementById("information-action-button").addEventListener('click', () => this.onClick());
+        document.getElementById("information-close-button").addEventListener('click', () => this.onCloseClick());
     }
 
-    show(content)
+    onCloseClick()
     {
-        super.show(content, true)
+        this.onClose();
+        this.hide();
     }
 
     onClick()
