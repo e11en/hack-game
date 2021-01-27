@@ -42,7 +42,7 @@ class TokenBox extends InformationBox
 
     onCloseClick()
     {
-        document.getElementById("information-actions-text").classList.add("hidden");
+        this.cleanUp();
         this.onClose();
         this.hide();
     }
@@ -51,15 +51,21 @@ class TokenBox extends InformationBox
     {
         if (this.isValid())
         {
-            document.getElementById("information-actions").classList.add("hidden");
             this.show("<p>The token is correct, well done!</p><p>Exit with [SPACEBAR]</p>");
 
+            this.cleanUp();
             this.onSuccess();
         }
         else
         {
             document.getElementById("information-actions-text").classList.remove("hidden");
         }
+    }
+
+    cleanUp()
+    {
+        document.getElementById("information-actions").classList.add("hidden");
+        document.getElementById("information-actions-text").classList.add("hidden");
     }
 
     isValid()
