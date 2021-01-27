@@ -6,9 +6,11 @@ function startGame() {
     level = new Level1(CANVASHEIGHT, CANVASWIDTH);
 
     objects = [
-        new Character(94, 64, Direction.DOWN), 
+        new Character(94, 64, Direction.DOWN), // TODO: Damage works with 140, 200
         ...level.getObjects()
     ];
+
+    gameArea.score.save();
     gameArea.start();
 }
 
@@ -38,7 +40,7 @@ var gameArea = {
 
 function onKeyDown(e) {
     if (e.key === "s")
-    gameArea.score.save();
+        gameArea.score.save();
 
     objects.forEach(obj => {
         obj.keyDown(e.key);
@@ -57,12 +59,4 @@ function updateGameArea() {
     objects.forEach(obj => {
         obj.update();
     });
-}
-
-function sleep(milliseconds) {
-    const date = Date.now();
-    let currentDate = null;
-    do {
-      currentDate = Date.now();
-    } while (currentDate - date < milliseconds);
 }
