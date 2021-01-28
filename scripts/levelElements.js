@@ -66,8 +66,12 @@ class Console extends LevelElement
 
 class Laser extends LevelElement
 {
-    constructor(groupID, x, y) {
-        super(groupID, 32, 16, "resources/level/laser.png", x, y, undefined, undefined, 1);
+    constructor(groupID, x, y, isVertical) {
+        const orientation = isVertical ? "vertical" : "horizontal";
+        const width = !isVertical ? 32 : 16;
+        const height = !isVertical ? 16 : 32;
+
+        super(groupID, width, height, "resources/level/laser-" + orientation + ".png", x, y, undefined, undefined, 1);
     }
 
     update() {
