@@ -34,15 +34,17 @@ class Character extends BaseComponent
         const direction = this.keyToDirection(keyPressed);
         this.move(direction);
 
-        if(this.canInteract())
-            gameArea.informationBox.show("Press [SPACEBAR] to interact with the computer");
-        else
-            gameArea.informationBox.hide();
+        if(this.canInteract(keyPressed) && !gameArea.characterIsInteracting)
+        {
+            gameArea.informationBox.show("Press [SPACEBAR] to interact");
+        }
+        else if (!gameArea.characterIsInteracting)
+            gameArea.informationBox.hide();            
     }
 
     onKeyUp()
     {
-        this.isBeingDamaged = false;
+        this.isBeingDamaged = false; 
         this.animation = {
             ...this.animation,
             position: 0,
@@ -75,13 +77,15 @@ class Character extends BaseComponent
         if (direction === undefined) return;
 
         const allOtherObjects = objects.filter(obj => obj != this);
-        if (direction === Direction.LEFT && !this.isColliding(allOtherObjects, this.x - this.movementSpeed, this.y))
+        const hitTest = this.hitTest(allOtherObjects, this.x, this.y, this.movementSpeed);
+
+        if (direction === Direction.LEFT && !hitTest.left)
             this.speedX = -1;
-        if (direction === Direction.RIGHT && !this.isColliding(allOtherObjects, this.x + this.movementSpeed, this.y))
+        if (direction === Direction.RIGHT && !hitTest.right)
             this.speedX = 1; 
-        if (direction === Direction.UP && !this.isColliding(allOtherObjects, this.x, this.y - this.movementSpeed))
+        if (direction === Direction.UP && !hitTest.up)
             this.speedY = -1;
-        if (direction === Direction.DOWN && !this.isColliding(allOtherObjects, this.x, this.y + this.movementSpeed))
+        if (direction === Direction.DOWN && !hitTest.down)
             this.speedY = 1;
 
         this.determineAnimation(direction);
@@ -109,50 +113,41 @@ class Character extends BaseComponent
         }
     }
 
-    canInteract()
+    canInteract(keyPressed)
     {
         const interactionObjects = objects.filter(obj => obj != this && obj.hasInteraction && obj.isCompleted !== true);
+        const hittest = this.hitTest(interactionObjects, this.x, this.y, this.movementSpeed);
+        
+        if (hittest.hasCollision) {
+            const obj = hittest.left || hittest.right || hittest.up || hittest.down;
+            if (obj) obj.keyDown(keyPressed);
+        }
 
-        if (this.isColliding(interactionObjects, this.x - 1, this.y))
-            return true;
-        if (this.isColliding(interactionObjects,this.x + 1, this.y))
-            return true;
-        if (this.isColliding(interactionObjects,this.x, this.y - 1))
-            return true;
-        if (this.isColliding(interactionObjects,this.x, this.y + 1))
-            return true;
-
-        return false;
+        return hittest.hasCollision;
     }
 
     hasDamage()
     {
         const interactionObjects = objects.filter(obj => obj != this && obj.hitDamage !== undefined);
-
-        const collidingLeft = this.isColliding(interactionObjects, this.x - this.movementSpeed, this.y);
-        const collidingRight = this.isColliding(interactionObjects,this.x + this.movementSpeed, this.y);
-        const collidingUp = this.isColliding(interactionObjects,this.x, this.y - this.movementSpeed);
-        const collidingDown = this.isColliding(interactionObjects,this.x, this.y + this.movementSpeed);
+        const hitTest = this.hitTest(interactionObjects, this.x, this.y, this.movementSpeed);
         
         let totalDamage = 0;
         const stepsBack = 15;
-        if (collidingLeft) {
+        if (hitTest.left) {
             this.x = this.x + stepsBack;
-            totalDamage =+ collidingLeft.hitDamage;
+            totalDamage =+ hitTest.left.hitDamage;
         }
-        if (collidingRight) {
+        if (hitTest.right) {
             this.x = this.x - stepsBack;
-            totalDamage =+ collidingRight.hitDamage;
+            totalDamage =+ hitTest.right.hitDamage;
         }
-            
-        if (collidingUp) {
+        if (hitTest.up) {
             this.y = this.y + stepsBack;
-            totalDamage =+ collidingUp.hitDamage;
+            totalDamage =+ hitTest.up.hitDamage;
         }
-            
-        if (collidingDown) {
+        if (hitTest.down) {
             this.y = this.y - stepsBack;
-            totalDamage =+ collidingDown.hitDamage;
+            totalDamage =+ hitTest.down.hitDamage;
         }
 
         if (totalDamage > 0) {

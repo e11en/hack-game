@@ -4,9 +4,10 @@ const CANVASWIDTH = 800;
 
 function startGame() {
     level = new Level1(CANVASHEIGHT, CANVASWIDTH);
+    character = new Character(94, 64, Direction.DOWN);
 
     objects = [
-        new Character(94, 64, Direction.DOWN),
+        character,
         ...level.getObjects()
     ];
 
@@ -42,15 +43,11 @@ function onKeyDown(e) {
     if (e.key === "s")
         gameArea.score.save();
 
-    objects.forEach(obj => {
-        obj.keyDown(e.key);
-    });
+    character.onKeyDown(e.key);
 }
 
 function OnKeyUp(e) {
-    objects.forEach(obj => {
-        obj.keyUp(e.key);
-    });
+    character.onKeyUp();
 }
 
 function updateGameArea() {

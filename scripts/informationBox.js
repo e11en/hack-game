@@ -1,13 +1,18 @@
 class InformationBox
 {
-    constructor(content, hasAction)
+    constructor(content, hasAction, overrideOnKeyDown)
     {
         this.content = content;
         this.hasAction = hasAction;
+        this.open = false;
+
+        if (!overrideOnKeyDown)
+            window.addEventListener('keydown', (e) => this.onKeyDown(e.key));
     }
 
     show(content)
     {
+        this.open = true;
         if (content !== undefined)
             this.content = content;
 
@@ -20,10 +25,21 @@ class InformationBox
     
     hide()
     {
+        this.open = false;
+        gameArea.characterIsInteracting = false;
+
         if (this.hasAction !== undefined)
             document.getElementById("information-actions").classList.add("hidden");
 
+        document.getElementById("information-text").innerHTML = "";
         document.getElementById("information-wrapper").classList.add("hidden");
+    }
+
+    onKeyDown(keyPressed)
+    {
+        if (keyPressed !== " " || !this.open) return;
+
+        this.hide();
     }
 }
 
@@ -31,7 +47,7 @@ class TokenBox extends InformationBox
 {
     constructor(id, text, onSuccess, onClose)
     {
-        super(undefined, true);
+        super(undefined, true, true);
         this.id = id;
         this.content = text;
         this.onSuccess = onSuccess;

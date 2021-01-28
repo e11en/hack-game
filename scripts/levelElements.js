@@ -82,3 +82,35 @@ class Laser extends LevelElement
         });
     }
 }
+
+class InfoBoard extends LevelElement
+{
+    constructor(x, y, text, isVertical) {
+        const orientation = isVertical ? "vertical" : "horizontal";
+        const width = !isVertical ? 64 : 16;
+        const height = !isVertical ? 16 : 64;
+
+        super(null, width, height, "resources/level/info-board-" + orientation + ".png", x, y, (keyPressed) => this.onKeyUp(keyPressed));
+
+        this.hasInteraction = true;
+        this.text = text;
+        this.isOpen = false;
+    }
+
+    onKeyUp(keyPressed)
+    {
+        if (keyPressed !== " ") return;
+
+        if (!this.isOpen) {
+            this.isOpen = true;
+            gameArea.characterIsInteracting = true;
+            gameArea.informationBox.show(this.text);
+        }
+        else
+        {
+            this.isOpen = false;
+            gameArea.characterIsInteracting = false;
+            gameArea.informationBox.hide();
+        }
+    }
+}

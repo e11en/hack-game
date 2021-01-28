@@ -34,4 +34,21 @@ class BaseComponent {
 
         return collidingObject;
     }
+
+    hitTest(collingWith, x, y, movementSpeed)
+    {
+        const collidingLeft = this.isColliding(collingWith, x - movementSpeed, y);
+        const collidingRight = this.isColliding(collingWith, x + movementSpeed, y);
+        const collidingUp = this.isColliding(collingWith, x, y - movementSpeed);
+        const collidingDown = this.isColliding(collingWith, x, y + movementSpeed);
+        const hasCollision = collidingLeft || collidingRight || collidingUp || collidingDown;
+
+        return {
+            left: collidingLeft,
+            right: collidingRight,
+            up: collidingUp,
+            down: collidingDown,
+            hasCollision: hasCollision
+        };
+    }
 }
