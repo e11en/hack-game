@@ -6,7 +6,7 @@ function startGame() {
     level = new Level1(CANVASHEIGHT, CANVASWIDTH);
 
     objects = [
-        new Character(94, 64, Direction.DOWN), // TODO: Damage works with 140, 200
+        new Character(94, 64, Direction.DOWN),
         ...level.getObjects()
     ];
 

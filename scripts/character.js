@@ -10,6 +10,7 @@ class Character extends BaseComponent
     constructor(x, y, initialDirection) {
         super(41, 43, "resources/character/girl.png", x, y, (keyPressed) => this.onKeyDown(keyPressed), () => this.onKeyUp());
 
+        this.movementSpeed = 1.5;
         this.speedX = 0;
         this.speedY = 0;
         this.animation = {
@@ -17,13 +18,18 @@ class Character extends BaseComponent
             position: 0,
             frame: 0
         };
+        this.isBeingDamaged = false;
     }
 
     onKeyDown(keyPressed)
     {
-        if (gameArea.characterIsInteracting) return;
+        if (gameArea.characterIsInteracting || this.isBeingDamaged) return;
 
-        if (this.hasDamage()) return;
+        if (this.hasDamage()) 
+        {
+            this.isBeingDamaged = true;
+            return;
+        }
     
         const direction = this.keyToDirection(keyPressed);
         this.move(direction);
@@ -36,6 +42,7 @@ class Character extends BaseComponent
 
     onKeyUp()
     {
+        this.isBeingDamaged = false;
         this.animation = {
             ...this.animation,
             position: 0,
@@ -63,24 +70,24 @@ class Character extends BaseComponent
     {
         this.speedX = 0;
         this.speedY = 0;
-        const multiplier = 1.5;
+        
 
         if (direction === undefined) return;
 
         const allOtherObjects = objects.filter(obj => obj != this);
-        if (direction === Direction.LEFT && !this.isColliding(allOtherObjects, this.x - multiplier, this.y))
+        if (direction === Direction.LEFT && !this.isColliding(allOtherObjects, this.x - this.movementSpeed, this.y))
             this.speedX = -1;
-        if (direction === Direction.RIGHT && !this.isColliding(allOtherObjects, this.x + multiplier, this.y))
+        if (direction === Direction.RIGHT && !this.isColliding(allOtherObjects, this.x + this.movementSpeed, this.y))
             this.speedX = 1; 
-        if (direction === Direction.UP && !this.isColliding(allOtherObjects, this.x, this.y - multiplier))
+        if (direction === Direction.UP && !this.isColliding(allOtherObjects, this.x, this.y - this.movementSpeed))
             this.speedY = -1;
-        if (direction === Direction.DOWN && !this.isColliding(allOtherObjects, this.x, this.y + multiplier))
+        if (direction === Direction.DOWN && !this.isColliding(allOtherObjects, this.x, this.y + this.movementSpeed))
             this.speedY = 1;
 
         this.determineAnimation(direction);
 
-        this.x += this.speedX * multiplier;
-        this.y += this.speedY * multiplier;
+        this.x += this.speedX * this.movementSpeed;
+        this.y += this.speedY * this.movementSpeed;
     }
 
     determineAnimation(newDirection)
@@ -122,10 +129,10 @@ class Character extends BaseComponent
     {
         const interactionObjects = objects.filter(obj => obj != this && obj.hitDamage !== undefined);
 
-        const collidingLeft = this.isColliding(interactionObjects, this.x - 1, this.y);
-        const collidingRight = this.isColliding(interactionObjects,this.x + 1, this.y);
-        const collidingUp = this.isColliding(interactionObjects,this.x, this.y - 1);
-        const collidingDown = this.isColliding(interactionObjects,this.x, this.y + 1);
+        const collidingLeft = this.isColliding(interactionObjects, this.x - this.movementSpeed, this.y);
+        const collidingRight = this.isColliding(interactionObjects,this.x + this.movementSpeed, this.y);
+        const collidingUp = this.isColliding(interactionObjects,this.x, this.y - this.movementSpeed);
+        const collidingDown = this.isColliding(interactionObjects,this.x, this.y + this.movementSpeed);
         
         let totalDamage = 0;
         const stepsBack = 15;
