@@ -10,4 +10,5 @@ A HTML5 + JS game teaching you how to hack
 - [ ] Ability to choose character
 - [ ] Connect with HITC scoreboard
 - [ ] Add charachter is damaged animation
+- [ ] Secure local storage / cookie data
 - [ ] ....
