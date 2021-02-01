@@ -52,8 +52,8 @@ class TokenBox extends InformationBox
         this.content = text;
         this.onSuccess = onSuccess;
         this.onClose = onClose;
-        document.getElementById("information-action-button").addEventListener('click', () => this.onClick());
-        document.getElementById("information-close-button").addEventListener('click', () => this.onCloseClick());
+        document.getElementById("information-action-button")?.addEventListener('click', () => this.onClick());
+        document.getElementById("information-close-button")?.addEventListener('click', () => this.onCloseClick());
     }
 
     onCloseClick()

@@ -21,6 +21,7 @@ var gameArea = {
         this.context = this.canvas.getContext("2d");
         this.interval = setInterval(updateGameArea, 20);
         this.canvas.addEventListener('mousemove', onMouseMove);
+        this.canvas.onclick = onMouseClick;
     },
     clear : function() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -36,6 +37,17 @@ function updateGameArea() {
     objects.forEach(obj => {
         obj.update();
     });
+
+    if (gameArea.selectedObject != null)
+        gameArea.selectedObject.update();
+}
+
+function onMouseClick(e) {
+    if (gameArea.selectedObject == null) return;
+    
+    console.log(gameArea.selectedObject);
+
+    objects.push(gameArea.selectedObject);
 }
 
 function onMouseMove(e) {
@@ -62,6 +74,13 @@ function selectObject(objectType) {
             break;
     }
 
-    objects.push(component);
     gameArea.selectedObject = component;
+}
+
+function remove(arr, value) {
+    var index = arr.indexOf(value);
+    if (index > -1) {
+      arr.splice(index, 1);
+    }
+    return arr;
 }
