@@ -70,7 +70,6 @@ export default ({imageSrc = "resources/characters/player/player.png", direction 
     }, [direction]);
 
     useEffect(() => {
-        //console.log("POS:", x, y);
         setPosition({x: x, y: y});
     }, [x, y]);
 

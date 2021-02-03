@@ -4,6 +4,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 import Map from "components/MapComponent";  
 import Player from "components/PlayerComponent";  
+import Console from "components/ConsoleComponent";
 
 const theme = createMuiTheme({
   palette: {
@@ -27,8 +28,8 @@ const theme = createMuiTheme({
 });
 
 const Camera = styled.div`
-  width: calc(var(--pixel-size) * 256px);
-  height: calc(var(--pixel-size) * 200px);
+  width: calc(var(--pixel-size) * 350px);
+  height: calc(var(--pixel-size) * 300px);
   overflow: hidden;
   background: #61ddf7;
   position: relative;
@@ -39,6 +40,7 @@ export default() => {
     <ThemeProvider theme={theme}>
         <Camera>
           <Map>
+            <Console x={96} y={96}/>
             <Player />
           </Map>
         </Camera>

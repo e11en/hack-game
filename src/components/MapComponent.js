@@ -13,11 +13,12 @@ const Map = styled.div.attrs(props => ({
     }))
 `
     image-rendering: pixelated;
-    background-image: url("${process.env.PUBLIC_URL}/resources/maps/CameraDemoMap.png");
+    background-image: url("${process.env.PUBLIC_URL}/resources/maps/empty.png");
     background-size: 100%;
-    width: calc(13px * var(--grid-cell));
+    width: calc(10px * var(--grid-cell));
     height: calc(10px * var(--grid-cell));
     position: relative;
+    background-repeat: no-repeat;
 `;
 
 export default (props) => {

@@ -1,8 +1,8 @@
 import { CharacterActionTypes } from '../actions';
 
 const initialState = {
-    x: 32,
-    y: 32,
+    x: 96,
+    y: 100,
     speed: 1
 };
 
