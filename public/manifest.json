@@ -1,6 +1,6 @@
 {
-  "short_name": "hitc.advent-calendar",
-  "name": "Hack In The Class - Advent Calendar",
+  "short_name": "hack-the-class",
+  "name": "Hack The Class",
   "icons": [
     {
       "src": "favicon.ico",

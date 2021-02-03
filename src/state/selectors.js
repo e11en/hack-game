@@ -1,0 +1,1 @@
+export const getCharacterState = store => store.character;
