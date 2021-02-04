@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 
-import MapObjectsContext from "contexts";
+import { MapObjectsContext } from "contexts";
 import { Direction } from "../constants";
 import useCollision from "hooks/useCollision";
 

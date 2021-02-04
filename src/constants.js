@@ -6,3 +6,8 @@ export const Direction = {
 };
 
 export const MovementSpeed = 1;
+
+export const ObjectType = {
+    PLAYER: 0,
+    CONSOLE: 1
+};
