@@ -83,9 +83,10 @@ export default () => {
 
     const clearMap = () => {
         setLayers([{}, {}, {}]);
-        draw(); // TODO: Fix this lifecycle issue, draw needs to be called after state is set.
+        const context = canvasRef.current.getContext("2d");
+        context.clearRect(0, 0, 480, 480);
     };
-
+    
     const draw = () => {
         const context = canvasRef.current.getContext("2d");
         context.clearRect(0, 0, 480, 480);
