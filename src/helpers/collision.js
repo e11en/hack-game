@@ -1,4 +1,3 @@
-import { SetColliding } from 'state/actions';
 import { Direction, MovementSpeed } from "./constants";
 
 const singleHitTest = (collingWith, x, y, hitTester) =>
@@ -18,41 +17,18 @@ const singleHitTest = (collingWith, x, y, hitTester) =>
     return collidingObject;
 }
 
-const hasCollision = (isColliding, collisionObject, collidingDirection, isCollidingState, collidingWithState, dispatch) => {
-    if(isColliding !== isCollidingState || collidingWithState !== collisionObject) {
-        dispatch(SetColliding(isColliding, collisionObject, collidingDirection));
-
-        if (collisionObject && collisionObject.hasInteraction)
-        {
-            console.log("CAN INTERACT");
-        }
-    }
-}
-
-export const hitTest = (collisionObjects, isCurrentlyColliding, currentCollidingWith, hitTester, dispatch) => {
+export const hitTest = (collisionObjects, hitTester) => {
     const collidingLeft = singleHitTest(collisionObjects, hitTester.x - MovementSpeed, hitTester.y, hitTester);
-    if (collidingLeft) {
-        hasCollision(true, collidingLeft, Direction.LEFT, isCurrentlyColliding, currentCollidingWith, dispatch);
-        return;
-    }
+    if (collidingLeft) return [collidingLeft, Direction.LEFT];
 
     const collidingRight = singleHitTest(collisionObjects, hitTester.x + MovementSpeed, hitTester.y, hitTester);
-    if (collidingRight) {
-        hasCollision(true, collidingRight, Direction.RIGHT, isCurrentlyColliding, currentCollidingWith, dispatch);
-        return;
-    }
+    if (collidingRight) return [collidingRight, Direction.RIGHT];
 
     const collidingUp = singleHitTest(collisionObjects, hitTester.x, hitTester.y - MovementSpeed, hitTester);
-    if (collidingUp) {
-        hasCollision(true, collidingUp, Direction.UP, isCurrentlyColliding, currentCollidingWith, dispatch);
-        return;
-    }
+    if (collidingUp) return [collidingUp, Direction.UP];
 
     const collidingDown = singleHitTest(collisionObjects, hitTester.x, hitTester.y + MovementSpeed, hitTester);
-    if (collidingDown) {
-        hasCollision(true, collidingDown, Direction.DOWN, isCurrentlyColliding, currentCollidingWith, dispatch);
-        return;
-    }
+    if (collidingDown) return [collidingDown, Direction.DOWN];
 
-    hasCollision(false, null, null, isCurrentlyColliding, currentCollidingWith, dispatch);
+    return;
 };
