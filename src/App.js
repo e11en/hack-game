@@ -39,13 +39,13 @@ const GameArea = styled.div`
 export default() => {
   return (
     <ThemeProvider theme={theme}>
-        {/* <GameArea>
+        <GameArea>
           <Map>
             <Console x={96} y={96}/>
             <Player />
           </Map>
-        </GameArea> */}
-        <TileMapEditorPage/>
+        </GameArea>
+        {/* <TileMapEditorPage/> */}
     </ThemeProvider>
   );
 }

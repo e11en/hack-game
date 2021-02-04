@@ -6,7 +6,7 @@ export default ({x = 0, y = 0}) => {
         <LevelElementComponent 
             x={x} 
             y={y} 
-            imageSource="resources/level-elements/console-test.png"
+            imageSource="resources/level-elements/console.png"
             width={64}
             height={57}
         />
