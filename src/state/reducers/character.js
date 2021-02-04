@@ -6,7 +6,9 @@ const initialState = {
     speed: 1,
     isColliding: false,
     collidingWith: null,
-    collidingDirection: null
+    collidingDirection: null,
+    canInteract: false,
+    isInteracting: false
 };
 
 export const characterReducer = (
@@ -17,25 +19,25 @@ export const characterReducer = (
       case CharacterActionTypes.GO_RIGHT: {
         return {
           ...state,
-          x: state.x + action.payload.speed
+          x: state.x + action.payload
         };
       }
       case CharacterActionTypes.GO_LEFT: {
         return {
           ...state,
-          x: state.x - action.payload.speed
+          x: state.x - action.payload
         };
       }
       case CharacterActionTypes.GO_UP: {
         return {
           ...state,
-          y: state.y - action.payload.speed
+          y: state.y - action.payload
         };
       }
       case CharacterActionTypes.GO_DOWN: {
         return {
           ...state,
-          y: state.y + action.payload.speed
+          y: state.y + action.payload
         };
       }
       case CharacterActionTypes.SET_COLLIDING: {
@@ -44,6 +46,18 @@ export const characterReducer = (
           isColliding: action.payload.isColliding,
           collidingWith: action.payload.collidingWith,
           collidingDirection: action.payload.collidingDirection
+        };
+      }
+      case CharacterActionTypes.CAN_INTERACT: {
+        return {
+          ...state,
+          canInteract: action.payload
+        };
+      }
+      case CharacterActionTypes.IS_INTERACTING: {
+        return {
+          ...state,
+          isInteracting: action.payload
         };
       }
       default:

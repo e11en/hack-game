@@ -44,7 +44,7 @@ export default (props) => {
 
     const keyDown = (e) => {
         const newDirection = keyToDirection(e.key);
-        if ((newDirection !== null || newDirection !== undefined) && !isColliding) {
+        if (newDirection !== null && newDirection !== undefined && !isColliding) {
             startWalking(newDirection);
         }
     }
