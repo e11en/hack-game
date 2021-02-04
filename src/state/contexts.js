@@ -1,19 +1,7 @@
 import { createContext } from "react";
-import { ObjectType } from "./constants";
+import { ObjectType } from "../helpers/constants";
 
 export const IntialMapObjectsContext = [
-    {
-        type: ObjectType.CONSOLE,
-        x: 96,
-        y: 96,
-        enabled: true,
-        width: 64,
-        height: 49,
-        hitBox: {
-            width: 64,
-            height: 26
-        }
-    },
     {
         type: ObjectType.WALL,
         x: 0,
@@ -37,6 +25,19 @@ export const IntialMapObjectsContext = [
         enabled: true,
         width: 50,
         height: 80
-    }
+    },
+    {
+        type: ObjectType.CONSOLE,
+        x: 96,
+        y: 96,
+        enabled: true,
+        width: 64,
+        height: 49,
+        hitBox: {
+            width: 64,
+            height: 26
+        },
+        hasInteraction: true
+    },
 ];
 export const MapObjectsContext = createContext(IntialMapObjectsContext);

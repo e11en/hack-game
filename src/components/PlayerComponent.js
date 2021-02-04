@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { GoLeft, GoRight, GoUp, GoDown } from 'state/actions';
 import Character from "./CharacterComponent";
-import { Direction } from "../constants";
+import { Direction } from "../helpers/constants";
 
 const keyToDirection = (key) => {
     switch (key) {

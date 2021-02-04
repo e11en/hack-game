@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { MapObjectsContext, IntialMapObjectsContext } from "contexts";
+import { MapObjectsContext, IntialMapObjectsContext } from "state/contexts";
 import Map from "components/MapComponent";  
 
 const GameArea = styled.div`

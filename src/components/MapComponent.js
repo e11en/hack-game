@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import styled from "styled-components";
 
-import { ObjectType } from "../constants";
-import { MapObjectsContext } from "contexts";
+import { ObjectType } from "../helpers/constants";
+import { MapObjectsContext } from "state/contexts";
 import Console from "./ConsoleComponent";
 import Player from "./PlayerComponent";
 import LevelElement from "./LevelElementComponent";
