@@ -8,7 +8,8 @@ const LevelElement = styled.div`
     width: calc(${props => props.width}px * var(--pixel-size));
     height: calc(${props => props.height}px * var(--pixel-size));
     overflow: hidden;
-    position: relative;
+    position: absolute;
+    outline: 2px solid cyan;
 `;
 
 const Image = styled.img`

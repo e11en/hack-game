@@ -21,14 +21,16 @@ export default (props) => {
     const [isWalking, setIsWalking] = useState(false);
     const x = useSelector((state) => state.character.x);
     const y = useSelector((state) => state.character.y);
+    const isColliding = useSelector((state) => state.character.isColliding);
+    const characterSpeed = useSelector((state) => state.character.speed);
+    const collidingDirection = useSelector((state) => state.character.collidingDirection);
     const [heldDirections, setHeldDirections] = useState([]);
 
-    const move = () => {
-        const direction = heldDirections[0];
-        if (direction === Direction.RIGHT) dispatch(GoRight());
-        if (direction === Direction.LEFT) dispatch(GoLeft());
-        if (direction === Direction.UP) dispatch(GoUp());
-        if (direction === Direction.DOWN) dispatch(GoDown());
+    const move = (direction, speed) => {
+        if (direction === Direction.RIGHT) dispatch(GoRight(speed));
+        if (direction === Direction.LEFT) dispatch(GoLeft(speed));
+        if (direction === Direction.UP) dispatch(GoUp(speed));
+        if (direction === Direction.DOWN) dispatch(GoDown(speed));
     }
 
     const startWalking = (newDirection) => {
@@ -37,34 +39,44 @@ export default (props) => {
         arr.unshift(newDirection);
         setHeldDirections(arr);
         setDirection(newDirection);
-        move();
+        move(heldDirections[0], characterSpeed);
     };
 
     const keyDown = (e) => {
         const newDirection = keyToDirection(e.key);
-        if (newDirection !== null || newDirection !== undefined)
+        if ((newDirection !== null || newDirection !== undefined) && !isColliding) {
             startWalking(newDirection);
+        }
     }
 
     const keyUp = (e) => {
         setIsWalking(false);
     }
 
-    const collisionCallback = (isColliding, collidingWith) => {
-        console.log(isColliding, collidingWith);
-    }
-
     useEffect(() => {
-        document.addEventListener("keydown", keyDown, false);
-        document.addEventListener("keyup", keyUp, false);
+        document.addEventListener("keydown", keyDown);
+        document.addEventListener("keyup", keyUp);
 
         return () => {
-            document.removeEventListener("keydown", keyDown, false);
-            document.removeEventListener("keyup", keyUp, false);
+            document.removeEventListener("keydown", keyDown);
+            document.removeEventListener("keyup", keyUp);
         };
-    }, []);
+    }, [isColliding]);
+
+    useEffect(() => {
+        if (collidingDirection !== null) {
+            move(collidingDirection, -1);
+        }
+
+    }, [collidingDirection]);
 
     return (
-        <Character imageSrc="resources/characters/player/player.png" direction={direction} isWalking={isWalking} x={x} y={y} collisionCallback={collisionCallback}/>
+        <Character imageSrc="resources/characters/player/player.png"
+        direction={direction} 
+        isWalking={isWalking}
+        width={32}
+        height={32}
+        x={x} 
+        y={y}/>
     );
 };

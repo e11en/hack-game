@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import styled, { keyframes } from "styled-components";
+import { useDispatch, useSelector } from 'react-redux';
 
+import { SetColliding } from 'state/actions';
 import { MapObjectsContext } from "contexts";
-import { Direction } from "../constants";
-import useCollision from "hooks/useCollision";
+import { Direction, MovementSpeed } from "../constants";
 
 const pixelSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pixel-size"));
 
@@ -16,7 +17,8 @@ const Character = styled.div.attrs(props => ({
     width: calc(32px * var(--pixel-size));
     height: calc(32px * var(--pixel-size));
     overflow: hidden;
-    position: relative; 
+    position: absolute;
+    outline: 2px solid cyan;
 `;
 
 const PixelArt = styled.img`
@@ -63,25 +65,74 @@ const getDirectionClassName = (direction) => {
     }
 }
 
-export default ({imageSrc = "resources/characters/player/player.png", direction = Direction.DOWN, isWalking = false, x = 0, y = 0, collisionCallback}) => {
+export default ({imageSrc = "resources/characters/player/player.png", direction = Direction.DOWN, isWalking = false, x = 0, y = 0, width = 32, height = 32}) => {
     const mapObjectsContext = useContext(MapObjectsContext);
     const [directionClassName, setDirectionClassName] = useState(getDirectionClassName(direction));
     const [position, setPosition] = useState({x: x, y: y});
     const characterRef = useRef();
-    const [isColliding, collidingWith] = useCollision(mapObjectsContext, x, y, characterRef)
+    const dispatch = useDispatch();
+    const isCollidingState = useSelector((state) => state.character.isColliding);
+    const collidingWithState = useSelector((state) => state.character.collingWith);
+
+    const hittest = (collingWith, x, y) =>
+    {
+        let collidingObject;
+        collingWith.filter(obj => obj.enabled).forEach(obj => {
+            if (x < obj.x + obj.width  && x + width  > obj.x &&
+                y < obj.y + obj.height && y + height > obj.y) {
+                    collidingObject = obj;
+                    return;
+            }
+        });
+
+        return collidingObject;
+    }
+
+    const hasCollision = (isColliding, collisionObject, collidingDirection) => {
+        if(isColliding !== isCollidingState || collidingWithState !== collisionObject) {
+            dispatch(SetColliding(isColliding, collisionObject, collidingDirection));
+        }
+    }
+
+    const hitTest = () => {
+        if (!characterRef || !characterRef.current)
+            return;
+
+        const collidingLeft = hittest(mapObjectsContext, x - MovementSpeed, y);
+        if (collidingLeft) {
+            hasCollision(true, collidingLeft, Direction.LEFT);
+            return;
+        }
+
+        const collidingRight = hittest(mapObjectsContext, x + MovementSpeed, y);
+        if (collidingRight) {
+            hasCollision(true, collidingRight, Direction.RIGHT);
+            return;
+        }
+
+        const collidingUp = hittest(mapObjectsContext, x, y - MovementSpeed);
+        if (collidingUp) {
+            hasCollision(true, collidingUp, Direction.UP);
+            return;
+        }
+
+        const collidingDown = hittest(mapObjectsContext, x, y + MovementSpeed);
+        if (collidingDown) {
+            hasCollision(true, collidingDown, Direction.DOWN);
+            return;
+        }
+
+        hasCollision(false, null, null);
+    };
 
     useEffect(() => {
         setDirectionClassName(getDirectionClassName(direction));
     }, [direction]);
 
     useEffect(() => {
+        hitTest();
         setPosition({x: x, y: y});
     }, [x, y]);
-
-    useEffect(() => {
-        collisionCallback(isColliding, collidingWith);
-    }, [isColliding, collidingWith]);
-
 
     return (
         <Character position={position} ref={characterRef}>
