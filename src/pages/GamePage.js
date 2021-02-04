@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+import MapObjectsContext from "contexts";
 import Map from "components/MapComponent";  
 import Player from "components/PlayerComponent";  
 import Console from "components/ConsoleComponent";
@@ -15,11 +16,13 @@ const GameArea = styled.div`
 
 export default () => {
     return (
+      <MapObjectsContext.Provider value={[]}>
         <GameArea>
           <Map>
             <Console x={96} y={96}/>
             <Player />
           </Map>
         </GameArea>
+      </MapObjectsContext.Provider>
     );
 };

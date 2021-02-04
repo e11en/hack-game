@@ -157,7 +157,7 @@ export default () => {
                 <div>
                     <Label>Tiles</Label>
                     <Tilesheet onMouseDown={e => setSelection(getCoordinates(e))}>
-                        <img crossOrigin="true" src={process.env.PUBLIC_URL + "resources/maps/tile-sheet.png"} ref={imageRef} onLoad={() => draw()}/>
+                        <img crossOrigin="true" src={process.env.PUBLIC_URL + "resources/maps/tile-sheet.png"} ref={imageRef} onLoad={() => draw()} alt="tile sheet"/>
                         <Selection selection={selection}/>
                     </Tilesheet>
                 </div>

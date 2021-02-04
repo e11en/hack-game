@@ -4,3 +4,5 @@ export const Direction = {
     RIGHT : 2,
     UP : 3
 };
+
+export const MovementSpeed = 1;

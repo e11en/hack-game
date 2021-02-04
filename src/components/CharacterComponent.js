@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 
+import MapObjectsContext from "contexts";
 import { Direction } from "../constants";
+import useCollision from "hooks/useCollision";
 
 const pixelSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pixel-size"));
 
@@ -61,9 +63,12 @@ const getDirectionClassName = (direction) => {
     }
 }
 
-export default ({imageSrc = "resources/characters/player/player.png", direction = Direction.DOWN, isWalking = false, x = 0, y = 0}) => {
+export default ({imageSrc = "resources/characters/player/player.png", direction = Direction.DOWN, isWalking = false, x = 0, y = 0, collisionCallback}) => {
+    const mapObjectsContext = useContext(MapObjectsContext);
     const [directionClassName, setDirectionClassName] = useState(getDirectionClassName(direction));
     const [position, setPosition] = useState({x: x, y: y});
+    const characterRef = useRef();
+    const [isColliding, collidingWith] = useCollision(mapObjectsContext, x, y, characterRef)
 
     useEffect(() => {
         setDirectionClassName(getDirectionClassName(direction));
@@ -73,8 +78,13 @@ export default ({imageSrc = "resources/characters/player/player.png", direction 
         setPosition({x: x, y: y});
     }, [x, y]);
 
+    useEffect(() => {
+        collisionCallback(isColliding, collidingWith);
+    }, [isColliding, collidingWith]);
+
+
     return (
-        <Character position={position}>
+        <Character position={position} ref={characterRef}>
             <SpriteSheet src={process.env.PUBLIC_URL + imageSrc} className={`${directionClassName} ${isWalking ? "walking" : ""}`} />
         </Character>
     );

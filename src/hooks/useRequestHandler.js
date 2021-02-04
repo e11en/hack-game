@@ -14,5 +14,5 @@ export default () => {
                       .finally(() => setLoading(false));
     };
 
-    return {isLoading, error, response, handleRequest};
+    return [isLoading, error, response, handleRequest];
 };

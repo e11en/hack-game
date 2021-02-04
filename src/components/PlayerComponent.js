@@ -50,6 +50,10 @@ export default (props) => {
         setIsWalking(false);
     }
 
+    const collisionCallback = (isColliding, collidingWith) => {
+        console.log(isColliding, collidingWith);
+    }
+
     useEffect(() => {
         document.addEventListener("keydown", keyDown, false);
         document.addEventListener("keyup", keyUp, false);
@@ -61,6 +65,6 @@ export default (props) => {
     }, []);
 
     return (
-        <Character imageSrc="resources/characters/player/player.png" direction={direction} isWalking={isWalking} x={x} y={y}/>
+        <Character imageSrc="resources/characters/player/player.png" direction={direction} isWalking={isWalking} x={x} y={y} collisionCallback={collisionCallback}/>
     );
 };
