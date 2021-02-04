@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 
 import { GoLeft, GoRight, GoUp, GoDown } from 'state/actions';
-import Character from "./CharacterComponent";
 import { Direction } from "../helpers/constants";
+import Character from "./CharacterComponent";
 
 const keyToDirection = (key) => {
     switch (key) {
@@ -17,14 +17,16 @@ const keyToDirection = (key) => {
 
 export default (props) => {
     const dispatch = useDispatch();
+
     const [direction, setDirection] = useState(Direction.DOWN);
     const [isWalking, setIsWalking] = useState(false);
+    const [heldDirections, setHeldDirections] = useState([]);
+
     const x = useSelector((state) => state.character.x);
     const y = useSelector((state) => state.character.y);
     const isColliding = useSelector((state) => state.character.isColliding);
     const characterSpeed = useSelector((state) => state.character.speed);
     const collidingDirection = useSelector((state) => state.character.collidingDirection);
-    const [heldDirections, setHeldDirections] = useState([]);
 
     const move = (direction, speed) => {
         if (direction === Direction.RIGHT) dispatch(GoRight(speed));

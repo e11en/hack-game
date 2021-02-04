@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from 'react-redux';
 
-import { SetColliding } from 'state/actions';
+import { SetColliding, CanInteract } from 'state/actions';
 import { MapObjectsContext } from "state/contexts";
 import { Direction } from "../helpers/constants";
 import { hitTest } from "helpers/collision";
@@ -77,13 +77,17 @@ export default ({imageSrc = "resources/characters/player/player.png", direction 
 
     const hasCollision = (collisionObject, collidingDirection) => {
         if(!isCollidingState || collidingWithState !== collisionObject) {
-            dispatch(SetColliding(true, collisionObject, collidingDirection));
-    
-            if (collisionObject && collisionObject.hasInteraction)
-            {
-                console.log("CAN INTERACT");
-            }
+            dispatchAll([
+                SetColliding(true, collisionObject, collidingDirection),
+                CanInteract(collisionObject && collisionObject.hasInteraction)
+            ]);
         }
+    }
+
+    const dispatchAll = (dispatchers) => {
+        dispatchers.forEach(dispatcher => {
+            dispatch(dispatcher);
+        });
     }
 
     useEffect(() => {
@@ -97,7 +101,10 @@ export default ({imageSrc = "resources/characters/player/player.png", direction 
         if (result)
             hasCollision(result[0], result[1]);
         else 
-            dispatch(SetColliding(false, null, null));
+            dispatchAll([
+                SetColliding(false, null, null),
+                CanInteract(false)
+            ]);
 
         setPosition({x: x, y: y});
     }, [x, y]);

@@ -27,6 +27,7 @@ export const IntialMapObjectsContext = [
         height: 80
     },
     {
+        id: "console-96-96",
         type: ObjectType.CONSOLE,
         x: 96,
         y: 96,

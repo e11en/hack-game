@@ -32,3 +32,7 @@ export const hitTest = (collisionObjects, hitTester) => {
 
     return;
 };
+
+export const idEquals = (id, type, x, y) => {
+    return id === type + "-" + x + "-" + y;
+}
