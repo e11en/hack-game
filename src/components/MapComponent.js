@@ -8,8 +8,8 @@ import Console from "./ConsoleComponent";
 import Player from "./PlayerComponent";
 
 const pixelSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pixel-size"));
-const camera_left = pixelSize * 110;
-const camera_top = pixelSize * 70;
+const camera_left = pixelSize * 170;
+const camera_top = pixelSize * 100;
 
 const Map = styled.div.attrs(props => ({
         style: {
@@ -20,8 +20,8 @@ const Map = styled.div.attrs(props => ({
     image-rendering: pixelated;
     background-image: url("${process.env.PUBLIC_URL}/resources/maps/empty.png");
     background-size: 100%;
-    width: calc(10px * var(--grid-cell));
-    height: calc(10px * var(--grid-cell));
+    width: calc(15px * var(--grid-cell));
+    height: calc(15px * var(--grid-cell));
     position: relative;
     background-repeat: no-repeat;
 `;

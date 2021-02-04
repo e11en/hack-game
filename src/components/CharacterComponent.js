@@ -18,7 +18,6 @@ const Character = styled.div.attrs(props => ({
     height: calc(32px * var(--pixel-size));
     overflow: hidden;
     position: absolute;
-    outline: 2px solid cyan;
 `;
 
 const PixelArt = styled.img`

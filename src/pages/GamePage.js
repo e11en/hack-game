@@ -8,7 +8,7 @@ const GameArea = styled.div`
   width: calc(var(--pixel-size) * 350px);
   height: calc(var(--pixel-size) * 300px);
   overflow: hidden;
-  background: #61ddf7;
+  background: #53dbf7;
   position: relative;
 `;
 

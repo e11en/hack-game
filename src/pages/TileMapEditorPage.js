@@ -64,6 +64,9 @@ const intialLayerState = [
     {"5-5": [4, 1],"6-5": [3, 13],"7-5": [0, 14],"8-5": [1, 16],"9-5": [2, 12]},
 ];
 
+const mapWidth = 800;
+const mapHeight = 800;
+
 export default () => {
     const [selection, setSelection] = useState([0,0]);
     const canvasRef = useRef();
@@ -84,12 +87,12 @@ export default () => {
     const clearMap = () => {
         setLayers([{}, {}, {}]);
         const context = canvasRef.current.getContext("2d");
-        context.clearRect(0, 0, 480, 480);
+        context.clearRect(0, 0, mapWidth, mapHeight);
     };
     
     const draw = () => {
         const context = canvasRef.current.getContext("2d");
-        context.clearRect(0, 0, 480, 480);
+        context.clearRect(0, 0, mapWidth, mapHeight);
 
         const sizeOfCrop = 32;
         
@@ -162,8 +165,8 @@ export default () => {
                     </Tilesheet>
                 </div>
                 <div>
-                    <Canvas width="480" 
-                            height="480" 
+                    <Canvas width={mapWidth} 
+                            height={mapHeight} 
                             ref={canvasRef} 
                             onMouseDown={onCanvasMouseDown} 
                             onMouseUp={() => setIsMouseDown(false)}
