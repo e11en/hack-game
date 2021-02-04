@@ -17,8 +17,7 @@ const Dialog = styled.div.attrs(props => ({
     border: 3px solid #585653;
     color: #3b9e1c;
     z-index: 1;
-    //display: ${props => props.show ? "flex" : "none"};
-    display: flex;
+    display: ${props => props.show ? "flex" : "none"};
     flex-direction: column;
 `;
 
@@ -51,12 +50,17 @@ export default (props) => {
     const x = useSelector((state) => state.character.x);
     const y = useSelector((state) => state.character.y);
 
+    const onKeyUp = (e) => {
+        if (e.key === "Enter" && e.target.value === "exit")
+            props.exitCallback();
+    }
+
     return (
         <Dialog {...props} x={x} y={y}>
             <Text>{ props.children }</Text>
             <InputWrapper>
                 <span>{">"}</span>
-                <Input autoFocus={true} autoCorrect="false" autoComplete="false"/>
+                <Input autoFocus={true} autoCorrect="false" autoComplete="false" onKeyUp={onKeyUp}/>
             </InputWrapper>
         </Dialog>
     );
