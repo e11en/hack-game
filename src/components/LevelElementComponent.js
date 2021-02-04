@@ -9,16 +9,20 @@ const LevelElement = styled.div`
     height: calc(${props => props.height}px * var(--pixel-size));
     overflow: hidden;
     position: absolute;
+    outline: ${props => props.showOutline ? 3 : 0}px solid cyan;
 `;
 
 const Image = styled.img`
     width: calc(${props => props.width}px * var(--pixel-size));
 `;
 
-export default ({imageSource, x = 0, y = 0, width = 32, height = 32}) => {
+export default ({imageSource, x = 0, y = 0, width = 32, height = 32, showOutline = false}) => {
     return (
-        <LevelElement x={x} y={y} width={width} height={height}>
-            <Image src={process.env.PUBLIC_URL + imageSource} width={width}/>
+        <LevelElement x={x} y={y} width={width} height={height} showOutline={showOutline}>
+            {
+                imageSource &&
+                <Image src={process.env.PUBLIC_URL + imageSource} width={width}/>
+            }
         </LevelElement>
     );
 };

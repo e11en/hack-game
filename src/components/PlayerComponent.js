@@ -72,11 +72,12 @@ export default (props) => {
 
     return (
         <Character imageSrc="resources/characters/player/player.png"
-        direction={direction} 
-        isWalking={isWalking}
-        width={32}
-        height={32}
-        x={x} 
-        y={y}/>
+                    direction={direction} 
+                    isWalking={isWalking}
+                    width={32}
+                    height={32}
+                    x={x} 
+                    y={y}
+                    {...props}/>
     );
 };

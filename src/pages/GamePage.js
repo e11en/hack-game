@@ -12,11 +12,11 @@ const GameArea = styled.div`
   position: relative;
 `;
 
-export default () => {
+export default (props) => {
     return (
       <MapObjectsContext.Provider value={IntialMapObjectsContext}>
         <GameArea>
-          <Map/>
+          <Map {...props}/>
         </GameArea>
       </MapObjectsContext.Provider>
     );

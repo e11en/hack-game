@@ -6,6 +6,7 @@ import { ObjectType } from "../constants";
 import { MapObjectsContext } from "contexts";
 import Console from "./ConsoleComponent";
 import Player from "./PlayerComponent";
+import LevelElement from "./LevelElementComponent";
 
 const pixelSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pixel-size"));
 const camera_left = pixelSize * 170;
@@ -31,6 +32,7 @@ export default (props) => {
     const y = useSelector((state) => state.character.y);
     const mapObjectsContext = useContext(MapObjectsContext);
     const [mapObjects, setMapObjects] = useState([]);
+    const showOutline = props.location?.search?.includes("outline");
 
     useEffect(() => {
         const mapObjects = [];
@@ -39,13 +41,23 @@ export default (props) => {
             switch(mapObject.type)
             {
                 case ObjectType.CONSOLE:
-                    mapObjects.push(<Console key={"console-" + mapObject.x + "-" + mapObject.y} x={mapObject.x} y={mapObject.y} />);
+                    mapObjects.push(<Console key={"console-" + mapObject.x + "-" + mapObject.y} 
+                                                x={mapObject.x} 
+                                                y={mapObject.y} 
+                                                showOutline={showOutline}/>);
                     break;
-                default: break;
+                default:
+                    mapObjects.push(<LevelElement key={"console-" + mapObject.x + "-" + mapObject.y} 
+                                                    x={mapObject.x} 
+                                                    y={mapObject.y} 
+                                                    width={mapObject.width} 
+                                                    height={mapObject.height} 
+                                                    showOutline={showOutline}/>);
+                    break;
             }
         });
 
-        mapObjects.push(<Player key="player" />);
+        mapObjects.push(<Player key="player" showOutline={showOutline}/>);
 
         setMapObjects(mapObjects);
     }, [mapObjectsContext]);

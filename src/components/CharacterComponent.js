@@ -18,6 +18,7 @@ const Character = styled.div.attrs(props => ({
     height: calc(32px * var(--pixel-size));
     overflow: hidden;
     position: absolute;
+    outline: ${props => props.showOutline ? 3 : 0}px solid cyan;
 `;
 
 const PixelArt = styled.img`
@@ -64,7 +65,7 @@ const getDirectionClassName = (direction) => {
     }
 }
 
-export default ({imageSrc = "resources/characters/player/player.png", direction = Direction.DOWN, isWalking = false, x = 0, y = 0, width = 32, height = 32}) => {
+export default ({imageSrc = "resources/characters/player/player.png", direction = Direction.DOWN, isWalking = false, x = 0, y = 0, width = 32, height = 32, showOutline = false}) => {
     const mapObjectsContext = useContext(MapObjectsContext);
     const [directionClassName, setDirectionClassName] = useState(getDirectionClassName(direction));
     const [position, setPosition] = useState({x: x, y: y});
@@ -77,8 +78,11 @@ export default ({imageSrc = "resources/characters/player/player.png", direction 
     {
         let collidingObject;
         collingWith.filter(obj => obj.enabled).forEach(obj => {
-            if (x < obj.x + obj.hitBox.width  && x + width  > obj.x &&
-                y < obj.y + obj.hitBox.height && y + height > obj.y) {
+            const hitBoxWidth = obj.hitBox ? obj.hitBox.width : obj.width;
+            const hitBoxHeight = obj.hitBox ? obj.hitBox.height : obj.height;
+
+            if (x < obj.x + hitBoxWidth  && x + width  > obj.x &&
+                y < obj.y + hitBoxHeight && y + height > obj.y) {
                     collidingObject = obj;
                     return;
             }
@@ -134,7 +138,7 @@ export default ({imageSrc = "resources/characters/player/player.png", direction 
     }, [x, y]);
 
     return (
-        <Character position={position} ref={characterRef}>
+        <Character position={position} ref={characterRef} showOutline={showOutline}>
             <SpriteSheet src={process.env.PUBLIC_URL + imageSrc} className={`${directionClassName} ${isWalking ? "walking" : ""}`} />
         </Character>
     );

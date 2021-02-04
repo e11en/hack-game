@@ -9,5 +9,6 @@ export const MovementSpeed = 1;
 
 export const ObjectType = {
     PLAYER: 0,
-    CONSOLE: 1
+    CONSOLE: 1,
+    WALL: 2,
 };
