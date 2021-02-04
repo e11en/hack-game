@@ -8,7 +8,11 @@ export const IntialMapObjectsContext = [
         y: 96,
         enabled: true,
         width: 64,
-        height: 49
+        height: 49,
+        hitBox: {
+            width: 64,
+            height: 26
+        }
     }
 ];
 export const MapObjectsContext = createContext(IntialMapObjectsContext);

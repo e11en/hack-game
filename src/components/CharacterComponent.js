@@ -78,8 +78,8 @@ export default ({imageSrc = "resources/characters/player/player.png", direction 
     {
         let collidingObject;
         collingWith.filter(obj => obj.enabled).forEach(obj => {
-            if (x < obj.x + obj.width  && x + width  > obj.x &&
-                y < obj.y + obj.height && y + height > obj.y) {
+            if (x < obj.x + obj.hitBox.width  && x + width  > obj.x &&
+                y < obj.y + obj.hitBox.height && y + height > obj.y) {
                     collidingObject = obj;
                     return;
             }
