@@ -15,7 +15,7 @@ const Dialog = styled.div.attrs(props => ({
     height: 200px;
     background-color: #35312b;
     border: 3px solid #585653;
-    border-top: 25px solid #585653;
+    border-top: 32px solid #585653;
     color: #3b9e1c;
     z-index: 1;
     display: ${props => props.show ? "flex" : "none"};
@@ -24,10 +24,10 @@ const Dialog = styled.div.attrs(props => ({
 
 const Close = styled.div`
     position: absolute;
-    top: -21px;
+    top: -29px;
     right: 1px;
     background-color: #46423d;
-    padding: 1px 5px;
+    padding: 0px 8px 2px;
     color: #bfbfbf;
 
     &:hover {

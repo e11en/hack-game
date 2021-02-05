@@ -8,11 +8,11 @@ import Dialog from "./DialogComponent";
 import { idEquals } from "helpers/collision";
 
 const Text = styled.p`
-    margin: 1em;
+    margin: 10px;
 `;
 
 const InputWrapper = styled.div`
-    padding: 1em;
+    padding: 10px;
     position: absolute;
     bottom: 0;
 
@@ -22,7 +22,7 @@ const InputWrapper = styled.div`
 `;
 
 const Input = styled.input`
-    width: 339px;
+    width: 350px;
     border: none;
     background-color: #35312b;
     color: #3b9e1c;
