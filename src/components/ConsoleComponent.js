@@ -106,13 +106,13 @@ export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
     };
 
     const startMission = (missionId) => {
-        const mockMissionIds = ["abc123", "matrix"];
+        const mockMissionIds = ["test"];
         if (!mockMissionIds.includes(missionId)) {
             addToText("Mission with id '" + missionId + "' is not found.");
             return;
         }
 
-        console.log("missionId", missionId);
+        console.error("Not yet implemented");
         addToText("Starting mission...");
     };
 
