@@ -31,3 +31,7 @@ input {
   --pixel-size: 2;
   --grid-cell: calc( var(--pixel-size) * 32);
 }
+
+* {
+  image-rendering: pixelated;
+}

@@ -72,7 +72,7 @@ export default (props) => {
     }, [collidingDirection]);
 
     return (
-        <Character imageSrc="resources/characters/player/player.png"
+        <Character imageSrc="resources/characters/player.png"
                     direction={direction} 
                     isWalking={isWalking}
                     width={32}

@@ -19,7 +19,6 @@ const Map = styled.div.attrs(props => ({
         },
     }))
 `
-    image-rendering: pixelated;
     background-image: url("${process.env.PUBLIC_URL}/resources/maps/empty.png");
     background-size: 100%;
     width: calc(15px * var(--grid-cell));

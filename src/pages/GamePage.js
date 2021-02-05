@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { MapObjectsContext, IntialMapObjectsContext } from "state/contexts";
 import Map from "components/MapComponent";  
+import Hud from "components/HudComponent";
 
 const GameArea = styled.div`
   width: calc(var(--pixel-size) * 350px);
@@ -16,7 +17,8 @@ export default (props) => {
     return (
       <MapObjectsContext.Provider value={IntialMapObjectsContext}>
         <GameArea>
-          <Map {...props}/>
+          <Hud {...props} />
+          <Map {...props} />
         </GameArea>
       </MapObjectsContext.Provider>
     );

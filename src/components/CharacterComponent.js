@@ -22,10 +22,6 @@ const Character = styled.div.attrs(props => ({
     outline: ${props => props.showOutline ? 3 : 0}px solid cyan;
 `;
 
-const PixelArt = styled.img`
-    image-rendering: pixelated;
-`;
-
 const moveSpritesheet = keyframes`
     from {
         transform: translate3d(0,0,0);
@@ -35,7 +31,7 @@ const moveSpritesheet = keyframes`
     }
 `;
 
-const SpriteSheet = styled(PixelArt)`
+const SpriteSheet = styled.img`
     position: relative;
     width: calc(96px * var(--pixel-size));
 
@@ -66,7 +62,7 @@ const getDirectionClassName = (direction) => {
     }
 }
 
-export default ({imageSrc = "resources/characters/player/player.png", direction = Direction.DOWN, isWalking = false, x = 0, y = 0, width = 32, height = 32, showOutline = false}) => {
+export default ({imageSrc = "resources/characters/player.png", direction = Direction.DOWN, isWalking = false, x = 0, y = 0, width = 32, height = 32, showOutline = false}) => {
     const mapObjectsContext = useContext(MapObjectsContext);
     const [directionClassName, setDirectionClassName] = useState(getDirectionClassName(direction));
     const [position, setPosition] = useState({x: x, y: y});
