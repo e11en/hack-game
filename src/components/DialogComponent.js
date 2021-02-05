@@ -12,8 +12,7 @@ const Dialog = styled.div.attrs(props => ({
 `
     position: absolute;
     width: 400px;
-    min-height: 200px;
-    max-height: 240px;
+    height: 240px;
     background-color: #35312b;
     border: 3px solid #585653;
     border-top: 32px solid #585653;
