@@ -7,6 +7,7 @@ import { MapObjectsContext } from "state/contexts";
 import Console from "./ConsoleComponent";
 import Player from "./PlayerComponent";
 import LevelElement from "./LevelElementComponent";
+import Laser from "./LaserComponent";
 
 const pixelSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pixel-size"));
 const camera_left = pixelSize * 170;
@@ -38,21 +39,22 @@ export default (props) => {
         const mapObjects = [];
 
         mapObjectsContext.forEach(mapObject => {
+            const objectProps = {
+                ...mapObject,
+                key: mapObject.id ? mapObject.id : "object-" + mapObject.x + "-" + mapObject.y,
+                showOutline: showOutline,
+            };
+
             switch(mapObject.type)
             {
                 case ObjectType.CONSOLE:
-                    mapObjects.push(<Console key={"console-" + mapObject.x + "-" + mapObject.y} 
-                                                x={mapObject.x} 
-                                                y={mapObject.y} 
-                                                showOutline={showOutline}/>);
+                    mapObjects.push(<Console {...objectProps}/>);
+                    break;
+                case ObjectType.LASER:
+                    mapObjects.push(<Laser {...objectProps}/>);
                     break;
                 default:
-                    mapObjects.push(<LevelElement key={"console-" + mapObject.x + "-" + mapObject.y} 
-                                                    x={mapObject.x} 
-                                                    y={mapObject.y} 
-                                                    width={mapObject.width} 
-                                                    height={mapObject.height} 
-                                                    showOutline={showOutline}/>);
+                    mapObjects.push(<LevelElement {...objectProps}/>);
                     break;
             }
         });

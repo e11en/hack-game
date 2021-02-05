@@ -1,9 +1,11 @@
+import { MovementSpeed } from 'helpers/constants';
 import { CharacterActionTypes } from '../actions';
 
 const initialState = {
-    x: 96,
+    health: 100,
+    x: 300,
     y: 155,
-    speed: 1,
+    speed: MovementSpeed,
     isColliding: false,
     collidingWith: null,
     collidingDirection: null
@@ -44,6 +46,12 @@ export const characterReducer = (
           isColliding: action.payload.isColliding,
           collidingWith: action.payload.collidingWith,
           collidingDirection: action.payload.collidingDirection
+        };
+      }
+      case CharacterActionTypes.GET_DAMAGE: {
+        return {
+          ...state,
+          health: state.health - action.payload
         };
       }
       default:

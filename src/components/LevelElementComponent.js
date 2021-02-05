@@ -10,19 +10,13 @@ const LevelElement = styled.div`
     overflow: hidden;
     position: absolute;
     outline: ${props => props.showOutline ? 3 : 0}px solid cyan;
+    background-image: url("${props => props.imageSource}");
+    background-size: cover;
+    background-repeat: no-repeat;
 `;
 
-const Image = styled.img`
-    width: calc(${props => props.width}px * var(--pixel-size));
-`;
-
-export default ({imageSource, x = 0, y = 0, width = 32, height = 32, showOutline = false}) => {
+export default (props) => {
     return (
-        <LevelElement x={x} y={y} width={width} height={height} showOutline={showOutline}>
-            {
-                imageSource &&
-                <Image src={process.env.PUBLIC_URL + imageSource} width={width}/>
-            }
-        </LevelElement>
+        <LevelElement {...props}/>
     );
 };

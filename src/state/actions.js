@@ -3,7 +3,8 @@ export const CharacterActionTypes = {
     GO_RIGHT: "GO_RIGHT",
     GO_UP: "GO_UP",
     GO_DOWN: "GO_DOWN",
-    SET_COLLIDING: "SET_COLLIDING"
+    SET_COLLIDING: "SET_COLLIDING",
+    GET_DAMAGE: "GET_DAMAGE"
 }
 
 export const GoLeft = (speed) => (dispatch) => dispatch({type: CharacterActionTypes.GO_LEFT, payload: speed});
@@ -13,3 +14,5 @@ export const GoDown = (speed) => (dispatch) => dispatch({type: CharacterActionTy
 
 export const SetColliding = (isColliding, collidingWith, collidingDirection) => 
 (dispatch) => dispatch({type: CharacterActionTypes.SET_COLLIDING, payload: {isColliding, collidingWith, collidingDirection}});
+
+export const GetDamage = (damage) => (dispatch) => dispatch({type: CharacterActionTypes.GET_DAMAGE, payload: damage});

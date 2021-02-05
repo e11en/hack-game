@@ -40,5 +40,21 @@ export const IntialMapObjectsContext = [
         },
         hasInteraction: true
     },
+    {
+        id: "laser-269-95",
+        type: ObjectType.LASER,
+        x: 269,
+        y: 95,
+        enabled: true,
+        width: 96,
+        height: 20,
+        hasInteraction: true,
+        hasDamage: true,
+        damage: 10,
+        hitBox: {
+            width: 96,
+            height: 15
+        }
+    },
 ];
 export const MapObjectsContext = createContext(IntialMapObjectsContext);
