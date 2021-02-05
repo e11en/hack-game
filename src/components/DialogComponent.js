@@ -15,34 +15,25 @@ const Dialog = styled.div.attrs(props => ({
     height: 200px;
     background-color: #35312b;
     border: 3px solid #585653;
+    border-top: 25px solid #585653;
     color: #3b9e1c;
     z-index: 1;
     display: ${props => props.show ? "flex" : "none"};
     flex-direction: column;
 `;
 
-const Text = styled.p`
-    margin: 1em;
-`;
-
-const InputWrapper = styled.div`
-    padding: 1em;
+const Close = styled.div`
     position: absolute;
-    bottom: 0;
+    top: -21px;
+    right: 1px;
+    background-color: #46423d;
+    padding: 1px 5px;
+    color: #bfbfbf;
 
-    & > span {
-        margin-right: 10px;
-    }
-`;
-
-const Input = styled.input`
-    width: 339px;
-    border: none;
-    background-color: #35312b;
-    color: #3b9e1c;
-
-    &:focus {
-        outline: none;
+    &:hover {
+        color: #ffffff;
+        background-color: #c31818;
+        cursor: pointer;
     }
 `;
 
@@ -50,18 +41,10 @@ export default (props) => {
     const x = useSelector((state) => state.character.x);
     const y = useSelector((state) => state.character.y);
 
-    const onKeyUp = (e) => {
-        if (e.key === "Enter" && e.target.value === "exit")
-            props.exitCallback();
-    }
-
     return (
         <Dialog {...props} x={x} y={y}>
-            <Text>{ props.children }</Text>
-            <InputWrapper>
-                <span>{">"}</span>
-                <Input autoFocus={true} autoCorrect="false" autoComplete="false" onKeyUp={onKeyUp}/>
-            </InputWrapper>
+            <Close onClick={props.onClose}>x</Close>
+            { props.children }            
         </Dialog>
     );
 };
