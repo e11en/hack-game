@@ -1,8 +1,7 @@
 import React,{ useState, useEffect, useRef }  from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from "styled-components";
 
-import { IsInteracting } from 'state/actions';
 import LevelElement from "./LevelElementComponent";
 import Dialog from "./DialogComponent";
 import { idEquals } from "helpers/collision";
@@ -37,21 +36,18 @@ const Input = styled.input`
 `;
 
 export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
-    const dispatch = useDispatch();
-    const canInteract = useSelector((state) => state.character.canInteract);
     const collidingWith = useSelector((state) => state.character.collidingWith);
     const inputRef = useRef();
     const textRef = useRef();
 
-    const [showDialog, setShowDialog] = useState(true);
+    const [showDialog, setShowDialog] = useState(false);
     const [inputValue, setInputValue] = useState("");
 
     useEffect(() => {
-        if (canInteract && collidingWith && idEquals(collidingWith.id, "console", x, y)) {
-            setShowDialog(canInteract);
-            dispatch(IsInteracting(true));
+        if (collidingWith && idEquals(collidingWith.id, "console", x, y)) {
+            setShowDialog(true);
         }
-    }, [canInteract, collidingWith]);
+    }, [collidingWith]);
 
     useEffect(() => {
         if (showDialog) {
@@ -156,7 +152,6 @@ export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
     const dialogClose = () => {
         setInputValue("");
         setShowDialog(false);
-        dispatch(IsInteracting(false));
         textRef.current.innerHTML = "Type 'help' to show all available command. <br/>";
     };
 

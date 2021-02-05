@@ -6,9 +6,7 @@ const initialState = {
     speed: 1,
     isColliding: false,
     collidingWith: null,
-    collidingDirection: null,
-    canInteract: false,
-    isInteracting: false
+    collidingDirection: null
 };
 
 export const characterReducer = (
@@ -46,18 +44,6 @@ export const characterReducer = (
           isColliding: action.payload.isColliding,
           collidingWith: action.payload.collidingWith,
           collidingDirection: action.payload.collidingDirection
-        };
-      }
-      case CharacterActionTypes.CAN_INTERACT: {
-        return {
-          ...state,
-          canInteract: action.payload
-        };
-      }
-      case CharacterActionTypes.IS_INTERACTING: {
-        return {
-          ...state,
-          isInteracting: action.payload
         };
       }
       default:
