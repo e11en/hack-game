@@ -8,13 +8,13 @@ import Dialog from "./DialogComponent";
 import { idEquals } from "helpers/collision";
 
 const Text = styled.p`
-    margin: 10px;
+    margin: 5px;
+    overflow-x: auto;
+    flex: 1;
 `;
 
 const InputWrapper = styled.div`
-    padding: 10px;
-    position: absolute;
-    bottom: 0;
+    margin: 0 5px 5px;
 
     & > span {
         margin-right: 10px;
@@ -72,7 +72,24 @@ export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
     return (
         <React.Fragment>
             <Dialog show={showDialog} variant="console" onClose={dialogClose}>
-                <Text>Hallo, dit is een test 123</Text>
+                <Text>
+                    Hallo, dit is een test 123
+                    Hallo, dit is een test 123
+                    Hallo, dit is een test 123
+                    Hallo, dit is een test 123
+                    Hallo, dit is een test 123
+                    Hallo, dit is een test 123
+                    Hallo, dit is een test 123
+                    Hallo, dit is een test 123
+                    Hallo, dit is een test 123
+                    Hallo, dit is een test 123
+                    Hallo, dit is een test 123
+                    Hallo, dit is een test 123
+                    Hallo, dit is een test 123
+                    Hallo, dit is een test 123
+                    Hallo, dit is een test 123
+
+                </Text>
                 <InputWrapper>
                     <span>{">"}</span>
                     <Input autoFocus={true}

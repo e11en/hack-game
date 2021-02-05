@@ -6,13 +6,14 @@ const pixelSize = parseInt(getComputedStyle(document.documentElement).getPropert
 
 const Dialog = styled.div.attrs(props => ({
     style: {
-        transform: `translate3d(${(props.x * pixelSize) - 200}px, ${(props.y * pixelSize) - 50}px, 0)`
+        transform: `translate3d(${(props.x * pixelSize) - 200}px, ${(props.y * pixelSize) - 100}px, 0)`
     },
 }))
 `
     position: absolute;
     width: 400px;
-    height: 200px;
+    min-height: 200px;
+    max-height: 240px;
     background-color: #35312b;
     border: 3px solid #585653;
     border-top: 32px solid #585653;
