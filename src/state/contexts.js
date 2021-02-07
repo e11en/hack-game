@@ -56,5 +56,15 @@ export const IntialMapObjectsContext = [
             height: 15
         }
     },
+    {
+        id: "flag-310-60",
+        type: ObjectType.FLAG,
+        x: 310,
+        y: 60,
+        enabled: true,
+        width: 19,
+        height: 23,
+        hasInteraction: true
+    },
 ];
 export const MapObjectsContext = createContext(IntialMapObjectsContext);

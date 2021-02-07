@@ -8,6 +8,7 @@ import Console from "./ConsoleComponent";
 import Player from "./PlayerComponent";
 import LevelElement from "./LevelElementComponent";
 import Laser from "./LaserComponent";
+import Flag from "./FlagComponent";
 
 const pixelSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pixel-size"));
 const camera_left = pixelSize * 170;
@@ -39,6 +40,7 @@ export default (props) => {
 
         mapObjectsContext.forEach(mapObject => {
             const objectProps = {
+                ...props,
                 ...mapObject,
                 key: mapObject.id ? mapObject.id : "object-" + mapObject.x + "-" + mapObject.y,
                 showOutline: showOutline,
@@ -51,6 +53,9 @@ export default (props) => {
                     break;
                 case ObjectType.LASER:
                     mapObjects.push(<Laser {...objectProps}/>);
+                    break;
+                case ObjectType.FLAG:
+                    mapObjects.push(<Flag {...objectProps}/>);
                     break;
                 default:
                     mapObjects.push(<LevelElement {...objectProps}/>);

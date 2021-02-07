@@ -101,6 +101,20 @@ export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
         `);
     };
 
+    const startTestMission = () => {
+        setTimeout(() => {
+            addToText("This is a test mission, so you can sit back and relax!");
+            setTimeout(() => {
+                addToText("Disabling the laser...");
+
+                setTimeout(() => {
+                    props.disable("laser-269-95");
+                    addToText("Laser is disabled.");
+                }, 1000);
+            }, 1000);
+        }, 600);
+    };
+
     const startMission = (missionId) => {
         const mockMissionIds = ["test"];
         if (!mockMissionIds.includes(missionId)) {
@@ -108,8 +122,10 @@ export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
             return;
         }
 
-        console.error("Not yet implemented");
+        console.error("Not yet implemented.");
         addToText("Starting mission...");
+
+        startTestMission();
     };
 
     const processCommand = () => {

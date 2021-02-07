@@ -7,7 +7,7 @@ import { idEquals } from "helpers/collision";
 import LevelElement from "./LevelElementComponent";
 
 const Laser = styled(LevelElement)`
-    display: flex;
+    display: ${props => props.enabled ? "flex" : "none"};
     
     & img {
         flex: 1;

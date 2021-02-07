@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from 'react-redux';
 import styled from "styled-components";
 
@@ -32,16 +32,31 @@ const GameOver = styled.div`
 
 export default (props) => {
   const isGameOver = useSelector((state) => state.game.gameOver);
+  const [mapObjects, setMapObjects] = useState(IntialMapObjectsContext);
+
+  const disable = (id) => {
+    const arr = mapObjects;
+    const item = arr.filter(o => o.id === id);
+    if (!item) return;
+
+    const firstItem = item[0];
+    if (!firstItem) return;
+    
+    firstItem.enabled = false;
+
+    // TODO: Fix flashing of complete game area
+    setMapObjects([...arr]);
+  };
 
   return (
-    <MapObjectsContext.Provider value={IntialMapObjectsContext}>
+    <MapObjectsContext.Provider value={mapObjects}>
       <GameArea>
         {
           isGameOver &&
           <GameOver>GAME OVER!</GameOver>
         }
         <Hud {...props} />
-        <Map {...props} />
+        <Map {...props} disable={disable} />
       </GameArea>
     </MapObjectsContext.Provider>
   );

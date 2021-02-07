@@ -11,5 +11,6 @@ export const ObjectType = {
     PLAYER: 0,
     CONSOLE: 1,
     WALL: 2,
-    LASER: 3
+    LASER: 3,
+    FLAG: 4
 };

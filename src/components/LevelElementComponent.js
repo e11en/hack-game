@@ -13,6 +13,7 @@ const LevelElement = styled.div`
     background-image: url("${props => props.imageSource}");
     background-size: cover;
     background-repeat: no-repeat;
+    display: ${props => props.enabled ? "block" : "none"};
 `;
 
 export default (props) => {
