@@ -1,5 +1,6 @@
-import React, { useEffect }  from "react";
+import React, { useEffect, useState }  from "react";
 import { useDispatch, useSelector } from 'react-redux';
+import { GameOver } from "state/actions";
 import styled from "styled-components";
 
 const Hud = styled.div`
@@ -9,7 +10,7 @@ const Hud = styled.div`
     z-index: 1;
     right: 10px;
     top: 10px;
-    outline: 3px solid cyan;
+    outline: ${props => props.showOutline ? 3 : 0}px solid cyan;
 `;
 
 const Health = styled.div`
@@ -21,28 +22,46 @@ const Heart = styled.img`
     width: 30px;
 `;
 
-const Bar = styled.div`
+const BarWrapper = styled.div`
     margin-left: 5px;
     height: 10px;
     width: 65px;
+    background-color: white;
+    align-self: center;
+    border: 3px solid black;
+    position: relative;
+`;
+
+const Bar = styled.div`
+    margin-left: 5px;
+    height: 10px;
+    width: ${props => props.width}px;
     background-color: red;
     align-self: center;
+    position: absolute;
+    top: 0;
+    left: -5px;
 `;
 
 export default (props) => {
     const dispatch = useDispatch();
     const health = useSelector((state) => state.character.health);
+    const [healthBarWidth, setHealthBarWidth] = useState(health);
 
     useEffect(() => {
-        // if (health <= 0)
-        //     dispatch(Die());
+        setHealthBarWidth((61 / 100) * health);
+
+        if (health <= 0)
+            dispatch(GameOver());
     }, [health]);
 
     return (
         <Hud>
             <Health>
                 <Heart src={process.env.PUBLIC_URL + "resources/hud/heart.png"} />
-                <Bar />
+                <BarWrapper>
+                    <Bar width={healthBarWidth} />
+                </BarWrapper>
             </Health>
         </Hud>
     );

@@ -1,3 +1,9 @@
+export const GameActionTypes = {
+    GAME_OVER: "GAME_OVER"
+}
+
+export const GameOver = () => (dispatch) => dispatch({type: GameActionTypes.GAME_OVER});
+
 export const CharacterActionTypes = {
     GO_LEFT: "GO_LEFT",
     GO_RIGHT: "GO_RIGHT",
@@ -5,7 +11,7 @@ export const CharacterActionTypes = {
     GO_DOWN: "GO_DOWN",
     SET_COLLIDING: "SET_COLLIDING",
     GET_DAMAGE: "GET_DAMAGE"
-}
+};
 
 export const GoLeft = (speed) => (dispatch) => dispatch({type: CharacterActionTypes.GO_LEFT, payload: speed});
 export const GoRight = (speed) => (dispatch) => dispatch({type: CharacterActionTypes.GO_RIGHT, payload: speed});

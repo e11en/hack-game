@@ -27,6 +27,7 @@ export default (props) => {
     const isColliding = useSelector((state) => state.character.isColliding);
     const characterSpeed = useSelector((state) => state.character.speed);
     const collidingDirection = useSelector((state) => state.character.collidingDirection);
+    const isGameOver = useSelector((state) => state.game.gameOver);
 
     const move = (direction, speed) => {
         if (direction === Direction.RIGHT) dispatch(GoRight(speed));
@@ -46,7 +47,7 @@ export default (props) => {
 
     const keyDown = (e) => {
         const newDirection = keyToDirection(e.key);
-        if (newDirection !== null && newDirection !== undefined) {
+        if (newDirection !== null && newDirection !== undefined && !isGameOver) {
             startWalking(newDirection);
         }
     }
