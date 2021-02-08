@@ -1,7 +1,8 @@
-import React, { useEffect }  from "react";
+import React, { useEffect, useState }  from "react";
 import { useSelector } from 'react-redux';
 import styled from "styled-components";
 
+import Dialog from "./DialogComponent";
 import { idEquals } from "helpers/collision";
 import LevelElement from "./LevelElementComponent";
 
@@ -13,16 +14,32 @@ const Flag = styled(LevelElement)`
     }
 `;
 
+const Text = styled.div`
+    margin: 5px;
+`;
+
 export default (props) => {
     const collidingWith = useSelector((state) => state.character.collidingWith);
+    const [showDialog, setShowDialog] = useState(false);
+    const [text, setText] = useState("");
     
     useEffect(() => {
-        if (collidingWith && idEquals(collidingWith.id, "flag", props.x, props.y)) {
-            // TODO: show dialog with the CTF token
+        if (collidingWith && idEquals(collidingWith.id, "flag", props.x, props.y) && !showDialog) {
+            setShowDialog(true);
+            setText(collidingWith.text);
         }
     }, [collidingWith]);
 
     return (
-        <Flag imageSource="resources/level-elements/flag.png" {...props} />
+        <React.Fragment>
+            <Dialog show={showDialog} onClose={() => setShowDialog(false)}>
+                <Text>
+                    Well done! <br/>
+                    You found the token! <br/><br/>
+                    TOKEN: {"CTF{" + text  + "}"} <br/>
+                </Text>
+            </Dialog>
+            <Flag imageSource="resources/level-elements/flag.png" {...props} />
+        </React.Fragment>
     );
 };

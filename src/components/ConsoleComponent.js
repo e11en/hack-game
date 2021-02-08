@@ -173,7 +173,7 @@ export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
 
     return (
         <React.Fragment>
-            <Dialog show={showDialog} variant="console" onClose={dialogClose}>
+            <Dialog show={showDialog} onClose={dialogClose}>
                 <Text ref={textRef}>
                     Type 'help' to show all available command. <br/>
                 </Text>

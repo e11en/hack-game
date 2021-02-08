@@ -61,10 +61,15 @@ export const IntialMapObjectsContext = [
         type: ObjectType.FLAG,
         x: 310,
         y: 60,
+        text: "THIS_IS_A_TEST",
         enabled: true,
         width: 19,
         height: 23,
-        hasInteraction: true
+        hasInteraction: true,
+        hitBox: {
+            width: 19,
+            height: 10
+        }
     },
 ];
 export const MapObjectsContext = createContext(IntialMapObjectsContext);
