@@ -3,6 +3,20 @@ import { ObjectType } from "../helpers/constants";
 
 export const IntialMapObjectsContext = [
     {
+        id: "door-440-27",
+        type: ObjectType.DOOR,
+        x: 440,
+        y: 27,
+        enabled: true,
+        width: 32,
+        height: 32,
+        hitBox: {
+            width: 64,
+            height: 10
+        },
+        hasInteraction: true
+    },
+    {
         type: ObjectType.WALL,
         x: 0,
         y: 0,
@@ -64,7 +78,7 @@ export const IntialMapObjectsContext = [
         text: "THIS_IS_A_TEST",
         enabled: true,
         width: 19,
-        height: 23,
+        height: 25,
         hasInteraction: true,
         hitBox: {
             width: 19,

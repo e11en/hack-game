@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector } from 'react-redux';
 
@@ -37,14 +37,119 @@ const Close = styled.div`
     }
 `;
 
-export default (props) => {
+const Text = styled.p`
+    margin: 5px;
+    overflow-x: auto;
+    flex: 1;
+
+    & td {
+        min-width: 3em;
+    }
+`;
+
+const InputWrapper = styled.div`
+    margin: 0 5px 5px;
+
+    & > span {
+        margin-right: 10px;
+    }
+`;
+
+const Input = styled.input`
+    width: 350px;
+    border: none;
+    background-color: #35312b;
+    color: #3b9e1c;
+
+    &:focus {
+        outline: none;
+    }
+`;
+
+export default ({show = false, text = "", onCommand = () => {}, onClose = () => {}, hasInput = true, ...props}) => {
     const x = useSelector((state) => state.character.x);
     const y = useSelector((state) => state.character.y);
+    const [inputValue, setInputValue] = useState("");
+    const inputRef = useRef();
+    const textRef = useRef();
 
+    useEffect(() => {
+        if (show) {
+            alwaysFocus();
+            scrollDown();    
+        }
+    }, [show]);
+
+    useEffect(() => {
+        addToText(text);
+    }, [text]); 
+
+    const processCommand = () => {
+        if (inputValue === "exit") {
+            dialogClose();
+            return;
+        }
+
+        if (onCommand(inputValue)) return;
+
+        addToText("Command '" + inputValue + "' is not found.");
+    };
+
+    const onKeyUp = (e) => {
+        if (e.key === "Enter") {
+            addInputToText();
+            processCommand();
+            setInputValue("");
+        }
+    };
+
+    const dialogClose = () => {
+        textRef.current.innerHTML = "";
+        onClose();
+    };
+
+    const addInputToText = () => {
+        addToText("> " + inputValue);
+    };
+
+    const addToText = (text) => {
+        if (textRef && textRef.current)
+            textRef.current.innerHTML += text + "<br/>";
+
+        scrollDown();
+    };
+
+    const scrollDown = () => {
+        if (textRef && textRef.current)
+        textRef.current.scrollTop = textRef.current.scrollHeight;
+    };
+
+    const alwaysFocus = () => {
+        if (inputRef && inputRef.current)
+            inputRef.current.focus();
+    };
+
+    const onChange = (e) => {
+        setInputValue(e.target.value);
+    };
+    
     return (
-        <Dialog {...props} x={x} y={y}>
-            <Close onClick={props.onClose}>x</Close>
-            { props.children }            
+        <Dialog show={show} x={x} y={y}>
+            <Close onClick={dialogClose}>x</Close>
+            <Text ref={textRef}></Text>
+            {
+                hasInput &&
+                <InputWrapper>
+                    <span>{">"}</span>
+                    <Input autoFocus={true}
+                        onKeyUp={onKeyUp}
+                        onChange={onChange}
+                        onBlur={alwaysFocus}
+                        value={inputValue}
+                        ref={inputRef}/>
+                </InputWrapper>  
+            }
+            {props.children}
         </Dialog>
     );
 };

@@ -1,89 +1,50 @@
-import React,{ useState, useEffect, useRef }  from "react";
+import React,{ useState, useEffect }  from "react";
 import { useSelector } from 'react-redux';
-import styled from "styled-components";
 
 import LevelElement from "./LevelElementComponent";
 import Dialog from "./DialogComponent";
 import { idEquals } from "helpers/collision";
 
-const Text = styled.p`
-    margin: 5px;
-    overflow-x: auto;
-    flex: 1;
-
-    & td {
-        min-width: 3em;
-    }
-`;
-
-const InputWrapper = styled.div`
-    margin: 0 5px 5px;
-
-    & > span {
-        margin-right: 10px;
-    }
-`;
-
-const Input = styled.input`
-    width: 350px;
-    border: none;
-    background-color: #35312b;
-    color: #3b9e1c;
-
-    &:focus {
-        outline: none;
-    }
-`;
-
 export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
     const collidingWith = useSelector((state) => state.character.collidingWith);
-    const inputRef = useRef();
-    const textRef = useRef();
-
     const [showDialog, setShowDialog] = useState(false);
-    const [inputValue, setInputValue] = useState("");
-
+    const [text, setText] = useState("Type 'help' to show all available command. <br/>");
+    
     useEffect(() => {
         if (collidingWith && idEquals(collidingWith.id, "console", x, y)) {
             setShowDialog(true);
         }
     }, [collidingWith]);
 
-    useEffect(() => {
-        if (showDialog) {
-            alwaysFocus();
-        
-        scrollDown();    
+    const startTestMission = () => {
+        setTimeout(() => {
+            setText("This is a test mission, so you can sit back and relax!");
+            setTimeout(() => {
+                setText("Disabling the laser...");
+
+                setTimeout(() => {
+                    props.disable("laser-269-95");
+                    setText("Laser is disabled.");
+                }, 1000);
+            }, 1000);
+        }, 600);
+    };
+
+    const startMission = (missionId) => {
+        const mockMissionIds = ["test"];
+        if (!mockMissionIds.includes(missionId)) {
+            setText("Mission with id '" + missionId + "' is not found.");
+            return;
         }
-    }, [showDialog]);
 
-    const scrollDown = () => {
-        if (textRef && textRef.current)
-        textRef.current.scrollTop = textRef.current.scrollHeight;
-    };
+        console.error("Not yet implemented.");
+        setText("Starting mission...");
 
-    const alwaysFocus = () => {
-        if (inputRef && inputRef.current)
-            inputRef.current.focus();
-    };
-
-    const onChange = (e) => {
-        setInputValue(e.target.value);
-    };
-
-    const addInputToText = () => {
-        addToText("> " + inputValue);
-    };
-
-    const addToText = (text) => {
-        if (textRef && textRef.current)
-            textRef.current.innerHTML += text + "<br/>";
-
-        scrollDown();
+        startTestMission();
     };
 
     const showHelpText = () => {
-        addToText(`
+        setText(`
             <table>
                 <tr>
                     <td>help</td>
@@ -101,92 +62,36 @@ export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
         `);
     };
 
-    const startTestMission = () => {
-        setTimeout(() => {
-            addToText("This is a test mission, so you can sit back and relax!");
-            setTimeout(() => {
-                addToText("Disabling the laser...");
-
-                setTimeout(() => {
-                    props.disable("laser-269-95");
-                    addToText("Laser is disabled.");
-                }, 1000);
-            }, 1000);
-        }, 600);
-    };
-
-    const startMission = (missionId) => {
-        const mockMissionIds = ["test"];
-        if (!mockMissionIds.includes(missionId)) {
-            addToText("Mission with id '" + missionId + "' is not found.");
-            return;
+    const onCommand = (command) => {
+        if (command === "help") {
+            showHelpText();
         }
 
-        console.error("Not yet implemented.");
-        addToText("Starting mission...");
-
-        startTestMission();
-    };
-
-    const processCommand = () => {
-        if (inputValue.includes("start")) {
-            const input = inputValue.split(" ").filter(i => i && i !== "start");
+        if (command.includes("start")) {
+            const input = command.split(" ").filter(i => i && i !== "start");
             if (input.length > 1) {
-                addToText("A mission id can only be one word. (example: start Yt8fiW)");
-                return;
+                setText("A mission id can only be one word. (example: start Yt8fiW)");
+                return false;
             }
             else if (input.length === 0) {
-                addToText("No mission id provided. (example: start Yt8fiW)");
-                return;
+                setText("No mission id provided. (example: start Yt8fiW)");
+                return false;
             }
 
             startMission(input[0]);
-            return;
+            return true;
         }
 
-        switch(inputValue) {
-            case "help": 
-                showHelpText();
-                break;
-            case "exit": 
-                dialogClose();
-                break;
-            default:
-                addToText("Command '" + inputValue + "' is not found.");
-                break;
-        }
-    };
-
-    const onKeyUp = (e) => {
-        if (e.key === "Enter") {
-            addInputToText();
-            processCommand();
-            setInputValue("");
-        }
+        return false;
     };
 
     const dialogClose = () => {
-        setInputValue("");
         setShowDialog(false);
-        textRef.current.innerHTML = "Type 'help' to show all available command. <br/>";
     };
 
     return (
         <React.Fragment>
-            <Dialog show={showDialog} onClose={dialogClose}>
-                <Text ref={textRef}>
-                    Type 'help' to show all available command. <br/>
-                </Text>
-                <InputWrapper>
-                    <span>{">"}</span>
-                    <Input autoFocus={true}
-                        onKeyUp={onKeyUp}
-                        onChange={onChange}
-                        onBlur={alwaysFocus}
-                        value={inputValue}
-                        ref={inputRef}/>
-                </InputWrapper>
-            </Dialog>
+            <Dialog show={showDialog} onClose={dialogClose} onCommand={onCommand} text={text}/>
             <LevelElement x={x} 
                         y={y} 
                         imageSource="resources/level-elements/console.png"

@@ -9,6 +9,7 @@ import Player from "./PlayerComponent";
 import LevelElement from "./LevelElementComponent";
 import Laser from "./LaserComponent";
 import Flag from "./FlagComponent";
+import Door from "./DoorComponent";
 
 const pixelSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pixel-size"));
 const camera_left = pixelSize * 170;
@@ -56,6 +57,9 @@ export default (props) => {
                     break;
                 case ObjectType.FLAG:
                     mapObjects.push(<Flag {...objectProps}/>);
+                    break;
+                case ObjectType.DOOR:
+                    mapObjects.push(<Door {...objectProps}/>);
                     break;
                 default:
                     mapObjects.push(<LevelElement {...objectProps}/>);
