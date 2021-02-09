@@ -24,6 +24,7 @@ export default (props) => {
 
     const x = useSelector((state) => state.character.x);
     const y = useSelector((state) => state.character.y);
+    const health = useSelector((state) => state.character.health);
     const isColliding = useSelector((state) => state.character.isColliding);
     const characterSpeed = useSelector((state) => state.character.speed);
     const collidingDirection = useSelector((state) => state.character.collidingDirection);
@@ -71,6 +72,10 @@ export default (props) => {
             move(collidingDirection, -1);
 
     }, [collidingDirection]);
+
+    useEffect(() => {
+        move(collidingDirection, -20);
+    }, [health]);
 
     return (
         <Character imageSrc="resources/characters/player.png"
