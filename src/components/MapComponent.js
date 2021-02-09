@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import styled from "styled-components";
 
 import { ObjectType } from "../helpers/constants";
-import { LevelContext } from "state/context";
+import { MapContext, MapObjectsContext } from "state/context";
 import Console from "./ConsoleComponent";
 import Player from "./PlayerComponent";
 import LevelElement from "./LevelElementComponent";
@@ -32,14 +32,15 @@ const Map = styled.div.attrs(props => ({
 export default (props) => {
     const x = useSelector((state) => state.character.x);
     const y = useSelector((state) => state.character.y);
-    const levelContext = useContext(LevelContext);
+    const mapContext = useContext(MapContext);
+    const mapObjectsContext = useContext(MapObjectsContext);
     const [mapObjects, setMapObjects] = useState([]);
     const showOutline = props.location?.search?.includes("outline");
 
     useEffect(() => {
-        const mapObjects = [];
+        const mappedObjects = [];
 
-        levelContext.mapObjects.forEach(mapObject => {
+        mapObjectsContext.forEach(mapObject => {
             const objectProps = {
                 ...props,
                 ...mapObject,
@@ -50,30 +51,30 @@ export default (props) => {
             switch(mapObject.type)
             {
                 case ObjectType.CONSOLE:
-                    mapObjects.push(<Console {...objectProps}/>);
+                    mappedObjects.push(<Console {...objectProps}/>);
                     break;
                 case ObjectType.LASER:
-                    mapObjects.push(<Laser {...objectProps}/>);
+                    mappedObjects.push(<Laser {...objectProps}/>);
                     break;
                 case ObjectType.FLAG:
-                    mapObjects.push(<Flag {...objectProps}/>);
+                    mappedObjects.push(<Flag {...objectProps}/>);
                     break;
                 case ObjectType.DOOR:
-                    mapObjects.push(<Door {...objectProps}/>);
+                    mappedObjects.push(<Door {...objectProps}/>);
                     break;
                 default:
-                    mapObjects.push(<LevelElement {...objectProps}/>);
+                    mappedObjects.push(<LevelElement {...objectProps}/>);
                     break;
             }
         });
 
-        mapObjects.push(<Player key="player" showOutline={showOutline}/>);
+        mappedObjects.push(<Player key="player" showOutline={showOutline}/>);
 
-        setMapObjects(mapObjects);
-    }, [levelContext]);
+        setMapObjects(mappedObjects);
+    }, [mapObjectsContext]);
 
     return (
-        <Map x={x} y={y} map={props.map}>
+        <Map x={x} y={y} map={mapContext.image}>
             { mapObjects.map(o => o) }
         </Map>
     );

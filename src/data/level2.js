@@ -1,16 +1,14 @@
 import { ObjectType } from "helpers/constants";
 
-const intialMapObjects = [
+export const Level2MapObjectsContext = [
 
 ];
 
-const initialCharacterOptions = {
+export const Level2CharacterOptionsContext = {
     x: 250,
     y: 150
 };
 
-export const Level2Context = {
-    map: "level2.png",
-    mapObjects: intialMapObjects,
-    characterOptions: initialCharacterOptions
+export const Level2lMapContext = {
+    image: "level2.png"
 };
