@@ -60,7 +60,7 @@ const getDirectionClassName = (direction) => {
     }
 }
 
-export default ({imageSrc = "resources/characters/player.png", direction = Direction.DOWN, isWalking = false, x = 0, y = 0, showOutline = false}) => {
+export default ({imageSrc = "resources/characters/female-1.png", direction = Direction.DOWN, isWalking = false, x = 0, y = 0, showOutline = false}) => {
     const [directionClassName, setDirectionClassName] = useState(getDirectionClassName(direction));
     const [position, setPosition] = useState({x: x, y: y});
     const characterRef = useRef();
