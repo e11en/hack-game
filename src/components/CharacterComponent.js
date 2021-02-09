@@ -3,7 +3,7 @@ import styled, { keyframes } from "styled-components";
 import { useDispatch, useSelector } from 'react-redux';
 
 import { SetColliding } from 'state/actions';
-import { MapObjectsContext } from "state/contexts";
+import { LevelContext } from "state/context";
 import { Direction } from "../helpers/constants";
 import { hitTest } from "helpers/collision";
 
@@ -63,7 +63,7 @@ const getDirectionClassName = (direction) => {
 }
 
 export default ({imageSrc = "resources/characters/player.png", direction = Direction.DOWN, isWalking = false, x = 0, y = 0, width = 32, height = 32, showOutline = false}) => {
-    const mapObjectsContext = useContext(MapObjectsContext);
+    const levelContext = useContext(LevelContext);
     const [directionClassName, setDirectionClassName] = useState(getDirectionClassName(direction));
     const [position, setPosition] = useState({x: x, y: y});
     const characterRef = useRef();
@@ -83,7 +83,7 @@ export default ({imageSrc = "resources/characters/player.png", direction = Direc
     useEffect(() => {
         if (!characterRef || !characterRef.current) return;
         
-        const result = hitTest(mapObjectsContext, {x, y, width, height});
+        const result = hitTest(levelContext.mapObjects, {x, y, width, height});
         if (result)
             hasCollision(result[0], result[1]);
         else 

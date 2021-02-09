@@ -82,9 +82,10 @@ export default (props) => {
     };
 
     const onClick = () => {
+        // TODO: Add animation and call to backend
         if (inputValue === "CTF{THIS_IS_A_TEST}") {
             setShowDialog(false);
-            console.error("Not yet implemented.");
+            props.changeLevel(2);
         }
         else
             setHasError(true);

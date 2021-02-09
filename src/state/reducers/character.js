@@ -3,8 +3,8 @@ import { CharacterActionTypes } from '../actions';
 
 const initialState = {
     health: 100,
-    x: 300,
-    y: 150,
+    x: 0,
+    y: 0,
     speed: MovementSpeed,
     isColliding: false,
     collidingWith: null,
@@ -38,6 +38,13 @@ export const characterReducer = (
         return {
           ...state,
           y: state.y + action.payload
+        };
+      }
+      case CharacterActionTypes.SET_POSITION: {
+        return {
+          ...state,
+          x: action.payload.x,
+          y: action.payload.y
         };
       }
       case CharacterActionTypes.SET_COLLIDING: {

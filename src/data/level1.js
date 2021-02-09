@@ -1,7 +1,6 @@
-import { createContext } from "react";
-import { ObjectType } from "../helpers/constants";
+import { ObjectType } from "helpers/constants";
 
-export const IntialMapObjectsContext = [
+const intialMapObjects = [
     {
         id: "door-440-27",
         type: ObjectType.DOOR,
@@ -86,4 +85,14 @@ export const IntialMapObjectsContext = [
         }
     },
 ];
-export const MapObjectsContext = createContext(IntialMapObjectsContext);
+
+const initialCharacterOptions = {
+    x: 300,
+    y: 150
+};
+
+export const Level1Context = {
+    map: "level1.png",
+    mapObjects: intialMapObjects,
+    characterOptions: initialCharacterOptions
+};

@@ -16,6 +16,7 @@ const Flag = styled(LevelElement)`
 
 const Text = styled.div`
     margin: 5px;
+    height: 100%;
 `;
 
 export default (props) => {
@@ -32,7 +33,7 @@ export default (props) => {
 
     return (
         <React.Fragment>
-            <Dialog show={showDialog} onClose={() => setShowDialog(false)}>
+            <Dialog show={showDialog} onClose={() => setShowDialog(false)} hasInput={false}>
                 <Text>
                     Well done! <br/>
                     You found the token! <br/><br/>

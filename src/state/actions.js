@@ -10,9 +10,11 @@ export const CharacterActionTypes = {
     GO_UP: "GO_UP",
     GO_DOWN: "GO_DOWN",
     SET_COLLIDING: "SET_COLLIDING",
-    GET_DAMAGE: "GET_DAMAGE"
+    GET_DAMAGE: "GET_DAMAGE",
+    SET_POSITION: "SET_POSITION"
 };
 
+export const SetPosition = (x, y) => (dispatch) => dispatch({type: CharacterActionTypes.SET_POSITION, payload: {x: x, y: y}});
 export const GoLeft = (speed) => (dispatch) => dispatch({type: CharacterActionTypes.GO_LEFT, payload: speed});
 export const GoRight = (speed) => (dispatch) => dispatch({type: CharacterActionTypes.GO_RIGHT, payload: speed});
 export const GoUp = (speed) => (dispatch) => dispatch({type: CharacterActionTypes.GO_UP, payload: speed});

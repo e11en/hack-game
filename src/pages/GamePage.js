@@ -1,8 +1,11 @@
-import React, { useState } from "react";
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import styled from "styled-components";
 
-import { MapObjectsContext, IntialMapObjectsContext } from "state/contexts";
+import { SetPosition } from 'state/actions';
+import { InitialLevelContext, LevelContext } from "state/context";
+import { Level1Context } from "data/level1";
+import { Level2Context } from "data/level2";
 import Map from "components/MapComponent";  
 import Hud from "components/HudComponent";
 
@@ -31,11 +34,12 @@ const GameOver = styled.div`
 `;
 
 export default (props) => {
+  const dispatch = useDispatch();
   const isGameOver = useSelector((state) => state.game.gameOver);
-  const [mapObjects, setMapObjects] = useState(IntialMapObjectsContext);
+  const [levelContext, setLevelContext] = useState(InitialLevelContext);
 
-  const disable = (id) => {
-    const arr = mapObjects;
+  const onDisable = (id) => {
+    const arr = levelContext.mapObjects;
     const item = arr.filter(o => o.id === id);
     if (!item) return;
 
@@ -44,20 +48,43 @@ export default (props) => {
     
     firstItem.enabled = false;
 
+    const updatedContext = {
+      ...levelContext,
+      mapObjects: [...arr]
+    }
+
     // TODO: Fix flashing of complete game area
-    setMapObjects([...arr]);
+    setLevelContext(updatedContext);
   };
 
+  const onLevelChange = (level) => {
+    let context = null;
+    
+    switch(level) {
+      case 1: context = Level1Context;
+              break;
+      case 2: context = Level2Context;
+              break;
+    }
+
+    setLevelContext(context);
+    dispatch(SetPosition(context.characterOptions.x, context.characterOptions.y));
+  };
+
+  useEffect(() => {
+    onLevelChange(1);
+  }, []);
+
   return (
-    <MapObjectsContext.Provider value={mapObjects}>
+    <LevelContext.Provider value={levelContext}>
       <GameArea>
         {
           isGameOver &&
           <GameOver>GAME OVER!</GameOver>
         }
         <Hud {...props} />
-        <Map {...props} disable={disable} />
+        <Map {...props} map={levelContext.map} disable={onDisable} changeLevel={onLevelChange}/>
       </GameArea>
-    </MapObjectsContext.Provider>
+    </LevelContext.Provider>
   );
 };
