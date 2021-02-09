@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 
+import { SetColliding } from 'state/actions';
+import { hitTest } from "helpers/collision";
+import { MapObjectsContext } from "state/context";
 import { GoLeft, GoRight, GoUp, GoDown } from 'state/actions';
 import { Direction } from "../helpers/constants";
 import Character from "./CharacterComponent";
@@ -22,9 +25,11 @@ export default (props) => {
     const [isWalking, setIsWalking] = useState(false);
     const [heldDirections, setHeldDirections] = useState([]);
 
+    const mapObjectsContext = useContext(MapObjectsContext);
     const x = useSelector((state) => state.character.x);
     const y = useSelector((state) => state.character.y);
     const health = useSelector((state) => state.character.health);
+    const collidingWith = useSelector((state) => state.character.collidingWith);
     const isColliding = useSelector((state) => state.character.isColliding);
     const characterSpeed = useSelector((state) => state.character.speed);
     const collidingDirection = useSelector((state) => state.character.collidingDirection);
@@ -77,12 +82,24 @@ export default (props) => {
         move(collidingDirection, -20);
     }, [health]);
 
+    const hasCollision = (collisionObject, collidingDirection) => {
+        if(!isColliding || collidingWith !== collisionObject) {
+            dispatch(SetColliding(true, collisionObject, collidingDirection));
+        }
+    };
+
+    useEffect(() => {
+        const result = hitTest(mapObjectsContext, {x, y, width: 32, height: 32});
+        if (result)
+            hasCollision(result[0], result[1]);
+        else 
+            dispatch(SetColliding(false, null, null));
+    }, [x, y]);
+
     return (
         <Character imageSrc="resources/characters/player.png"
                     direction={direction} 
                     isWalking={isWalking}
-                    width={32}
-                    height={32}
                     x={x} 
                     y={y}
                     {...props}/>

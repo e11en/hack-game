@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 import { SetPosition } from 'state/actions';
 import { InitialMapContext, MapContext } from "state/context";
-import { InitialCharacterOptionsContext, CharacterOptionsContext } from "state/context";
 import { InitialMapObjectsContext, MapObjectsContext } from "state/context";
 import { Level1lMapContext, Level1CharacterOptionsContext, Level1MapObjectsContext } from "data/level1";
 import { Level2lMapContext, Level2CharacterOptionsContext, Level2MapObjectsContext } from "data/level2";
@@ -39,7 +38,6 @@ export default (props) => {
   const dispatch = useDispatch();
   const isGameOver = useSelector((state) => state.game.gameOver);
   const [mapContext, setMapContext] = useState(InitialMapContext);
-  const [characterOptionsContext, setCharacterOptionsContext] = useState(InitialCharacterOptionsContext);
   const [mapObjectsContext, setMapObjectsContext] = useState(InitialMapObjectsContext);
 
   const onDisable = (id) => {
@@ -80,7 +78,6 @@ export default (props) => {
       setMapObjectsContext(levelMapObjectsContext);
 
     if(levelCharacterOptionsContext) {
-      setCharacterOptionsContext(levelCharacterOptionsContext);
       dispatch(SetPosition(levelCharacterOptionsContext.x, levelCharacterOptionsContext.y));
     }
   };

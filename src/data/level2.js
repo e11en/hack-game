@@ -1,5 +1,3 @@
-import { ObjectType } from "helpers/constants";
-
 export const Level2MapObjectsContext = [
 
 ];

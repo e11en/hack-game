@@ -13,5 +13,6 @@ export const ObjectType = {
     WALL: 2,
     LASER: 3,
     FLAG: 4,
-    DOOR: 5
+    DOOR: 5,
+    CHARACTER: 6
 };

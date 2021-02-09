@@ -10,6 +10,7 @@ import LevelElement from "./LevelElementComponent";
 import Laser from "./LaserComponent";
 import Flag from "./FlagComponent";
 import Door from "./DoorComponent";
+import Character from "./CharacterComponent";
 
 const pixelSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pixel-size"));
 const camera_left = pixelSize * 170;
@@ -32,8 +33,10 @@ const Map = styled.div.attrs(props => ({
 export default (props) => {
     const x = useSelector((state) => state.character.x);
     const y = useSelector((state) => state.character.y);
+
     const mapContext = useContext(MapContext);
     const mapObjectsContext = useContext(MapObjectsContext);
+
     const [mapObjects, setMapObjects] = useState([]);
     const showOutline = props.location?.search?.includes("outline");
 
@@ -61,6 +64,9 @@ export default (props) => {
                     break;
                 case ObjectType.DOOR:
                     mappedObjects.push(<Door {...objectProps}/>);
+                    break;
+                case ObjectType.CHARACTER:
+                    mappedObjects.push(<Character {...objectProps}/>);
                     break;
                 default:
                     mappedObjects.push(<LevelElement {...objectProps}/>);

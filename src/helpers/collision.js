@@ -1,9 +1,9 @@
 import { Direction, MovementSpeed } from "./constants";
 
-const singleHitTest = (collingWith, x, y, hitTester) =>
+const singleHitTest = (collidingWith, x, y, hitTester) =>
 {
     let collidingObject;
-    collingWith.filter(obj => obj.enabled).forEach(obj => {
+    collidingWith.filter(obj => obj.enabled).forEach(obj => {
         const hitBoxWidth = obj.hitBox ? obj.hitBox.width : obj.width;
         const hitBoxHeight = obj.hitBox ? obj.hitBox.height : obj.height;
 

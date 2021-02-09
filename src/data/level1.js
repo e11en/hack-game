@@ -1,4 +1,4 @@
-import { ObjectType } from "helpers/constants";
+import { Direction, ObjectType } from "helpers/constants";
 
 export const Level1lMapContext = {
     image: "level1.png"
@@ -92,5 +92,18 @@ export const Level1MapObjectsContext = [
             width: 19,
             height: 10
         }
+    },
+    {
+        id: "character-400-200",
+        type: ObjectType.CHARACTER,
+        imageSrc: "resources/characters/female-1.png",
+        x: 400,
+        y: 200,
+        text: "Hi! Can you open the door? It needs some sort of token..",
+        enabled: true,
+        width: 32,
+        height: 32,
+        hasInteraction: true,
+        direction: Direction.LEFT
     },
 ];

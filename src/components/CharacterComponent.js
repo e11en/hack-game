@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { SetColliding } from 'state/actions';
-import { MapObjectsContext } from "state/context";
+import { idEquals } from "helpers/collision";
 import { Direction } from "../helpers/constants";
-import { hitTest } from "helpers/collision";
 
 const pixelSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pixel-size"));
 
@@ -62,20 +60,12 @@ const getDirectionClassName = (direction) => {
     }
 }
 
-export default ({imageSrc = "resources/characters/player.png", direction = Direction.DOWN, isWalking = false, x = 0, y = 0, width = 32, height = 32, showOutline = false}) => {
-    const mapObjectsContext = useContext(MapObjectsContext);
+export default ({imageSrc = "resources/characters/player.png", direction = Direction.DOWN, isWalking = false, x = 0, y = 0, showOutline = false}) => {
     const [directionClassName, setDirectionClassName] = useState(getDirectionClassName(direction));
     const [position, setPosition] = useState({x: x, y: y});
     const characterRef = useRef();
-    const dispatch = useDispatch();
-    const isCollidingState = useSelector((state) => state.character.isColliding);
-    const collidingWithState = useSelector((state) => state.character.collingWith);
-
-    const hasCollision = (collisionObject, collidingDirection) => {
-        if(!isCollidingState || collidingWithState !== collisionObject) {
-            dispatch(SetColliding(true, collisionObject, collidingDirection));
-        }
-    }
+    const collidingWith = useSelector((state) => state.character.collidingWith);
+    
     useEffect(() => {
         setDirectionClassName(getDirectionClassName(direction));
     }, [direction]);
@@ -83,14 +73,14 @@ export default ({imageSrc = "resources/characters/player.png", direction = Direc
     useEffect(() => {
         if (!characterRef || !characterRef.current) return;
         
-        const result = hitTest(mapObjectsContext, {x, y, width, height});
-        if (result)
-            hasCollision(result[0], result[1]);
-        else 
-            dispatch(SetColliding(false, null, null));
-
         setPosition({x: x, y: y});
     }, [x, y]);
+
+    useEffect(() => {
+        if (collidingWith && idEquals(collidingWith.id, "character", x, y)) {
+            console.log("CHARACTER COLLIDE");
+        }
+    }, [collidingWith]);    
 
     return (
         <Character position={position} ref={characterRef} showOutline={showOutline}>
