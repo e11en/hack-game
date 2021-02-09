@@ -17,14 +17,18 @@ const Door = styled(LevelElement)`
 const Wrapper = styled.div`
     position: absolute;
     width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
-    top: 60px;
 `;
 
 const Text = styled.p`
-    margin: 5px;
+    margin: 30px 5px;
+`;
+
+const ErrorText = styled.p`
+    color: #c31818;
 `;
 
 const Input = styled.input`
@@ -39,7 +43,8 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-    margin-top: 10px;
+    position: absolute;
+    bottom: 20px;
     border: 3px solid #3b9e1c;
     color: #3b9e1c;
     background-color: transparent;
@@ -61,8 +66,9 @@ const Button = styled.button`
 
 export default (props) => {
     const collidingWith = useSelector((state) => state.character.collidingWith);
-    const [showDialog, setShowDialog] = useState(true);
+    const [showDialog, setShowDialog] = useState(false);
     const [inputValue, setInputValue] = useState("");
+    const [hasError, setHasError] = useState(false);
     
     useEffect(() => {
         if (collidingWith && idEquals(collidingWith.id, "door", props.x, props.y) && !showDialog) {
@@ -70,20 +76,35 @@ export default (props) => {
         }
     }, [collidingWith]);
 
+    const onChange = (e) => {
+        setInputValue(e.target.value);
+        setHasError(false);
+    };
+
     const onClick = () => {
-        if (inputValue === "CTF{THIS_IS_A_TEST}")
-            console.log("correct!");
-        else {
-            console.log("incorrect!");
+        if (inputValue === "CTF{THIS_IS_A_TEST}") {
+            setShowDialog(false);
+            console.error("Not yet implemented.");
         }
+        else
+            setHasError(true);
+    };
+
+    const onClose = () => {
+        setShowDialog(false);
+        setInputValue("");
     };
 
     return (
         <React.Fragment>
-            <Dialog show={showDialog} onClose={() => setShowDialog(false)} hasInput={false}>
+            <Dialog show={showDialog} onClose={onClose} hasInput={false}>
                 <Wrapper>
                     <Text>ENTER TOKEN: <br/></Text>
-                    <Input autoFocus={true} value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
+                    <Input autoFocus={true} value={inputValue} onChange={onChange}/>
+                    {
+                        hasError &&
+                        <ErrorText>Incorrect token, try again</ErrorText>
+                    }
                     <Button onClick={onClick}>UNLOCK</Button>
                 </Wrapper>
             </Dialog>

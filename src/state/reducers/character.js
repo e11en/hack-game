@@ -3,8 +3,8 @@ import { CharacterActionTypes } from '../actions';
 
 const initialState = {
     health: 100,
-    x: 440,
-    y: 60,
+    x: 300,
+    y: 150,
     speed: MovementSpeed,
     isColliding: false,
     collidingWith: null,
