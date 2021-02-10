@@ -6,10 +6,11 @@ import Dialog from "./DialogComponent";
 import { idEquals } from "helpers/collision";
 import { ConsoleTexts } from "data/translations";
 
-export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
+export default ({x = 0, y = 0, width = 64, height = 49, mission = {}, ...props}) => {
     const language = useSelector((state) => state.game.language);
     const collidingWith = useSelector((state) => state.character.collidingWith);
     const [showDialog, setShowDialog] = useState(false);
+    const [missionStarted, setMissionStarted] = useState(false);
     const dialogRef = useRef();
 
     useEffect(() => {
@@ -23,25 +24,14 @@ export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
         dialogRef.current.setText(text);
     };
 
-    const startTestMission = () => {
-        setTimeout(() => {
-            setText("This is a test mission, so you can sit back and relax!");
-            setTimeout(() => {
-                setText("Disabling the laser...");
-
-                setTimeout(() => {
-                    props.disable("laser-269-95");
-                    setText("Laser is disabled.");
-                }, 1000);
-            }, 1000);
-        }, 600);
-    };
-
     const startMission = () => {
+        setMissionStarted(true);
         setText(ConsoleTexts.startMissionText[language]);
+        setText("");
 
-        console.error("Not yet implemented.");
-        startTestMission();
+        mission.startText[language].forEach(line => {
+            setText(line);
+        });
     };
 
     const showHelpText = () => {
@@ -64,6 +54,21 @@ export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
     };
 
     const onCommand = (command) => {
+        if (missionStarted && command === mission.answer) {
+            mission.actionText[language].forEach(line => {
+                setText(line);
+            });
+
+            mission.action(props);
+            setTimeout(() => {
+                mission.finishText[language].forEach(line => {
+                    setText(line);
+                });
+            }, 1000);
+            
+            return true;
+        }
+
         if (command === "help") {
             showHelpText();
             return true;

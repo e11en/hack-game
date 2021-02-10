@@ -64,6 +64,52 @@ export const Level1MapObjectsContext = [
         id: "console-96-96",
         x: 96,
         y: 96,
+        mission: {
+            startText: {
+                "EN": 
+                [
+                    "Crack the following code:",
+                    "",
+                    "V'ir ybpxrq gur qbbe naq uvqqra gur xrl haqre gur synt. Gur cnffjbeq gb qvfnoyr gur ynfre vf: pnrfne-pvcure",
+                    "",
+                    "Enter password to disable the laser:"
+                ],
+                "NL": 
+                [
+                    "Kraak de volgende code:",
+                    "",
+                    "Vx uro qr qrhe bcfybg trqnna ra qr fyrhgry baqre qr iynt irefgbcg. Urg jnpugjbbeq bz qr ynfre hvg gr fpunxryra vf: pnrfne-pvcure",
+                    "",
+                    "Voer het wachtwoord in om de laser uit te schakelen:"
+                ]
+            },
+            answer: "caesar-cipher",
+            actionText: {
+                "EN": 
+                [
+                    "Disabling the laser.."
+                ],
+                "NL": 
+                [
+                    "Laser uitschakelen.."
+                ]
+            },
+            action: (props) => {
+                setTimeout(() => {
+                    props.disable("laser-269-95");
+                }, 1000);
+            },
+            finishText: {
+                "EN": 
+                [
+                    "Laser is disabled.",
+                ],
+                "NL": 
+                [
+                    "Laser is uitgeschakeld.",
+                ]
+            }
+        }
     },
     {
         ...Laser,
@@ -76,7 +122,7 @@ export const Level1MapObjectsContext = [
         id: "flag-310-60",
         x: 310,
         y: 60,
-        text: "THIS_IS_A_TEST"
+        text: "CAESAR_CIPHER_IS_NOT_SECURE"
     },
     {
         ...Character,
