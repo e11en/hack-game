@@ -5,8 +5,8 @@ import styled from "styled-components";
 import { SetPosition } from 'state/actions';
 import { InitialMapContext, MapContext } from "state/context";
 import { InitialMapObjectsContext, MapObjectsContext } from "state/context";
-import { Level1lMapContext, Level1CharacterOptionsContext, Level1MapObjectsContext } from "data/level1";
-import { Level2lMapContext, Level2CharacterOptionsContext, Level2MapObjectsContext } from "data/level2";
+import { Level1lMapContext, Level1CharacterOptionsContext, Level1MapObjectsContext } from "data/levels/level1";
+import { Level2lMapContext, Level2CharacterOptionsContext, Level2MapObjectsContext } from "data/levels/level2";
 import Map from "components/MapComponent";  
 import Hud from "components/HudComponent";
 
