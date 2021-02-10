@@ -62,6 +62,13 @@ export const characterReducer = (
         };
       }
       case CharacterActionTypes.GET_HEALTH: {
+        if(state.health + action.payload > 100) {
+          return {
+            ...state,
+            health: 100
+          };
+        }
+
         return {
           ...state,
           health: state.health + action.payload

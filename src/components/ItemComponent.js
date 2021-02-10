@@ -8,9 +8,11 @@ import LevelElement from "./LevelElementComponent";
 export default (props) => {
     const dispatch = useDispatch();
     const collidingWith = useSelector((state) => state.character.collidingWith);
+    const health = useSelector((state) => state.character.health);
     
     useEffect(() => {
         if (collidingWith && idEquals(collidingWith.id, "item", props.x, props.y)) {
+            if (props.health && health === 100) return;
             if (props.health)
                 dispatch(GetHealth(props.health));
 
