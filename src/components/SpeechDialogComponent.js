@@ -34,6 +34,7 @@ const Close = styled.div`
 
 export default ({show, text, onClose}) => {
     const textRef = useRef();
+    const language = useSelector((state) => state.game.language);
     const characterX = useSelector((state) => state.character.x);
     const characterY = useSelector((state) => state.character.y);
     const [textState, setTextState] = useState([]);
@@ -49,7 +50,7 @@ export default ({show, text, onClose}) => {
 
         setTextState(<Typist startDelay={200} cursor={{show: false}} onCharacterTyped={scrollDown} onTypingDone={() => setSpeechIsDone(true)}>
             {
-                text.map(text => <div key={text}>{text}<Typist.Delay ms={500} /></div>)
+                text[language].map(text => <div key={text}>{text}<Typist.Delay ms={500} /></div>)
             }
         </Typist>);
     }, [show]);

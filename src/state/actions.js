@@ -1,8 +1,10 @@
 export const GameActionTypes = {
-    GAME_OVER: "GAME_OVER"
+    GAME_OVER: "GAME_OVER",
+    SET_LANGUAGE: "SET_LANGUAGE",
 }
 
 export const GameOver = () => (dispatch) => dispatch({type: GameActionTypes.GAME_OVER});
+export const SetLanguage = (language) => (dispatch) => dispatch({type: GameActionTypes.SET_LANGUAGE, payload: language});
 
 export const CharacterActionTypes = {
     GO_LEFT: "GO_LEFT",

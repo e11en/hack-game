@@ -1,7 +1,8 @@
 import { GameActionTypes } from '../actions';
 
 const initialState = {
-    gameOver: false
+    gameOver: false,
+    language: "EN"
 };
 
 export const gameReducer = (
@@ -13,6 +14,12 @@ export const gameReducer = (
         return {
           ...state,
           gameOver: true
+        };
+      }
+      case GameActionTypes.SET_LANGUAGE: {
+        return {
+          ...state,
+          language: action.payload
         };
       }
       default:

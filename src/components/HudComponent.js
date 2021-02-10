@@ -1,7 +1,9 @@
 import React, { useEffect, useState }  from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { GameOver } from "state/actions";
 import styled from "styled-components";
+
+import LanguagePicker from "components/LanguagePickerComponent";
+import { GameOver } from "state/actions";
 
 const Hud = styled.div`
     height: 50px;
@@ -63,6 +65,7 @@ export default (props) => {
                     <Bar width={healthBarWidth} />
                 </BarWrapper>
             </Health>
+            <LanguagePicker {...props} />
         </Hud>
     );
 };

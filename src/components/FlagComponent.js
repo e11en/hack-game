@@ -19,7 +19,13 @@ const Text = styled.div`
     height: 100%;
 `;
 
+const tokenText = {
+    "EN": "Well done! <br/>You found the token! <br/><br/>TOKEN: ",
+    "NL": "Goed gedaan! <br/>Je hebt de token gevonden! <br/><br/>TOKEN: "
+};
+
 export default (props) => {
+    const language = useSelector((state) => state.game.language);
     const collidingWith = useSelector((state) => state.character.collidingWith);
     const [showDialog, setShowDialog] = useState(false);
     const [text, setText] = useState("");
@@ -34,11 +40,7 @@ export default (props) => {
     return (
         <React.Fragment>
             <Dialog show={showDialog} onClose={() => setShowDialog(false)} hasInput={false}>
-                <Text>
-                    Well done! <br/>
-                    You found the token! <br/><br/>
-                    TOKEN: {"CTF{" + text  + "}"} <br/>
-                </Text>
+                <Text dangerouslySetInnerHTML={{__html: tokenText[language] + "CTF{" + text  + "}<br/>"}}/>
             </Dialog>
             <Flag imageSource="resources/level-elements/flag.png" {...props} />
         </React.Fragment>

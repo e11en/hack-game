@@ -61,7 +61,7 @@ const getDirectionClassName = (direction) => {
     }
 }
 
-export default ({imageSrc = "resources/characters/female-1.png", direction = Direction.DOWN, isWalking = false, x = 0, y = 0, showOutline = false, text = []}) => {
+export default ({imageSrc = "resources/characters/female-1.png", direction = Direction.DOWN, isWalking = false, x = 0, y = 0, showOutline = false, text = {}}) => {
     const characterRef = useRef();
     const collidingWith = useSelector((state) => state.character.collidingWith);
     const [directionClassName, setDirectionClassName] = useState(getDirectionClassName(direction));

@@ -84,7 +84,10 @@ export const Level1MapObjectsContext = [
         imageSrc: "resources/characters/female-1.png",
         x: 400,
         y: 200,
-        text: ["Hi!","Can you open the door?","It needs some sort of token.."],
+        text: {
+            "EN": ["Hi!","Can you open the door?","It needs some sort of token..", "Maybe you should checkout the computer!"],
+            "NL": ["Hi!","Krijg jij de deur open?","Blijkbaar heb je een token nodig..", "Misschien kan je de computer proberen!"],
+        },
         direction: Direction.LEFT
     },
 ];

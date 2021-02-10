@@ -66,7 +66,15 @@ const Input = styled.input`
     }
 `;
 
+const commandNotFoundText = (command) => {
+    return {
+        "EN": "Command '" + command + "' is not found.",
+        "NL": "Commando '" + command + "' is niet gevonden."
+    };
+};
+
 export default forwardRef(({show = false, onCommand = () => {}, onClose = () => {}, hasInput = true, ...props}, ref) => {
+    const language = useSelector((state) => state.game.language);
     const x = useSelector((state) => state.character.x);
     const y = useSelector((state) => state.character.y);
     const [inputValue, setInputValue] = useState("");
@@ -94,7 +102,7 @@ export default forwardRef(({show = false, onCommand = () => {}, onClose = () => 
 
         if (onCommand(inputValue)) return;
 
-        addToText("Command '" + inputValue + "' is not found.");
+        addToText(commandNotFoundText(inputValue)[language]);
     };
 
     const onKeyUp = (e) => {

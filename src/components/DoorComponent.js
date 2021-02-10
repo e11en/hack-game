@@ -64,7 +64,23 @@ const Button = styled.button`
     }
 `;
 
+const enterTokenText = {
+    "EN": "ENTER TOKEN: ",
+    "NL": "VOER TOKEN IN: "
+};
+
+const errorText = {
+    "EN": "Incorrect token, try again",
+    "NL": "Token is incorrect, probeer opnieuw"
+};
+
+const buttonText = {
+    "EN": "UNLOCK",
+    "NL": "ONTGRENDEL"
+};
+
 export default (props) => {
+    const language = useSelector((state) => state.game.language);
     const collidingWith = useSelector((state) => state.character.collidingWith);
     const [showDialog, setShowDialog] = useState(false);
     const [inputValue, setInputValue] = useState("");
@@ -100,13 +116,13 @@ export default (props) => {
         <React.Fragment>
             <Dialog show={showDialog} onClose={onClose} hasInput={false}>
                 <Wrapper>
-                    <Text>ENTER TOKEN: <br/></Text>
+                    <Text>{enterTokenText[language]}<br/></Text>
                     <Input autoFocus={true} value={inputValue} onChange={onChange}/>
                     {
                         hasError &&
-                        <ErrorText>Incorrect token, try again</ErrorText>
+                        <ErrorText>{errorText[language]}</ErrorText>
                     }
-                    <Button onClick={onClick}>UNLOCK</Button>
+                    <Button onClick={onClick}>{buttonText[language]}</Button>
                 </Wrapper>
             </Dialog>
             <Door imageSource="resources/level-elements/door.png" {...props} />
