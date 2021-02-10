@@ -1,4 +1,4 @@
-import React,{ useState, useEffect }  from "react";
+import React,{ useState, useEffect, useRef }  from "react";
 import { useSelector } from 'react-redux';
 
 import LevelElement from "./LevelElementComponent";
@@ -8,14 +8,18 @@ import { idEquals } from "helpers/collision";
 export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
     const collidingWith = useSelector((state) => state.character.collidingWith);
     const [showDialog, setShowDialog] = useState(false);
-    const [text, setText] = useState("");
-    
+    const dialogRef = useRef();
+
     useEffect(() => {
-        if (collidingWith && idEquals(collidingWith.id, "console", x, y)) {
+        if (collidingWith && idEquals(collidingWith.id, "console", x, y) && !showDialog) {
             setShowDialog(true);
             setText("Type 'help' to show all available command. <br/>");
         }
     }, [collidingWith]);
+
+    const setText = (text) => {
+        dialogRef.current.setText(text);
+    };
 
     const startTestMission = () => {
         setTimeout(() => {
@@ -31,14 +35,7 @@ export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
         }, 600);
     };
 
-    const startMission = (missionId) => {
-        const mockMissionIds = ["test"];
-        if (!mockMissionIds.includes(missionId)) {
-            setText("Mission with id '" + missionId + "' is not found.");
-            return;
-        }
-
-        console.error("Not yet implemented.");
+    const startMission = () => {
         setText("Starting mission...");
 
         startTestMission();
@@ -57,7 +54,7 @@ export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
                 </tr>
                 <tr>
                     <td>start</td>
-                    <td>Start a mission. (example: start Yt8fiW)</td>
+                    <td>Start the mission.</td>
                 </tr>
             </table>
         `);
@@ -69,32 +66,17 @@ export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
             return true;
         }
 
-        if (command.includes("start")) {
-            const input = command.split(" ").filter(i => i && i !== "start");
-            if (input.length > 1) {
-                setText("A mission id can only be one word. (example: start Yt8fiW)");
-                return false;
-            }
-            else if (input.length === 0) {
-                setText("No mission id provided. (example: start Yt8fiW)");
-                return false;
-            }
-
-            startMission(input[0]);
+        if (command === "start") {
+            startMission();
             return true;
         }
 
         return false;
     };
 
-    const dialogClose = () => {
-        setText("");
-        setShowDialog(false);
-    };
-
     return (
         <React.Fragment>
-            <Dialog show={showDialog} onClose={dialogClose} onCommand={onCommand} text={text}/>
+            <Dialog show={showDialog} onClose={() => setShowDialog(false)} onCommand={onCommand} ref={dialogRef}/>
             <LevelElement x={x} 
                         y={y} 
                         imageSource="resources/level-elements/console.png"

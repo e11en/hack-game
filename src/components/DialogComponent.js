@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, forwardRef, useImperativeHandle } from "react";
 import styled from "styled-components";
 import { useSelector } from 'react-redux';
 
@@ -66,7 +66,7 @@ const Input = styled.input`
     }
 `;
 
-export default ({show = false, text = "", onCommand = () => {}, onClose = () => {}, hasInput = true, ...props}) => {
+export default forwardRef(({show = false, onCommand = () => {}, onClose = () => {}, hasInput = true, ...props}, ref) => {
     const x = useSelector((state) => state.character.x);
     const y = useSelector((state) => state.character.y);
     const [inputValue, setInputValue] = useState("");
@@ -80,9 +80,11 @@ export default ({show = false, text = "", onCommand = () => {}, onClose = () => 
         }
     }, [show]);
 
-    useEffect(() => {
-        addToText(text);
-    }, [text]); 
+    useImperativeHandle(ref, () => ({
+        setText(text) {
+            addToText(text);
+        }
+    }));
 
     const processCommand = () => {
         if (inputValue === "exit") {
@@ -97,7 +99,7 @@ export default ({show = false, text = "", onCommand = () => {}, onClose = () => 
 
     const onKeyUp = (e) => {
         if (e.key === "Enter") {
-            addInputToText();
+            addToText("> " + inputValue);
             processCommand();
             setInputValue("");
         }
@@ -106,10 +108,6 @@ export default ({show = false, text = "", onCommand = () => {}, onClose = () => 
     const dialogClose = () => {
         textRef.current.innerHTML = "";
         onClose();
-    };
-
-    const addInputToText = () => {
-        addToText("> " + inputValue);
     };
 
     const addToText = (text) => {
@@ -152,4 +150,4 @@ export default ({show = false, text = "", onCommand = () => {}, onClose = () => 
             {props.children}
         </Dialog>
     );
-};
+});
