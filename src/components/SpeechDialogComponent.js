@@ -3,11 +3,11 @@ import styled from "styled-components";
 import Typist from 'react-typist';
 import { useSelector } from 'react-redux';
 
-const pixelSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pixel-size"));
+import { getPixelSize } from "../helpers/constants";
 
 const Dialog = styled.div.attrs(props => ({
     style: {
-        transform: `translate3d(${(props.x * pixelSize) - 340}px, ${(props.y * pixelSize) + 275}px, 0)`
+        transform: `translate3d(${(props.x * getPixelSize()) - 340}px, ${(props.y * getPixelSize()) + 275}px, 0)`
     },
 }))`
     position: absolute;

@@ -1,3 +1,5 @@
+export const getPixelSize = () => parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pixel-size"));
+
 export const MovementSpeed = 1;
 
 export const Direction = {

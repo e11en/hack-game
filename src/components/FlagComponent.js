@@ -20,8 +20,6 @@ const Text = styled.div`
     height: 100%;
 `;
 
-
-
 export default (props) => {
     const language = useSelector((state) => state.game.language);
     const collidingWith = useSelector((state) => state.character.collidingWith);

@@ -3,14 +3,12 @@ import styled, { keyframes } from "styled-components";
 import { useSelector } from 'react-redux';
 
 import { idEquals } from "helpers/collision";
-import { Direction } from "../helpers/constants";
+import { Direction, getPixelSize } from "../helpers/constants";
 import SpeechDialog from "components/SpeechDialogComponent";
-
-const pixelSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pixel-size"));
 
 const Character = styled.div.attrs(props => ({
     style: {
-        transform: `translate3d(${props.position.x * pixelSize}px, ${props.position.y * pixelSize}px, 0)`
+        transform: `translate3d(${props.position.x * getPixelSize()}px, ${props.position.y * getPixelSize()}px, 0)`
     },
 }))
 `

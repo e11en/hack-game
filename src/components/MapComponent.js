@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import styled from "styled-components";
 
-import { ObjectType } from "../helpers/constants";
+import { ObjectType, getPixelSize } from "../helpers/constants";
 import { MapContext, MapObjectsContext } from "state/context";
 import Console from "./ConsoleComponent";
 import Player from "./PlayerComponent";
@@ -13,7 +13,7 @@ import Door from "./DoorComponent";
 import Character from "./CharacterComponent";
 import Item from "./ItemComponent";
 
-const pixelSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pixel-size"));
+const pixelSize = getPixelSize();
 const camera_left = pixelSize * 170;
 const camera_top = pixelSize * 100;
 

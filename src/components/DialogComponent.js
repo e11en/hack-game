@@ -3,12 +3,11 @@ import styled from "styled-components";
 import { useSelector } from 'react-redux';
 
 import { DialogTexts } from "data/translations";
-
-const pixelSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pixel-size"));
+import { getPixelSize } from "../helpers/constants";
 
 const Dialog = styled.div.attrs(props => ({
     style: {
-        transform: `translate3d(${(props.x * pixelSize) - 200}px, ${(props.y * pixelSize) - 100}px, 0)`
+        transform: `translate3d(${(props.x * getPixelSize()) - 200}px, ${(props.y * getPixelSize()) - 100}px, 0)`
     },
 }))
 `

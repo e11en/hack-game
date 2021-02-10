@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-const pixelSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pixel-size"));
+import { getPixelSize } from "../helpers/constants";
 
 const LevelElement = styled.div`
-    transform: translate3d(${props => props.x * pixelSize}px, ${props => props.y * pixelSize}px, 0);
+    transform: translate3d(${props => props.x * getPixelSize()}px, ${props => props.y * getPixelSize()}px, 0);
     width: calc(${props => props.width}px * var(--pixel-size));
     height: calc(${props => props.height}px * var(--pixel-size));
     overflow: hidden;
