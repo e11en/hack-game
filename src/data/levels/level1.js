@@ -6,8 +6,8 @@ export const Level1lMapContext = {
 };
 
 export const Level1CharacterOptionsContext = {
-    x: 300,
-    y: 150
+    x: 400,
+    y: 250
 };
 
 export const Level1MapObjectsContext = [
@@ -37,6 +37,27 @@ export const Level1MapObjectsContext = [
         y: 32,
         width: 50,
         height: 80
+    },
+    {
+        ...Wall,
+        x: 480,
+        y: 30,
+        width: 10,
+        height: 320
+    },
+    {
+        ...Wall,
+        x: -10,
+        y: 30,
+        width: 10,
+        height: 330
+    },
+    {
+        ...Wall,
+        x: 0,
+        y: 345,
+        width: 480,
+        height: 10
     },
     {
         ...Console,
