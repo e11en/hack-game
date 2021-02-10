@@ -21,6 +21,17 @@ const Dialog = styled.div.attrs(props => ({
     display: ${props => props.show ? "block" : "none"};
 `;
 
+const Close = styled.div`
+    position: absolute;
+    top: 0px;
+    right: 7px;
+
+    &:hover {
+        color: #7d7d7d;
+        cursor: pointer;
+    }
+`;
+
 export default ({show, text, onClose}) => {
     const textRef = useRef();
     const characterX = useSelector((state) => state.character.x);
@@ -46,13 +57,18 @@ export default ({show, text, onClose}) => {
     useEffect(() => {
         if (!show || !speechIsDone) return;
 
+        close();
+    }, [characterX, characterY]);
+
+    const close = () => {
         onClose();
         setSpeechIsDone(false);
         setTextState("");
-    }, [characterX, characterY]);
+    }
 
     return (
         <Dialog ref={textRef} show={show} x={characterX} y={characterY}>
+            <Close onClick={close}>x</Close>
             {textState}
         </Dialog>
     );
