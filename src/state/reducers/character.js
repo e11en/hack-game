@@ -2,7 +2,7 @@ import { MovementSpeed } from 'helpers/constants';
 import { CharacterActionTypes } from '../actions';
 
 const initialState = {
-    health: 90,
+    health: 100,
     x: 0,
     y: 0,
     speed: MovementSpeed,
