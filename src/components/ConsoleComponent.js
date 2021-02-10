@@ -1,5 +1,5 @@
 import React,{ useState, useEffect, useRef }  from "react";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import LevelElement from "./LevelElementComponent";
 import Dialog from "./DialogComponent";
@@ -7,6 +7,7 @@ import { idEquals } from "helpers/collision";
 import { ConsoleTexts } from "data/translations";
 
 export default ({x = 0, y = 0, width = 64, height = 49, mission = {}, ...props}) => {
+    const dispatch = useDispatch();
     const language = useSelector((state) => state.game.language);
     const collidingWith = useSelector((state) => state.character.collidingWith);
     const [showDialog, setShowDialog] = useState(false);
@@ -59,7 +60,7 @@ export default ({x = 0, y = 0, width = 64, height = 49, mission = {}, ...props})
                 setText(line);
             });
 
-            mission.action(props);
+            mission.action(dispatch);
             setTimeout(() => {
                 mission.finishText[language].forEach(line => {
                     setText(line);

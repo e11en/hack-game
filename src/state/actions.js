@@ -1,11 +1,15 @@
+// GAME
 export const GameActionTypes = {
     GAME_OVER: "GAME_OVER",
     SET_LANGUAGE: "SET_LANGUAGE",
+    SET_MAP: "SET_MAP",
 }
 
 export const GameOver = () => (dispatch) => dispatch({type: GameActionTypes.GAME_OVER});
 export const SetLanguage = (language) => (dispatch) => dispatch({type: GameActionTypes.SET_LANGUAGE, payload: language});
+export const SetMap = (map) => (dispatch) => dispatch({type: GameActionTypes.SET_MAP, payload: map});
 
+// CHARACTER
 export const CharacterActionTypes = {
     GO_LEFT: "GO_LEFT",
     GO_RIGHT: "GO_RIGHT",
@@ -28,3 +32,12 @@ export const SetColliding = (isColliding, collidingWith, collidingDirection) =>
 
 export const GetDamage = (damage) => (dispatch) => dispatch({type: CharacterActionTypes.GET_DAMAGE, payload: damage});
 export const GetHealth = (health) => (dispatch) => dispatch({type: CharacterActionTypes.GET_HEALTH, payload: health});
+
+// MAP OBJECTS
+export const MapObjectActionTypes = {
+    REPLACE_OBJECTS: "REPLACE_OBJECTS",
+    DISABLE_OBJECT: "DISABLE_OBJECT"
+};
+
+export const ReplaceObjects = (objects) => (dispatch) => dispatch({type: MapObjectActionTypes.REPLACE_OBJECTS, payload: objects});
+export const DisableObject = (id) => (dispatch) => dispatch({type: MapObjectActionTypes.DISABLE_OBJECT, payload: id});

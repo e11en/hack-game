@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 
 import { SetColliding } from 'state/actions';
 import { hitTest } from "helpers/collision";
-import { MapObjectsContext } from "state/context";
 import { GoLeft, GoRight, GoUp, GoDown } from 'state/actions';
 import { Direction } from "../helpers/constants";
 import Character from "./CharacterComponent";
@@ -25,7 +24,7 @@ export default (props) => {
     const [isWalking, setIsWalking] = useState(false);
     const [heldDirections, setHeldDirections] = useState([]);
 
-    const mapObjectsContext = useContext(MapObjectsContext);
+    const mapObjectsState = useSelector((state) => state.mapObjects);
     const x = useSelector((state) => state.character.x);
     const y = useSelector((state) => state.character.y);
     const health = useSelector((state) => state.character.health);
@@ -89,7 +88,7 @@ export default (props) => {
     };
 
     useEffect(() => {
-        const result = hitTest(mapObjectsContext, {x, y, width: 32, height: 32});
+        const result = hitTest(mapObjectsState, {x, y, width: 32, height: 32});
         if (result)
             hasCollision(result[0], result[1]);
         else 

@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import styled from "styled-components";
 
 import { ObjectType, getPixelSize } from "../helpers/constants";
-import { MapContext, MapObjectsContext } from "state/context";
 import Console from "./ConsoleComponent";
 import Player from "./PlayerComponent";
 import LevelElement from "./LevelElementComponent";
@@ -34,9 +33,8 @@ const Map = styled.div.attrs(props => ({
 export default (props) => {
     const x = useSelector((state) => state.character.x);
     const y = useSelector((state) => state.character.y);
-
-    const mapContext = useContext(MapContext);
-    const mapObjectsContext = useContext(MapObjectsContext);
+    const mapImage = useSelector((state) => state.game.map.image);
+    const mapObjectsState = useSelector((state) => state.mapObjects);
 
     const [mapObjects, setMapObjects] = useState([]);
     const showOutline = props.location?.search?.includes("outline");
@@ -44,7 +42,10 @@ export default (props) => {
     useEffect(() => {
         const mappedObjects = [];
 
-        mapObjectsContext.forEach(mapObject => {
+        Object.keys(mapObjectsState).forEach(key => {
+            const mapObject = mapObjectsState[key];
+            if (!mapObject.enabled) return;
+
             const objectProps = {
                 ...props,
                 ...mapObject,
@@ -81,10 +82,10 @@ export default (props) => {
         mappedObjects.push(<Player key="player" showOutline={showOutline}/>);
 
         setMapObjects(mappedObjects);
-    }, [mapObjectsContext]);
+    }, [mapObjectsState]);
 
     return (
-        <Map x={x} y={y} map={mapContext.image}>
+        <Map x={x} y={y} map={mapImage}>
             { mapObjects.map(o => o) }
         </Map>
     );

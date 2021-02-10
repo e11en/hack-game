@@ -19,6 +19,7 @@ const Dialog = styled.div.attrs(props => ({
     padding: 5px;
     overflow-y: auto;
     display: ${props => props.show ? "block" : "none"};
+    z-index: 1;
 `;
 
 const Close = styled.div`

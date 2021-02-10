@@ -1,12 +1,12 @@
-export const Level2MapObjectsContext = [
+export const Level2Map = {
+    image: "level2.png"
+};
 
-];
-
-export const Level2CharacterOptionsContext = {
+export const Level2CharacterOptions = {
     x: 250,
     y: 150
 };
 
-export const Level2lMapContext = {
-    image: "level2.png"
+export const Level2MapObjects = {
+    
 };

@@ -1,7 +1,7 @@
 import React, { useEffect }  from "react";
 import { useDispatch, useSelector } from 'react-redux';
 
-import { GetHealth, GetDamage } from 'state/actions';
+import { GetHealth, GetDamage, DisableObject } from 'state/actions';
 import { idEquals } from "helpers/collision";
 import LevelElement from "./LevelElementComponent";
 
@@ -19,7 +19,7 @@ export default (props) => {
             if (props.damage)
                 dispatch(GetDamage(props.damage));
             
-            props.disable("item-" + props.x + "-" + props.y);
+            dispatch(DisableObject("item-" + props.x + "-" + props.y));
         }
     }, [collidingWith]);
 

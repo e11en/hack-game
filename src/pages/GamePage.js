@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import styled from "styled-components";
 
-import { SetPosition } from 'state/actions';
-import { InitialMapContext, MapContext } from "state/context";
-import { InitialMapObjectsContext, MapObjectsContext } from "state/context";
-import { Level1lMapContext, Level1CharacterOptionsContext, Level1MapObjectsContext } from "data/levels/level1";
-import { Level2lMapContext, Level2CharacterOptionsContext, Level2MapObjectsContext } from "data/levels/level2";
+import { SetMap, SetPosition, ReplaceObjects } from 'state/actions';
+import { Level1Map, Level1CharacterOptions, Level1MapObjects } from "data/levels/level1";
+import { Level2Map, Level2CharacterOptions, Level2MapObjects } from "data/levels/level2";
 import Map from "components/MapComponent";  
 import Hud from "components/HudComponent";
 
@@ -37,49 +35,32 @@ const GameOver = styled.div`
 export default (props) => {
   const dispatch = useDispatch();
   const isGameOver = useSelector((state) => state.game.gameOver);
-  const [mapContext, setMapContext] = useState(InitialMapContext);
-  const [mapObjectsContext, setMapObjectsContext] = useState(InitialMapObjectsContext);
-
-  const onDisable = (id) => {
-    const arr = mapObjectsContext;
-    const item = arr.filter(o => o.id === id);
-    if (!item) return;
-
-    const firstItem = item[0];
-    if (!firstItem) return;
-    
-    firstItem.enabled = false;
-
-    // TODO: Fix flashing of complete game area
-    setMapObjectsContext([...arr]);
-  };
 
   const onLevelChange = (level) => {
-    let levelMapContext = null;
-    let levelCharacterOptionsContext = null;
-    let levelMapObjectsContext = null;
+    let levelMap = null;
+    let levelCharacterOptions = null;
+    let levelMapObjects = null;
     
     switch(level) {
-      case 1: levelMapContext = Level1lMapContext;
-              levelCharacterOptionsContext = Level1CharacterOptionsContext;
-              levelMapObjectsContext = Level1MapObjectsContext;
+      case 1: levelMap = Level1Map;
+              levelCharacterOptions = Level1CharacterOptions;
+              levelMapObjects = Level1MapObjects;
               break;
-      case 2: levelMapContext = Level2lMapContext;
-              levelCharacterOptionsContext = Level2CharacterOptionsContext;
-              levelMapObjectsContext = Level2MapObjectsContext;
+      case 2: levelMap = Level2Map;
+              levelCharacterOptions = Level2CharacterOptions;
+              levelMapObjects = Level2MapObjects;
               break;
       default: break;
     }
 
-    if(levelMapContext)
-      setMapContext(levelMapContext);
+    if(levelMap)
+      dispatch(SetMap(levelMap));
 
-    if(levelMapObjectsContext)
-      setMapObjectsContext(levelMapObjectsContext);
+    if(levelMapObjects)
+      dispatch(ReplaceObjects(levelMapObjects));
 
-    if(levelCharacterOptionsContext) {
-      dispatch(SetPosition(levelCharacterOptionsContext.x, levelCharacterOptionsContext.y));
-    }
+    if(levelCharacterOptions)
+      dispatch(SetPosition(levelCharacterOptions.x, levelCharacterOptions.y));
   };
 
   useEffect(() => {
@@ -87,17 +68,13 @@ export default (props) => {
   }, []);
 
   return (
-    <MapObjectsContext.Provider value={mapObjectsContext}>
-      <GameArea>
-        {
-          isGameOver &&
-          <GameOver>GAME OVER!</GameOver>
-        }
-        <Hud {...props} />
-        <MapContext.Provider value={mapContext}>
-          <Map {...props} disable={onDisable} changeLevel={onLevelChange}/>
-        </MapContext.Provider>
-      </GameArea>
-    </MapObjectsContext.Provider>
+    <GameArea>
+      {
+        isGameOver &&
+        <GameOver>GAME OVER!</GameOver>
+      }
+      <Hud {...props} />
+      <Map {...props} changeLevel={onLevelChange}/>
+    </GameArea>
   );
 };

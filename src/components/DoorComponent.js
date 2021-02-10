@@ -84,8 +84,8 @@ export default (props) => {
     };
 
     const onClick = () => {
-        // TODO: Add animation and call to backend
-        if (inputValue === "CTF{THIS_IS_A_TEST}") {
+        console.error("Input check not yet implemented.");
+        if (inputValue === "CTF{CAESAR_CIPHER_IS_NOT_SECURE}") {
             setShowDialog(false);
             props.changeLevel(2);
         }

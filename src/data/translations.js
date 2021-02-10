@@ -14,7 +14,7 @@ export const ConsoleTexts = {
         },
         "exit": {
             "EN": "Exit this window.",
-            "NL": "Sluit dit venster"
+            "NL": "Sluit dit venster."
         },
         "start": {
             "EN": "Start the mission.",
@@ -57,6 +57,6 @@ export const FlagTexts = {
 export const LanguagePickerTexts = {
     chooseLanguageText: {
         "EN": "Choose your language",
-        "NL": "Kies je taal",
+        "NL": "Kies je taal"
     }
 };

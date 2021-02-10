@@ -1,65 +1,66 @@
-import { Door, Wall, Console, Laser, Flag, Character, Apple } from "data/mapObjects";
+import { Door, Wall, Console, Laser, Flag, Character, Apple } from "data/mapObjectsDefaults";
 import { Direction } from "helpers/constants";
+import { DisableObject } from "state/actions";
 
-export const Level1lMapContext = {
+export const Level1Map = {
     image: "level1.png"
 };
 
-export const Level1CharacterOptionsContext = {
+export const Level1CharacterOptions = {
     x: 250,
     y: 200
 };
 
-export const Level1MapObjectsContext = [
-    {
+export const Level1MapObjects = {
+    "door-440-27": {
         ...Door,
         id: "door-440-27",
         x: 440,
         y: 27
     },
-    {
+    "wall-0-0": {
         ...Wall,
         x: 0,
         y: 0,
         width: 480,
         height: 32
     },
-    {
+    "wall-215-32": {
         ...Wall,
         x: 215,
         y: 32,
         width: 50,
         height: 80
     },
-    {
+    "wall-369-32": {
         ...Wall,
         x: 369,
         y: 32,
         width: 50,
         height: 80
     },
-    {
+    "wall-480-30": {
         ...Wall,
         x: 480,
         y: 30,
         width: 10,
         height: 320
     },
-    {
+    "wall-10-30": {
         ...Wall,
         x: -10,
         y: 30,
         width: 10,
         height: 330
     },
-    {
+    "wall-0-345": {
         ...Wall,
         x: 0,
         y: 345,
         width: 480,
         height: 10
     },
-    {
+    "console-96-96": {
         ...Console,
         id: "console-96-96",
         x: 96,
@@ -94,9 +95,9 @@ export const Level1MapObjectsContext = [
                     "Laser uitschakelen.."
                 ]
             },
-            action: (props) => {
+            action: (dispatch) => {
                 setTimeout(() => {
-                    props.disable("laser-269-95");
+                    dispatch(DisableObject("laser-269-95"));
                 }, 1000);
             },
             finishText: {
@@ -111,20 +112,20 @@ export const Level1MapObjectsContext = [
             }
         }
     },
-    {
+    "laser-269-95": {
         ...Laser,
         id: "laser-269-95",
         x: 269,
         y: 95,
     },
-    {
+    "flag-310-60": {
         ...Flag,
         id: "flag-310-60",
         x: 310,
         y: 60,
         text: "CAESAR_CIPHER_IS_NOT_SECURE"
     },
-    {
+    "character-400-200": {
         ...Character,
         id: "character-400-200",
         imageSrc: "resources/characters/female-1.png",
@@ -136,10 +137,10 @@ export const Level1MapObjectsContext = [
         },
         direction: Direction.LEFT
     },
-    {
+    "item-200-300": {
         ...Apple,
         id: "item-200-300",
         x: 200,
         y: 300
     },
-];
+};
