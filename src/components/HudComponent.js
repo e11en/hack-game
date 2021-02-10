@@ -13,6 +13,9 @@ const Hud = styled.div`
     right: 10px;
     top: 10px;
     outline: ${props => props.showOutline ? 3 : 0}px solid cyan;
+    background-color: #7d7d7dc7;
+    border: 3px solid #000;
+    padding: 2px;
 `;
 
 const Health = styled.div`
