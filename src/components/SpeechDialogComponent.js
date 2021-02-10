@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Typist from 'react-typist';
 import { useSelector } from 'react-redux';
 
+import { getCharacterX, getCharacterY, getGameLanguage } from "../state/selectors";
 import { getPixelSize } from "../helpers/constants";
 
 const Dialog = styled.div.attrs(props => ({
@@ -35,9 +36,9 @@ const Close = styled.div`
 
 export default ({show, text, onClose}) => {
     const textRef = useRef();
-    const language = useSelector((state) => state.game.language);
-    const characterX = useSelector((state) => state.character.x);
-    const characterY = useSelector((state) => state.character.y);
+    const language = useSelector(getGameLanguage);
+    const characterX = useSelector(getCharacterX);
+    const characterY = useSelector(getCharacterY);
     const [textState, setTextState] = useState([]);
     const [speechIsDone, setSpeechIsDone] = useState(false);
 

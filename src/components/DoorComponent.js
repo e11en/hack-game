@@ -6,6 +6,7 @@ import Dialog from "./DialogComponent";
 import { idEquals } from "helpers/collision";
 import LevelElement from "./LevelElementComponent";
 import { DoorTexts } from "data/translations";
+import { getCharacterCollidingWith, getGameLanguage } from "state/selectors";
 
 const Door = styled(LevelElement)`
     display: flex;
@@ -66,8 +67,8 @@ const Button = styled.button`
 `;
 
 export default (props) => {
-    const language = useSelector((state) => state.game.language);
-    const collidingWith = useSelector((state) => state.character.collidingWith);
+    const language = useSelector(getGameLanguage);
+    const collidingWith = useSelector(getCharacterCollidingWith);
     const [showDialog, setShowDialog] = useState(false);
     const [inputValue, setInputValue] = useState("");
     const [hasError, setHasError] = useState(false);

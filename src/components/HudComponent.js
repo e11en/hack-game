@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import LanguagePicker from "components/LanguagePickerComponent";
 import { GameOver } from "state/actions";
+import { getCharacterHealth } from "state/selectors";
 
 const Hud = styled.div`
     height: 50px;
@@ -50,7 +51,7 @@ const Bar = styled.div`
 
 export default (props) => {
     const dispatch = useDispatch();
-    const health = useSelector((state) => state.character.health);
+    const health = useSelector(getCharacterHealth);
     const [healthBarWidth, setHealthBarWidth] = useState(health);
 
     useEffect(() => {

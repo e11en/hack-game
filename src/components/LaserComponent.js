@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { GetDamage } from 'state/actions';
 import { idEquals } from "helpers/collision";
 import LevelElement from "./LevelElementComponent";
+import { getCharacterCollidingWith } from "state/selectors";
 
 const Laser = styled(LevelElement)`
     display: ${props => props.enabled ? "flex" : "none"};
@@ -16,7 +17,7 @@ const Laser = styled(LevelElement)`
 
 export default (props) => {
     const dispatch = useDispatch();
-    const collidingWith = useSelector((state) => state.character.collidingWith);
+    const collidingWith = useSelector(getCharacterCollidingWith);
     
     useEffect(() => {
         if (collidingWith && idEquals(collidingWith.id, "laser", props.x, props.y)) {

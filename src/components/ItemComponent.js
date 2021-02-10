@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetHealth, GetDamage, DisableObject } from 'state/actions';
 import { idEquals } from "helpers/collision";
 import LevelElement from "./LevelElementComponent";
+import { getCharacterCollidingWith, getCharacterHealth } from "state/selectors";
 
 export default (props) => {
     const dispatch = useDispatch();
-    const collidingWith = useSelector((state) => state.character.collidingWith);
-    const health = useSelector((state) => state.character.health);
+    const collidingWith = useSelector(getCharacterCollidingWith);
+    const health = useSelector(getCharacterHealth);
     
     useEffect(() => {
         if (collidingWith && idEquals(collidingWith.id, "item", props.x, props.y)) {

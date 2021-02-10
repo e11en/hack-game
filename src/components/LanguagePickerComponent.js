@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { SetLanguage } from "state/actions";
 import { LanguagePickerTexts } from "data/translations";
+import { getGameLanguage } from "state/selectors";
 
 const Picker = styled.div`
     float: right;
@@ -62,7 +63,7 @@ const Title = styled.h2`
 
 export default (props) => {
     const dispatch = useDispatch();
-    const language = useSelector((state) => state.game.language);
+    const language = useSelector(getGameLanguage);
     const [showOptions, setShowOptions] = useState(false);
     const languages = [
         {

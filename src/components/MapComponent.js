@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import styled from "styled-components";
 
+import { getCharacterX, getCharacterY, getMapObjects, getGameMapImage } from "../state/selectors";
 import { ObjectType, getPixelSize } from "../helpers/constants";
 import Console from "./ConsoleComponent";
 import Player from "./PlayerComponent";
@@ -31,10 +32,10 @@ const Map = styled.div.attrs(props => ({
 `;
 
 export default (props) => {
-    const x = useSelector((state) => state.character.x);
-    const y = useSelector((state) => state.character.y);
-    const mapImage = useSelector((state) => state.game.map.image);
-    const mapObjectsState = useSelector((state) => state.mapObjects);
+    const x = useSelector(getCharacterX);
+    const y = useSelector(getCharacterY);
+    const mapImage = useSelector(getGameMapImage);
+    const mapObjectsState = useSelector(getMapObjects);
 
     const [mapObjects, setMapObjects] = useState([]);
     const showOutline = props.location?.search?.includes("outline");

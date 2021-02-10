@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { DialogTexts } from "data/translations";
 import { getPixelSize } from "../helpers/constants";
+import { getCharacterX, getCharacterY, getGameLanguage } from "../state/selectors";
 
 const Dialog = styled.div.attrs(props => ({
     style: {
@@ -68,9 +69,9 @@ const Input = styled.input`
 `;
 
 export default forwardRef(({show = false, onCommand = () => {}, onClose = () => {}, hasInput = true, ...props}, ref) => {
-    const language = useSelector((state) => state.game.language);
-    const x = useSelector((state) => state.character.x);
-    const y = useSelector((state) => state.character.y);
+    const language = useSelector(getGameLanguage);
+    const x = useSelector(getCharacterX);
+    const y = useSelector(getCharacterY);
     const [inputValue, setInputValue] = useState("");
     const inputRef = useRef();
     const textRef = useRef();

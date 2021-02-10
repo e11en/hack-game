@@ -7,6 +7,7 @@ import { Level1Map, Level1CharacterOptions, Level1MapObjects } from "data/levels
 import { Level2Map, Level2CharacterOptions, Level2MapObjects } from "data/levels/level2";
 import Map from "components/MapComponent";  
 import Hud from "components/HudComponent";
+import { getGameOver } from "state/selectors";
 
 const GameArea = styled.div`
   width: calc(var(--pixel-size) * 350px);
@@ -34,7 +35,7 @@ const GameOver = styled.div`
 
 export default (props) => {
   const dispatch = useDispatch();
-  const isGameOver = useSelector((state) => state.game.gameOver);
+  const isGameOver = useSelector(getGameOver);
 
   const onLevelChange = (level) => {
     let levelMap = null;

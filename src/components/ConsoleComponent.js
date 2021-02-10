@@ -5,11 +5,12 @@ import LevelElement from "./LevelElementComponent";
 import Dialog from "./DialogComponent";
 import { idEquals } from "helpers/collision";
 import { ConsoleTexts } from "data/translations";
+import { getCharacterCollidingWith, getGameLanguage } from "state/selectors";
 
 export default ({x = 0, y = 0, width = 64, height = 49, mission = {}, ...props}) => {
     const dispatch = useDispatch();
-    const language = useSelector((state) => state.game.language);
-    const collidingWith = useSelector((state) => state.character.collidingWith);
+    const language = useSelector(getGameLanguage);
+    const collidingWith = useSelector(getCharacterCollidingWith);
     const [showDialog, setShowDialog] = useState(false);
     const [missionStarted, setMissionStarted] = useState(false);
     const dialogRef = useRef();

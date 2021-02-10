@@ -6,6 +6,17 @@ import { hitTest } from "helpers/collision";
 import { GoLeft, GoRight, GoUp, GoDown } from 'state/actions';
 import { Direction } from "../helpers/constants";
 import Character from "./CharacterComponent";
+import { 
+    getCharacterX, 
+    getCharacterY, 
+    getCharacterCollidingWith, 
+    getGameOver, 
+    getCharacterHealth, 
+    getMapObjects, 
+    getCharacterCollidingDirection,
+    getCharacterIsColliding,
+    getCharacterSpeed
+} from "../state/selectors";
 
 const keyToDirection = (key) => {
     switch (key) {
@@ -24,15 +35,15 @@ export default (props) => {
     const [isWalking, setIsWalking] = useState(false);
     const [heldDirections, setHeldDirections] = useState([]);
 
-    const mapObjectsState = useSelector((state) => state.mapObjects);
-    const x = useSelector((state) => state.character.x);
-    const y = useSelector((state) => state.character.y);
-    const health = useSelector((state) => state.character.health);
-    const collidingWith = useSelector((state) => state.character.collidingWith);
-    const isColliding = useSelector((state) => state.character.isColliding);
-    const characterSpeed = useSelector((state) => state.character.speed);
-    const collidingDirection = useSelector((state) => state.character.collidingDirection);
-    const isGameOver = useSelector((state) => state.game.gameOver);
+    const mapObjectsState = useSelector(getMapObjects);
+    const x = useSelector(getCharacterX);
+    const y = useSelector(getCharacterY);
+    const health = useSelector(getCharacterHealth);
+    const collidingWith = useSelector(getCharacterCollidingWith);
+    const isColliding = useSelector(getCharacterIsColliding);
+    const characterSpeed = useSelector(getCharacterSpeed);
+    const collidingDirection = useSelector(getCharacterCollidingDirection);
+    const isGameOver = useSelector(getGameOver);
 
     const move = (direction, speed) => {
         if (direction === Direction.RIGHT) dispatch(GoRight(speed));

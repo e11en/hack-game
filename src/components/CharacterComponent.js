@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { idEquals } from "helpers/collision";
 import { Direction, getPixelSize } from "../helpers/constants";
 import SpeechDialog from "components/SpeechDialogComponent";
+import { getCharacterCollidingWith } from "state/selectors";
 
 const Character = styled.div.attrs(props => ({
     style: {
@@ -61,7 +62,7 @@ const getDirectionClassName = (direction) => {
 
 export default ({imageSrc = "resources/characters/female-1.png", direction = Direction.DOWN, isWalking = false, x = 0, y = 0, showOutline = false, text = {}}) => {
     const characterRef = useRef();
-    const collidingWith = useSelector((state) => state.character.collidingWith);
+    const collidingWith = useSelector(getCharacterCollidingWith);
     const [directionClassName, setDirectionClassName] = useState(getDirectionClassName(direction));
     const [position, setPosition] = useState({x: x, y: y});
     const [showSpeechDialog, setShowSpeechDialog] = useState(false);
