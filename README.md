@@ -2,7 +2,7 @@
 
 A hacking game for teaching about the different aspects of hacking, encryption and privacy on the web.
 
-![alt text](https://raw.githubusercontent.com/e11en/hack-the-class/react-version/art/screenshot.png "Screenshot"
+![alt text](https://raw.githubusercontent.com/e11en/hack-the-class/react-version/art/screenshot.png "Screenshot")
 
 ## Play
 
