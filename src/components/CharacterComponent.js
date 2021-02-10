@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { idEquals } from "helpers/collision";
 import { Direction } from "../helpers/constants";
+import SpeechDialog from "components/SpeechDialogComponent";
 
 const pixelSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pixel-size"));
 
@@ -60,11 +61,12 @@ const getDirectionClassName = (direction) => {
     }
 }
 
-export default ({imageSrc = "resources/characters/female-1.png", direction = Direction.DOWN, isWalking = false, x = 0, y = 0, showOutline = false}) => {
-    const [directionClassName, setDirectionClassName] = useState(getDirectionClassName(direction));
-    const [position, setPosition] = useState({x: x, y: y});
+export default ({imageSrc = "resources/characters/female-1.png", direction = Direction.DOWN, isWalking = false, x = 0, y = 0, showOutline = false, text = []}) => {
     const characterRef = useRef();
     const collidingWith = useSelector((state) => state.character.collidingWith);
+    const [directionClassName, setDirectionClassName] = useState(getDirectionClassName(direction));
+    const [position, setPosition] = useState({x: x, y: y});
+    const [showSpeechDialog, setShowSpeechDialog] = useState(false);
     
     useEffect(() => {
         setDirectionClassName(getDirectionClassName(direction));
@@ -78,13 +80,16 @@ export default ({imageSrc = "resources/characters/female-1.png", direction = Dir
 
     useEffect(() => {
         if (collidingWith && idEquals(collidingWith.id, "character", x, y)) {
-            console.log("CHARACTER COLLIDE");
+            setShowSpeechDialog(true);
         }
-    }, [collidingWith]);    
+    }, [collidingWith]); 
 
     return (
-        <Character position={position} ref={characterRef} showOutline={showOutline}>
-            <SpriteSheet src={process.env.PUBLIC_URL + imageSrc} className={`${directionClassName} ${isWalking ? "walking" : ""}`} />
-        </Character>
+        <React.Fragment>
+            <Character position={position} ref={characterRef} showOutline={showOutline}>
+                <SpriteSheet src={process.env.PUBLIC_URL + imageSrc} className={`${directionClassName} ${isWalking ? "walking" : ""}`} />
+            </Character>
+            <SpeechDialog show={showSpeechDialog} text={text} onClose={() => setShowSpeechDialog(false)}/>
+        </React.Fragment>
     );
 };

@@ -85,11 +85,11 @@ export const Level1MapObjectsContext = [
         y: 60,
         text: "THIS_IS_A_TEST",
         enabled: true,
-        width: 19,
-        height: 25,
+        width: 25,
+        height: 28,
         hasInteraction: true,
         hitBox: {
-            width: 19,
+            width: 25,
             height: 10
         }
     },
@@ -99,7 +99,7 @@ export const Level1MapObjectsContext = [
         imageSrc: "resources/characters/female-1.png",
         x: 400,
         y: 200,
-        text: "Hi! Can you open the door? It needs some sort of token..",
+        text: ["Hi!","Can you open the door?","It needs some sort of token.."],
         enabled: true,
         width: 32,
         height: 32,

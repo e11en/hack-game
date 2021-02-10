@@ -8,11 +8,12 @@ import { idEquals } from "helpers/collision";
 export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
     const collidingWith = useSelector((state) => state.character.collidingWith);
     const [showDialog, setShowDialog] = useState(false);
-    const [text, setText] = useState("Type 'help' to show all available command. <br/>");
+    const [text, setText] = useState("");
     
     useEffect(() => {
         if (collidingWith && idEquals(collidingWith.id, "console", x, y)) {
             setShowDialog(true);
+            setText("Type 'help' to show all available command. <br/>");
         }
     }, [collidingWith]);
 
@@ -65,6 +66,7 @@ export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
     const onCommand = (command) => {
         if (command === "help") {
             showHelpText();
+            return true;
         }
 
         if (command.includes("start")) {
@@ -86,6 +88,7 @@ export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
     };
 
     const dialogClose = () => {
+        setText("");
         setShowDialog(false);
     };
 
