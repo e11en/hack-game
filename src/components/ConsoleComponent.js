@@ -4,31 +4,7 @@ import { useSelector } from 'react-redux';
 import LevelElement from "./LevelElementComponent";
 import Dialog from "./DialogComponent";
 import { idEquals } from "helpers/collision";
-
-const startText = {
-    "EN": "Type 'help' to show all available command. <br/>",
-    "NL": "Typ 'help' om alle commando's te zien. <br/>"
-};
-
-const startMissionText = {
-    "EN": "Starting mission...",
-    "NL": "Missie starten..."
-};
-
-const helpText = {
-    "help": {
-        "EN": "Show all commands.",
-        "NL": "Toon alle commando's."
-    },
-    "exit": {
-        "EN": "Exit this window.",
-        "NL": "Sluit dit venster"
-    },
-    "start": {
-        "EN": "Start the mission.",
-        "NL": "Start de missie."
-    }
-};
+import { ConsoleTexts } from "data/translations";
 
 export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
     const language = useSelector((state) => state.game.language);
@@ -39,7 +15,7 @@ export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
     useEffect(() => {
         if (collidingWith && idEquals(collidingWith.id, "console", x, y) && !showDialog) {
             setShowDialog(true);
-            setText(startText[language]);
+            setText(ConsoleTexts.startText[language]);
         }
     }, [collidingWith]);
 
@@ -62,7 +38,7 @@ export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
     };
 
     const startMission = () => {
-        setText(startMissionText[language]);
+        setText(ConsoleTexts.startMissionText[language]);
 
         console.error("Not yet implemented.");
         startTestMission();
@@ -73,15 +49,15 @@ export default ({x = 0, y = 0, width = 64, height = 49, ...props}) => {
             <table>
                 <tr>
                     <td>help</td>
-                    <td>${helpText.help[language]}</td>
+                    <td>${ConsoleTexts.helpText.help[language]}</td>
                 </tr>
                 <tr>
                     <td>exit</td>
-                    <td>${helpText.exit[language]}</td>
+                    <td>${ConsoleTexts.helpText.exit[language]}</td>
                 </tr>
                 <tr>
                     <td>start</td>
-                    <td>${helpText.start[language]}</td>
+                    <td>${ConsoleTexts.helpText.start[language]}</td>
                 </tr>
             </table>
         `);

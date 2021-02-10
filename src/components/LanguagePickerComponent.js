@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from 'react-redux';
 
 import { SetLanguage } from "state/actions";
+import { LanguagePickerTexts } from "data/translations";
 
 const Picker = styled.div`
     float: right;
@@ -59,15 +60,10 @@ const Title = styled.h2`
     margin-top: 0;
 `;
 
-const chooseLanguageText = {
-    "EN": "Choose your language",
-    "NL": "Kies je taal",
-};
-
 export default (props) => {
     const dispatch = useDispatch();
     const language = useSelector((state) => state.game.language);
-    const [showOptions, setShowOptions] = useState(true);
+    const [showOptions, setShowOptions] = useState(false);
     const languages = [
         {
             name: "English",
@@ -91,7 +87,7 @@ export default (props) => {
                 showOptions &&
                 <OptionsDialog>
                     <Close onClick={() => setShowOptions(false)}>x</Close>
-                    <Title>{chooseLanguageText[language]}</Title>
+                    <Title>{LanguagePickerTexts.chooseLanguageText[language]}</Title>
                     <Options>
                         {
                             languages.map(lang => 

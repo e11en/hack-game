@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect, forwardRef, useImperativeHandle } f
 import styled from "styled-components";
 import { useSelector } from 'react-redux';
 
+import { DialogTexts } from "data/translations";
+
 const pixelSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pixel-size"));
 
 const Dialog = styled.div.attrs(props => ({
@@ -66,13 +68,6 @@ const Input = styled.input`
     }
 `;
 
-const commandNotFoundText = (command) => {
-    return {
-        "EN": "Command '" + command + "' is not found.",
-        "NL": "Commando '" + command + "' is niet gevonden."
-    };
-};
-
 export default forwardRef(({show = false, onCommand = () => {}, onClose = () => {}, hasInput = true, ...props}, ref) => {
     const language = useSelector((state) => state.game.language);
     const x = useSelector((state) => state.character.x);
@@ -102,7 +97,7 @@ export default forwardRef(({show = false, onCommand = () => {}, onClose = () => 
 
         if (onCommand(inputValue)) return;
 
-        addToText(commandNotFoundText(inputValue)[language]);
+        addToText(DialogTexts.commandNotFoundText(inputValue)[language]);
     };
 
     const onKeyUp = (e) => {

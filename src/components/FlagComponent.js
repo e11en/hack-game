@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Dialog from "./DialogComponent";
 import { idEquals } from "helpers/collision";
 import LevelElement from "./LevelElementComponent";
+import { FlagTexts } from "data/translations";
 
 const Flag = styled(LevelElement)`
     display: flex;
@@ -19,10 +20,7 @@ const Text = styled.div`
     height: 100%;
 `;
 
-const tokenText = {
-    "EN": "Well done! <br/>You found the token! <br/><br/>TOKEN: ",
-    "NL": "Goed gedaan! <br/>Je hebt de token gevonden! <br/><br/>TOKEN: "
-};
+
 
 export default (props) => {
     const language = useSelector((state) => state.game.language);
@@ -40,7 +38,7 @@ export default (props) => {
     return (
         <React.Fragment>
             <Dialog show={showDialog} onClose={() => setShowDialog(false)} hasInput={false}>
-                <Text dangerouslySetInnerHTML={{__html: tokenText[language] + "CTF{" + text  + "}<br/>"}}/>
+                <Text dangerouslySetInnerHTML={{__html: FlagTexts.tokenText[language] + "CTF{" + text  + "}<br/>"}}/>
             </Dialog>
             <Flag imageSource="resources/level-elements/flag.png" {...props} />
         </React.Fragment>

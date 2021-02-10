@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Dialog from "./DialogComponent";
 import { idEquals } from "helpers/collision";
 import LevelElement from "./LevelElementComponent";
+import { DoorTexts } from "data/translations";
 
 const Door = styled(LevelElement)`
     display: flex;
@@ -64,21 +65,6 @@ const Button = styled.button`
     }
 `;
 
-const enterTokenText = {
-    "EN": "ENTER TOKEN: ",
-    "NL": "VOER TOKEN IN: "
-};
-
-const errorText = {
-    "EN": "Incorrect token, try again",
-    "NL": "Token is incorrect, probeer opnieuw"
-};
-
-const buttonText = {
-    "EN": "UNLOCK",
-    "NL": "ONTGRENDEL"
-};
-
 export default (props) => {
     const language = useSelector((state) => state.game.language);
     const collidingWith = useSelector((state) => state.character.collidingWith);
@@ -116,13 +102,13 @@ export default (props) => {
         <React.Fragment>
             <Dialog show={showDialog} onClose={onClose} hasInput={false}>
                 <Wrapper>
-                    <Text>{enterTokenText[language]}<br/></Text>
+                    <Text>{DoorTexts.enterTokenText[language]}<br/></Text>
                     <Input autoFocus={true} value={inputValue} onChange={onChange}/>
                     {
                         hasError &&
-                        <ErrorText>{errorText[language]}</ErrorText>
+                        <ErrorText>{DoorTexts.errorText[language]}</ErrorText>
                     }
-                    <Button onClick={onClick}>{buttonText[language]}</Button>
+                    <Button onClick={onClick}>{DoorTexts.buttonText[language]}</Button>
                 </Wrapper>
             </Dialog>
             <Door imageSource="resources/level-elements/door.png" {...props} />

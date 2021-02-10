@@ -1,4 +1,4 @@
-import { Door, Wall, Console, Laser, Flag, Character, Apple } from "data/objects/mapObjects";
+import { Door, Wall, Console, Laser, Flag, Character, Apple } from "data/mapObjects";
 import { Direction } from "helpers/constants";
 
 export const Level1lMapContext = {
