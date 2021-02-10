@@ -54,7 +54,7 @@ export default (props) => {
     const [healthBarWidth, setHealthBarWidth] = useState(health);
 
     useEffect(() => {
-        setHealthBarWidth((61 / 100) * health);
+        setHealthBarWidth((62 / 100) * health);
 
         if (health <= 0)
             dispatch(GameOver());
