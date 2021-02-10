@@ -61,6 +61,12 @@ export const characterReducer = (
           health: state.health - action.payload
         };
       }
+      case CharacterActionTypes.GET_HEALTH: {
+        return {
+          ...state,
+          health: state.health + action.payload
+        };
+      }
       default:
         return state;
     }

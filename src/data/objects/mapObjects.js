@@ -62,3 +62,13 @@ export const Character = {
     height: 32,
     hasInteraction: true
 };
+
+export const Apple = {
+    type: ObjectType.ITEM,
+    imageSource: "resources/level-elements/apple.png",
+    enabled: true,
+    width: 13,
+    height: 15,
+    hasInteraction: true,
+    health: +10
+};

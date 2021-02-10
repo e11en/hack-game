@@ -13,6 +13,7 @@ export const CharacterActionTypes = {
     GO_DOWN: "GO_DOWN",
     SET_COLLIDING: "SET_COLLIDING",
     GET_DAMAGE: "GET_DAMAGE",
+    GET_HEALTH: "GET_HEALTH",
     SET_POSITION: "SET_POSITION"
 };
 
@@ -26,3 +27,4 @@ export const SetColliding = (isColliding, collidingWith, collidingDirection) =>
 (dispatch) => dispatch({type: CharacterActionTypes.SET_COLLIDING, payload: {isColliding, collidingWith, collidingDirection}});
 
 export const GetDamage = (damage) => (dispatch) => dispatch({type: CharacterActionTypes.GET_DAMAGE, payload: damage});
+export const GetHealth = (health) => (dispatch) => dispatch({type: CharacterActionTypes.GET_HEALTH, payload: health});

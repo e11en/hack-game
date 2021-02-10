@@ -1,4 +1,4 @@
-import { Door, Wall, Console, Laser, Flag, Character } from "data/objects/mapObjects";
+import { Door, Wall, Console, Laser, Flag, Character, Apple } from "data/objects/mapObjects";
 import { Direction } from "helpers/constants";
 
 export const Level1lMapContext = {
@@ -89,5 +89,11 @@ export const Level1MapObjectsContext = [
             "NL": ["Hi!","Krijg jij de deur open?","Blijkbaar heb je een token nodig..", "Misschien kan je de computer proberen!"],
         },
         direction: Direction.LEFT
+    },
+    {
+        ...Apple,
+        id: "item-200-300",
+        x: 200,
+        y: 300
     },
 ];

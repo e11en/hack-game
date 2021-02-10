@@ -11,6 +11,7 @@ import Laser from "./LaserComponent";
 import Flag from "./FlagComponent";
 import Door from "./DoorComponent";
 import Character from "./CharacterComponent";
+import Item from "./ItemComponent";
 
 const pixelSize = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--pixel-size"));
 const camera_left = pixelSize * 170;
@@ -67,6 +68,9 @@ export default (props) => {
                     break;
                 case ObjectType.CHARACTER:
                     mappedObjects.push(<Character {...objectProps}/>);
+                    break;
+                case ObjectType.ITEM:
+                    mappedObjects.push(<Item {...objectProps}/>);
                     break;
                 default:
                     mappedObjects.push(<LevelElement {...objectProps}/>);
