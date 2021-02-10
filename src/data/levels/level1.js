@@ -6,8 +6,8 @@ export const Level1lMapContext = {
 };
 
 export const Level1CharacterOptionsContext = {
-    x: 400,
-    y: 250
+    x: 250,
+    y: 200
 };
 
 export const Level1MapObjectsContext = [
