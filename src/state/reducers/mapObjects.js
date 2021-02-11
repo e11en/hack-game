@@ -1,6 +1,6 @@
 import { MapObjectActionTypes } from '../actions';
 
-const initialState = [];
+const initialState = {};
 
 export const mapObjectsReducer = (
     state = initialState,

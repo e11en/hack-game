@@ -7,8 +7,10 @@ export const getCharacterCollidingDirection = state => state.character.colliding
 export const getCharacterIsColliding = state => state.character.isColliding;
 export const getCharacterSpeed = state => state.character.speed;
 
+export const getGameState = state => state.game;
 export const getGameMapImage = state => state.game.map.image;
 export const getGameLanguage = state => state.game.language;
 export const getGameOver = state => state.game.gameOver;
+export const getGameLevel = state => state.game.level;
 
 export const getMapObjects = state => state.mapObjects;

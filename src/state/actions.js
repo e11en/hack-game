@@ -3,11 +3,13 @@ export const GameActionTypes = {
     GAME_OVER: "GAME_OVER",
     SET_LANGUAGE: "SET_LANGUAGE",
     SET_MAP: "SET_MAP",
+    SET_LEVEL: "SET_LEVEL",
 }
 
-export const GameOver = () => (dispatch) => dispatch({type: GameActionTypes.GAME_OVER});
+export const GameOver = (isGameOver) => (dispatch) => dispatch({type: GameActionTypes.GAME_OVER, payload: isGameOver});
 export const SetLanguage = (language) => (dispatch) => dispatch({type: GameActionTypes.SET_LANGUAGE, payload: language});
 export const SetMap = (map) => (dispatch) => dispatch({type: GameActionTypes.SET_MAP, payload: map});
+export const SetLevel = (level) => (dispatch) => dispatch({type: GameActionTypes.SET_LEVEL, payload: level});
 
 // CHARACTER
 export const CharacterActionTypes = {
@@ -18,6 +20,7 @@ export const CharacterActionTypes = {
     SET_COLLIDING: "SET_COLLIDING",
     GET_DAMAGE: "GET_DAMAGE",
     GET_HEALTH: "GET_HEALTH",
+    RESET_HEALTH: "RESET_HEALTH",
     SET_POSITION: "SET_POSITION"
 };
 
@@ -30,6 +33,7 @@ export const GoDown = (speed) => (dispatch) => dispatch({type: CharacterActionTy
 export const SetColliding = (isColliding, collidingWith, collidingDirection) => 
 (dispatch) => dispatch({type: CharacterActionTypes.SET_COLLIDING, payload: {isColliding, collidingWith, collidingDirection}});
 
+export const ResetHealth = () => (dispatch) => dispatch({type: CharacterActionTypes.RESET_HEALTH});
 export const GetDamage = (damage) => (dispatch) => dispatch({type: CharacterActionTypes.GET_DAMAGE, payload: damage});
 export const GetHealth = (health) => (dispatch) => dispatch({type: CharacterActionTypes.GET_HEALTH, payload: health});
 

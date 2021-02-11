@@ -16,6 +16,7 @@
     "react-scripts": "4.0.0",
     "react-test-renderer": "^17.0.1",
     "react-typist": "^2.0.5",
+    "redux-persist": "^6.0.0",
     "styled-components": "^5.2.0"
   },
   "scripts": {

@@ -1,9 +1,11 @@
+import { Level1Map } from 'data/levels/level1';
 import { GameActionTypes } from '../actions';
 
 const initialState = {
     gameOver: false,
     language: "EN",
-    map: ""
+    level: 1,
+    map: {...Level1Map}
 };
 
 export const gameReducer = (
@@ -14,7 +16,7 @@ export const gameReducer = (
       case GameActionTypes.GAME_OVER: {
         return {
           ...state,
-          gameOver: true
+          gameOver: action.payload
         };
       }
       case GameActionTypes.SET_LANGUAGE: {
@@ -27,6 +29,12 @@ export const gameReducer = (
         return {
           ...state,
           map: action.payload
+        };
+      }
+      case GameActionTypes.SET_LEVEL: {
+        return {
+          ...state,
+          level: action.payload
         };
       }
       default:

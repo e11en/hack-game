@@ -1,3 +1,4 @@
+import { Level1CharacterOptions } from 'data/levels/level1';
 import { MovementSpeed } from 'helpers/constants';
 import { CharacterActionTypes } from '../actions';
 
@@ -8,7 +9,8 @@ const initialState = {
     speed: MovementSpeed,
     isColliding: false,
     collidingWith: null,
-    collidingDirection: null
+    collidingDirection: null,
+    ...Level1CharacterOptions
 };
 
 export const characterReducer = (
@@ -72,6 +74,12 @@ export const characterReducer = (
         return {
           ...state,
           health: state.health + action.payload
+        };
+      }
+      case CharacterActionTypes.RESET_HEALTH: {
+        return {
+          ...state,
+          health: 100
         };
       }
       default:

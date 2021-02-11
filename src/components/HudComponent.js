@@ -58,7 +58,7 @@ export default (props) => {
         setHealthBarWidth((62 / 100) * health);
 
         if (health <= 0)
-            dispatch(GameOver());
+            dispatch(GameOver(true));
     }, [health]);
 
     return (
