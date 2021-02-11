@@ -2,10 +2,10 @@ import React,{ useState, useEffect, useRef }  from "react";
 import { useDispatch, useSelector } from 'react-redux';
 
 import LevelElement from "./LevelElementComponent";
-import Dialog from "./DialogComponent";
 import { idEquals } from "helpers/collision";
 import { ConsoleTexts } from "data/translations";
 import { getCharacterCollidingWith, getGameLanguage } from "state/selectors";
+import ConsoleDialog from "./ConsoleDialogComponent";
 
 export default ({x = 0, y = 0, width = 64, height = 49, mission = {}, ...props}) => {
     const dispatch = useDispatch();
@@ -18,7 +18,6 @@ export default ({x = 0, y = 0, width = 64, height = 49, mission = {}, ...props})
     useEffect(() => {
         if (collidingWith && idEquals(collidingWith.id, "console", x, y) && !showDialog) {
             setShowDialog(true);
-            setText(ConsoleTexts.startText[language]);
         }
     }, [collidingWith]);
 
@@ -86,7 +85,7 @@ export default ({x = 0, y = 0, width = 64, height = 49, mission = {}, ...props})
 
     return (
         <React.Fragment>
-            <Dialog show={showDialog} onClose={() => setShowDialog(false)} onCommand={onCommand} ref={dialogRef}/>
+            <ConsoleDialog show={showDialog} onClose={() => setShowDialog(false)} onCommand={onCommand} ref={dialogRef}/>
             <LevelElement x={x} 
                         y={y} 
                         imageSource="resources/level-elements/console.png"

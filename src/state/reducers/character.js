@@ -10,6 +10,7 @@ const initialState = {
     isColliding: false,
     collidingWith: null,
     collidingDirection: null,
+    characterImage: null,
     ...Level1CharacterOptions
 };
 
@@ -80,6 +81,12 @@ export const characterReducer = (
         return {
           ...state,
           health: 100
+        };
+      }
+      case CharacterActionTypes.SET_CHARACTER_IMAGE: {
+        return {
+          ...state,
+          characterImage: action.payload
         };
       }
       default:

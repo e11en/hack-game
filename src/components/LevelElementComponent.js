@@ -13,11 +13,15 @@ const LevelElement = styled.div`
     background-image: url("${props => props.imageSource}");
     background-size: cover;
     background-repeat: no-repeat;
-    display: ${props => props.enabled ? "block" : "none"};
 `;
 
 export default (props) => {
     return (
-        <LevelElement {...props}/>
+        <React.Fragment>
+            {
+                props.enabled &&
+                <LevelElement {...props}/>
+            }
+        </React.Fragment>
     );
 };

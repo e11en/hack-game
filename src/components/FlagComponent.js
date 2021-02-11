@@ -36,7 +36,7 @@ export default (props) => {
 
     return (
         <React.Fragment>
-            <Dialog show={showDialog} onClose={() => setShowDialog(false)} hasInput={false}>
+            <Dialog show={showDialog} onClose={() => setShowDialog(false)} placeOverCharacter={true}>
                 <Text dangerouslySetInnerHTML={{__html: FlagTexts.tokenText[language] + "CTF{" + text  + "}<br/>"}}/>
             </Dialog>
             <Flag imageSource="resources/level-elements/flag.png" {...props} />

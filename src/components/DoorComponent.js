@@ -7,6 +7,7 @@ import { idEquals } from "helpers/collision";
 import LevelElement from "./LevelElementComponent";
 import { DoorTexts } from "data/translations";
 import { getCharacterCollidingWith, getGameLanguage } from "state/selectors";
+import Button from "./ButtonComponent";
 
 const Door = styled(LevelElement)`
     display: flex;
@@ -44,26 +45,9 @@ const Input = styled.input`
     }
 `;
 
-const Button = styled.button`
+const StyledButton = styled(Button)`
     position: absolute;
     bottom: 20px;
-    border: 3px solid #3b9e1c;
-    color: #3b9e1c;
-    background-color: transparent;
-
-    &:hover {
-        background-color: #3b9e1c;
-        color: #35312b;
-    }
-
-    &:active {
-        background-color: #225d0f;
-        color: #3b9e1c;
-    }
-
-    &:focus {
-        outline: none;
-    }
 `;
 
 export default (props) => {
@@ -101,7 +85,7 @@ export default (props) => {
 
     return (
         <React.Fragment>
-            <Dialog show={showDialog} onClose={onClose} hasInput={false}>
+            <Dialog show={showDialog} onClose={onClose} placeOverCharacter={true}>
                 <Wrapper>
                     <Text>{DoorTexts.enterTokenText[language]}<br/></Text>
                     <Input autoFocus={true} value={inputValue} onChange={onChange}/>
@@ -109,7 +93,7 @@ export default (props) => {
                         hasError &&
                         <ErrorText>{DoorTexts.errorText[language]}</ErrorText>
                     }
-                    <Button onClick={onClick}>{DoorTexts.buttonText[language]}</Button>
+                    <StyledButton onClick={onClick}>{DoorTexts.buttonText[language]}</StyledButton>
                 </Wrapper>
             </Dialog>
             <Door imageSource="resources/level-elements/door.png" {...props} />

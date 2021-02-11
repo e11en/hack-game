@@ -15,7 +15,8 @@ import {
     getMapObjects, 
     getCharacterCollidingDirection,
     getCharacterIsColliding,
-    getCharacterSpeed
+    getCharacterSpeed,
+    getCharacterImage
 } from "../state/selectors";
 
 const keyToDirection = (key) => {
@@ -44,6 +45,7 @@ export default (props) => {
     const characterSpeed = useSelector(getCharacterSpeed);
     const collidingDirection = useSelector(getCharacterCollidingDirection);
     const isGameOver = useSelector(getGameOver);
+    const characterImage = useSelector(getCharacterImage);
 
     const move = (direction, speed) => {
         if (direction === Direction.RIGHT) dispatch(GoRight(speed));
@@ -107,7 +109,7 @@ export default (props) => {
     }, [x, y]);
 
     return (
-        <Character imageSrc="resources/characters/player.png"
+        <Character imageSrc={characterImage ? characterImage : "resources/characters/player/player-3.png"}
                     direction={direction} 
                     isWalking={isWalking}
                     x={x} 

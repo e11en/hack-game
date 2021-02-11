@@ -8,7 +8,7 @@ import LevelElement from "./LevelElementComponent";
 import { getCharacterCollidingWith } from "state/selectors";
 
 const Laser = styled(LevelElement)`
-    display: ${props => props.enabled ? "flex" : "none"};
+    display: flex;
     
     & img {
         flex: 1;
@@ -26,6 +26,11 @@ export default (props) => {
     }, [collidingWith]);
 
     return (
-        <Laser imageSource="resources/level-elements/laser.png" {...props} />
+        <React.Fragment>
+            {
+                props.enabled &&
+                <Laser imageSource="resources/level-elements/laser.png" {...props} />
+            }
+        </React.Fragment>
     );
 };

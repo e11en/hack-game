@@ -1,7 +1,7 @@
 export const ConsoleTexts = {
     startText: {
-        "EN": "Type 'help' to show all available command. <br/>",
-        "NL": "Typ 'help' om alle commando's te zien. <br/>"
+        "EN": "Type 'help' to show all available command.",
+        "NL": "Typ 'help' om alle commando's te zien."
     },
     startMissionText: {
         "EN": "Starting mission...",

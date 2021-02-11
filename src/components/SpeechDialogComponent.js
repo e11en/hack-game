@@ -70,9 +70,14 @@ export default ({show, text, onClose}) => {
     }
 
     return (
-        <Dialog ref={textRef} show={show} x={characterX} y={characterY}>
-            <Close onClick={close}>x</Close>
-            {textState}
-        </Dialog>
+        <React.Fragment>
+            {
+                show &&
+                <Dialog ref={textRef} show={show} x={characterX} y={characterY}>
+                    <Close onClick={close}>x</Close>
+                    {textState}
+                </Dialog>
+            }
+        </React.Fragment>
     );
 };

@@ -6,6 +6,7 @@ export const getCharacterCollidingWith = state => state.character.collidingWith;
 export const getCharacterCollidingDirection = state => state.character.collidingDirection;
 export const getCharacterIsColliding = state => state.character.isColliding;
 export const getCharacterSpeed = state => state.character.speed;
+export const getCharacterImage = state => state.character.characterImage;
 
 export const getGameState = state => state.game;
 export const getGameMapImage = state => state.game.map.image;

@@ -3,7 +3,7 @@ export const GameActionTypes = {
     GAME_OVER: "GAME_OVER",
     SET_LANGUAGE: "SET_LANGUAGE",
     SET_MAP: "SET_MAP",
-    SET_LEVEL: "SET_LEVEL",
+    SET_LEVEL: "SET_LEVEL"
 }
 
 export const GameOver = (isGameOver) => (dispatch) => dispatch({type: GameActionTypes.GAME_OVER, payload: isGameOver});
@@ -21,7 +21,8 @@ export const CharacterActionTypes = {
     GET_DAMAGE: "GET_DAMAGE",
     GET_HEALTH: "GET_HEALTH",
     RESET_HEALTH: "RESET_HEALTH",
-    SET_POSITION: "SET_POSITION"
+    SET_POSITION: "SET_POSITION",
+    SET_CHARACTER_IMAGE: "SET_CHARACTER_IMAGE",
 };
 
 export const SetPosition = (x, y) => (dispatch) => dispatch({type: CharacterActionTypes.SET_POSITION, payload: {x: x, y: y}});
@@ -36,6 +37,7 @@ export const SetColliding = (isColliding, collidingWith, collidingDirection) =>
 export const ResetHealth = () => (dispatch) => dispatch({type: CharacterActionTypes.RESET_HEALTH});
 export const GetDamage = (damage) => (dispatch) => dispatch({type: CharacterActionTypes.GET_DAMAGE, payload: damage});
 export const GetHealth = (health) => (dispatch) => dispatch({type: CharacterActionTypes.GET_HEALTH, payload: health});
+export const SetCharacterImage = (image) => (dispatch) => dispatch({type: CharacterActionTypes.SET_CHARACTER_IMAGE, payload: image});
 
 // MAP OBJECTS
 export const MapObjectActionTypes = {
