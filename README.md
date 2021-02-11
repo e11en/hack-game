@@ -16,7 +16,6 @@ After cloning simply run `npm install` and then `npm start`.
 
 - Backend for checking found tokens
 - Choose your player
-- Save current progress
 - More animations
 - Easier walls and map making
 - More levels
