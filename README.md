@@ -22,3 +22,12 @@ After cloning simply run `npm install` and then `npm start`.
 - Moving NPC's
 - More items (health and damage items)
 - Connection to HITC scoreboard API
+
+
+
+## NEW TODO
+
+- Add credit to artist Melroy Oldenburger and assets copyright of ©Denedox
+
+
+

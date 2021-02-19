@@ -1,83 +1,26 @@
-import React from "react";
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import { BrowserRouter } from "react-router-dom";
 import Phaser from "phaser";
-
-import Routing from "./components/RoutingComponent";
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#00bcb7"
-    },
-    secondary: {
-      main: "#333333",
-    },
-    text: {
-      primary: "#333333"
-    }
-  },
-  overrides: {
-    MuiButton: {
-      containedPrimary: {
-        color: '#e0ffc8',
-      },
-    },
-  }
-});
+import Scene from "./Scene";
 
 const config = {
-  type: Phaser.AUTO,
+  type: Phaser.CANVAS,
   width: 800,
   height: 600,
+  backgroundColor: '#53dbf7',
+  pixelArt: true,
   physics: {
-      default: 'arcade',
-      arcade: {
-          gravity: { y: 200 }
-      }
-  },
-  scene: {
-      preload: preload,
-      create: create
-  }
+    default: 'arcade',
+    arcade: {
+      gravity: { y: 0 },
+      debug: true
+    }
+},
+  scene: [ Scene ]
 };
 
 const game = new Phaser.Game(config);
 
-function preload() {
-  this.load.setBaseURL('http://labs.phaser.io');
-
-        this.load.image('sky', 'assets/skies/space3.png');
-        this.load.image('logo', 'assets/sprites/phaser3-logo.png');
-        this.load.image('red', 'assets/particles/red.png');
-}
-
-function create() {
-  this.add.image(400, 300, 'sky');
-
-  var particles = this.add.particles('red');
-
-  var emitter = particles.createEmitter({
-      speed: 100,
-      scale: { start: 1, end: 0 },
-      blendMode: 'ADD'
-  });
-
-  var logo = this.physics.add.image(400, 100, 'logo');
-
-  logo.setVelocity(100, 200);
-  logo.setBounce(1, 1);
-  logo.setCollideWorldBounds(true);
-
-  emitter.startFollow(logo);
-}
-
 export default() => {
   return (
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        {/* <Routing /> */}
-      </BrowserRouter>
-    </ThemeProvider>
+    <div>hallo 123</div>
   );
 }
