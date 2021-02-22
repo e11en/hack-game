@@ -11,7 +11,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
         super(scene, x, y, 'player');
 
-        this.speed = 0.5;
+        this.speed = 100;
         this.sprite = scene.add.existing(this);
         scene.physics.add.existing(this);
         this.setCollideWorldBounds(true);
@@ -21,28 +21,37 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     update ()
     {
-        this.setDirectionOnCursorDown();
+        this.move();
+    }
+
+    move() {
+        this.body.setVelocity(0);
+
+        if (this.cursors.left.isDown) {
+            this.scene.player.body.setVelocityX(-this.speed);
+            this.direction = directions.left;
+        }  
+        else if (this.cursors.right.isDown) {
+            this.scene.player.body.setVelocityX(this.speed);
+            this.direction = directions.right;
+        }
+
+        if (this.cursors.up.isDown) {
+            this.scene.player.body.setVelocityY(-this.speed);
+            this.direction = directions.up;
+        }
+        else if (this.cursors.down.isDown) {
+            this.scene.player.body.setVelocityY(this.speed);
+            this.direction = directions.down;
+        }
+
+        this.scene.player.body.velocity.normalize().scale(this.speed);
 
         if (this.isAnyCursorDown()) {
             this.sprite.play({ key: 'walk-' + this.direction.key, repeat: -1 }, true);
-
-            this.x += this.direction.x * this.speed;
-            this.y += this.direction.y * this.speed;
         }
         else
             this.sprite.stop();
-    }
-
-    setDirectionOnCursorDown() {
-        if (this.cursors.left.isDown)
-            this.direction = directions.left;
-        else if (this.cursors.right.isDown)
-            this.direction = directions.right;
-
-        if (this.cursors.up.isDown)
-            this.direction = directions.up;
-        else if (this.cursors.down.isDown)
-            this.direction = directions.down;
     }
 
     isAnyCursorDown() {

@@ -8,7 +8,7 @@ export default class Scene extends Phaser.Scene {
         super({ key: "Scene" });
 
         this.player = null;
-        this.objects = null;
+        this.object = null;
     }
 
     preload() {
@@ -21,9 +21,23 @@ export default class Scene extends Phaser.Scene {
         const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
         backgroundImage.setScale(2);
 
-        var consolie = new Console(this, 100, 300);
+        this.object = new Console(this, 100, 300);
         this.player = new Player(this, 300, 300);
 
+        this.createAnimations();
+
+        //this.physics.add.overlap(this.player, consolie, (player, consolie) => {player.body.velocity.x = 0; this.input.disabled = true}, null, this);
+
+        this.physics.add.collider(this.player, this.object);
+
+        this.cameras.main.startFollow(this.player);
+    }
+
+    update() {
+        this.player.update();
+    }
+
+    createAnimations() {
         this.anims.create({
             key: 'walk-down',
             frames: this.anims.generateFrameNumbers('player', { frames: [0,1,2]}),
@@ -44,15 +58,5 @@ export default class Scene extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('player', { frames: [9,10,11]}),
             frameRate: 10
         });
-
-        this.cameras.main.startFollow(this.player);
-
-        this.physics.add.collider(this.player, consolie);
-        //this.physics.add.overlap(this.player, consolie, (player, consolie) => {player.body.velocity.x = 0; this.input.disabled = true}, null, this);
-
-    }
-
-    update() {
-        this.player.update();
     }
 }
