@@ -26,8 +26,6 @@ export default class Scene extends Phaser.Scene {
         // this.objects = this.physics.add.staticGroup();
         // this.objects.create(100, 300, 'console');
 
-        const consoleObject = this.physics.add.staticImage(100, 300, 'console').setScale(2).refreshBody();
-
         this.player = new Player(this, 300, 300);
 
         this.anims.create({
@@ -51,19 +49,7 @@ export default class Scene extends Phaser.Scene {
             frameRate: 10
         });
 
-        
-        this.physics.add.collider(
-            this.player,
-            consoleObject,
-            function (_player, _console)
-            {
-                if (_player.body.touching.up && _console.body.touching.down)
-                {
-                    console.log("Colliding");             
-                }
-            });
-
-        this.physics.add.overlap(this.player, consoleObject, null, null, this);
+        this.cameras.main.startFollow(this.player);
     }
 
     update() {

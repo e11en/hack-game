@@ -11,11 +11,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
         super(scene, x, y, 'player');
 
+        this.speed = 0.5;
         this.sprite = scene.add.existing(this);
         scene.physics.add.existing(this);
         this.setCollideWorldBounds(true);
-        this.speed = 0.5;
-        this.depth = 64;
         this.cursors = scene.input.keyboard.createCursorKeys();
         this.direction = directions.down;
     }
@@ -32,9 +31,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
         else
             this.sprite.stop();
-
-        this.scene.cameras.main.scrollX = this.x - (this.scene.sys.game.scale.gameSize.width / 2);
-        this.scene.cameras.main.scrollY = this.y - (this.scene.sys.game.scale.gameSize.height / 2);
     }
 
     setDirectionOnCursorDown() {
