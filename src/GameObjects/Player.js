@@ -48,4 +48,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     isAnyCursorDown() {
         return this.cursors.left.isDown || this.cursors.right.isDown || this.cursors.up.isDown || this.cursors.down.isDown;
     }
+
+    // onCollision(player, object) {
+    //     console.log(player, object);
+    //     player.body.velocity.x = 0;
+    //     this.speed = 0;
+    // }
 }

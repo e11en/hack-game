@@ -21,11 +21,7 @@ export default class Scene extends Phaser.Scene {
         const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
         backgroundImage.setScale(2);
 
-        // const console = this.physics.add.existing(new Console(this, 100, 300));
-        // this.physics.arcade.enableBody(console);
-        // this.objects = this.physics.add.staticGroup();
-        // this.objects.create(100, 300, 'console');
-
+        var consolie = new Console(this, 100, 300);
         this.player = new Player(this, 300, 300);
 
         this.anims.create({
@@ -50,6 +46,10 @@ export default class Scene extends Phaser.Scene {
         });
 
         this.cameras.main.startFollow(this.player);
+
+        this.physics.add.collider(this.player, consolie);
+        //this.physics.add.overlap(this.player, consolie, (player, consolie) => {player.body.velocity.x = 0; this.input.disabled = true}, null, this);
+
     }
 
     update() {
