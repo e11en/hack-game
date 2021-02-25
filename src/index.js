@@ -1,5 +1,7 @@
 import ReactDOM from "react-dom";
+import { Provider } from 'react-redux'
 
+import { store } from "state/store";
 import "./index.css";
 import App from "./App";
 
@@ -10,6 +12,8 @@ if (process.env.REACT_APP_USE_API_MOCK === "true") {
 }
 
 ReactDOM.render(
-  <App />,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById("root")
 );

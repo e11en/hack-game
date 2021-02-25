@@ -18,4 +18,10 @@ export default class Console extends Phaser.Physics.Arcade.Sprite {
     {
 
     }
+
+    onCollision(player) {
+        this.scene.scene.pause();
+
+        // Show dialog
+    }
 }

@@ -1,14 +1,14 @@
 import Phaser from "phaser";
 
-import Player from "./GameObjects/Player";
-import Console from "./GameObjects/Console";
+import Player from "../gameObjects/Player";
+import Console from "../gameObjects/Console";
 
-export default class Scene extends Phaser.Scene {
+export default class Scene1 extends Phaser.Scene {
     constructor() {
         super({ key: "Scene" });
 
         this.player = null;
-        this.object = null;
+        this.objects = null;
     }
 
     preload() {
@@ -21,20 +21,25 @@ export default class Scene extends Phaser.Scene {
         const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
         backgroundImage.setScale(2);
 
-        this.object = new Console(this, 100, 300);
-        this.player = new Player(this, 300, 300);
+        this.objects =  this.add.group();
+        this.createObjects();
 
+        this.player = new Player(this, 300, 300);
         this.createAnimations();
 
-        //this.physics.add.overlap(this.player, consolie, (player, consolie) => {player.body.velocity.x = 0; this.input.disabled = true}, null, this);
-
-        this.physics.add.collider(this.player, this.object);
+        this.physics.add.overlap(this.player, this.objects, (player, object) => object.onCollision(player));
+        this.physics.add.collider(this.player, this.objects);
 
         this.cameras.main.startFollow(this.player);
     }
 
     update() {
         this.player.update();
+    }
+
+    createObjects() {
+        var obj = new Console(this, 100, 300);
+        this.objects.add(obj);
     }
 
     createAnimations() {

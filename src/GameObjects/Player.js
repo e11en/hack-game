@@ -17,6 +17,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.setCollideWorldBounds(true);
         this.cursors = scene.input.keyboard.createCursorKeys();
         this.direction = directions.down;
+        //this.isInteracting
     }
 
     update ()
@@ -58,9 +59,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         return this.cursors.left.isDown || this.cursors.right.isDown || this.cursors.up.isDown || this.cursors.down.isDown;
     }
 
-    // onCollision(player, object) {
-    //     console.log(player, object);
-    //     player.body.velocity.x = 0;
-    //     this.speed = 0;
-    // }
+    onCollision(player, object) {
+        console.log(player, object);
+    }
 }
