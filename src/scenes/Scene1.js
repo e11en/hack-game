@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 
-import Player from "../gameObjects/Player";
-import Console from "../gameObjects/Console";
+import Player from "../GameObjects/Player";
+import Console from "../GameObjects/Console";
 
 export default class Scene1 extends Phaser.Scene {
     constructor() {
